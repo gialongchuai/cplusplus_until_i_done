@@ -2,14 +2,20 @@
 using namespace std;
 
 int main() {
-	// tong tu 1 den n	
-
-	int sum = 0;
+	// tinh tong va dem chu so nguyen: n = 7832 => 10 : 4
+	// 7 / 10 = 0
+	int sum = 0, cnt =0;
 	int n; cin >> n;
-	for(int i = 1; i <= n; i++) {
-		sum+=i;
+	if(n==0) {
+		cout << 0 << " " << 1;
+	} else {
+			while(n!=0) {
+			sum+=n%10;
+			n/=10;
+			cnt++;
+		}
+		cout << sum << " " << cnt;
 	}
-	cout << sum;
 
 	return 0;
 }
