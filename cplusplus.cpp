@@ -2,14 +2,10 @@
 using namespace std;
 
 int main() {
-	int year;
-	cin >> year;
+	int a = 10 , b = 5, c =9;
 	
-	if(year%400 == 0 || (year%4==0 && year%100!=0)) {
-		cout << "Yes";
-	} else {
-		cout << "No";
-	}
+	cout << min({a,b,c}) << endl; // 5
+	cout << max({a,b,c}) << endl; // 10
 	
 	return 0;
 }
