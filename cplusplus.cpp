@@ -2,27 +2,19 @@
 using namespace std;
 
 int main() {
-	// 1, 5, 10, 20, 100
-	// 1859
-	int n; cin >> n;
+	int a, b, c, d;
+	cin >> a >> b >> c >> d;
 	
-	int r = n / 100;
-	cout << "100 : " << r << endl;
-	n %= 100;
+	int max_val = a;
+	if(b > max_val) max_val = b;
+	if(c > max_val) max_val = c;
+	if(d > max_val) max_val = d;
 	
-	int l = n / 20;
-	cout << "20 : " << l << endl;
-	n %= 20;
+	int min_val = a;
+	if(b < min_val) min_val = b;
+	if(c < min_val) min_val = c;
+	if(d < min_val) min_val = d;
 	
-	int f = n / 10;
-	cout << "10 : " << f << endl;
-	n %= 10;
-	
-	int i = n / 5;
-	cout << "5 : " << i << endl;
-	n %= 5;
-	
-	int h = n / 1;
-	cout << "1 : " << h << endl;
+	cout << "min: " << min_val  << ", max: " << max_val << endl;
 	return 0;
 }
