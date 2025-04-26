@@ -2,13 +2,14 @@
 using namespace std;
 
 int main() {
-	// 4.9 => 5 // 4.2 => 4
-	double n; cin >> n;
-	if(n - (int)n >= 0.5) {
-		cout << (int)n + 1 << endl;
-	} else {
-		cout << (int)n << endl;
+	// tong tu 1 den n	
+
+	int sum = 0;
+	int n; cin >> n;
+	for(int i = 1; i <= n; i++) {
+		sum+=i;
 	}
-	
+	cout << sum;
+
 	return 0;
 }
