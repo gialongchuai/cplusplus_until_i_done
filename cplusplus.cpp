@@ -2,7 +2,14 @@
 using namespace std;
 
 int main() {
-	cout << "Hello world!";
+	int year;
+	cin >> year;
+	
+	if(year%400 == 0 || (year%4==0 && year%100!=0)) {
+		cout << "Yes";
+	} else {
+		cout << "No";
+	}
 	
 	return 0;
 }
