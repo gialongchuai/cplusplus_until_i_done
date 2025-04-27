@@ -2,15 +2,14 @@
 using namespace std;
 
 int main() {
-	// chu so dau tien va cuoi cung 28282828 => 2 8
+	// tong do chenh lech : 28939 = 6 + 1 + 6 + 6 = 19
 	long long n; cin >> n;
-	int last = n % 10;
-	int first = 0;
-	while(n!=0) { // n >= 10 and n/=10 and cout << n;
-		first = n % 10;
+	int sum = 0;
+	while(n>=10) { 
+		sum += (int)abs((n%10) - ((n/10)%10)); // khoi can` ep' kieu? cung~ dc
 		n/=10;
 	}
-	cout << first << " " << last << endl;
+	cout << sum << endl;
 	
 	return 0;
 }
