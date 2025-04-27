@@ -2,26 +2,12 @@
 using namespace std;
 
 int main() {
-	// dem le nho hon dem chan
+	// 1 2 4 7 11 16 22 29 37 46 .... < n (buoc nhay tang 1)
 	long long n; cin >> n;
-	n = abs(n);
-	if(n==0) {
-		cout << "28tech" << endl;
-	} else {
-		int chan=0, le=0;
-		int r;
-		while(n!=0) {
-			r = n % 10;
-			if(r%2==0) chan++;
-			else le++;
-			n/=10;
-		}
-		cout << le << " " << chan << endl;
-		if(le < chan) {
-			cout << "28tech";
-		} else {
-			cout << "29tech";
-		}
+	int r = 0;
+	for(int i = 1; i < n; i+=r) {
+		cout << i << " ";
+		r++;
 	}
 	
 	return 0;
