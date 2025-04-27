@@ -2,17 +2,15 @@
 using namespace std;
 
 int main() {
-	// digital root 12345 => 15 => 6
+	// chu so dau tien va cuoi cung 28282828 => 2 8
 	long long n; cin >> n;
-	while(n>10) {
-		int tong = 0;
-		while(n!=0) {
-			tong += n%10;
-			n/=10;
-		}
-		n = tong;
+	int last = n % 10;
+	int first = 0;
+	while(n!=0) { // n >= 10 and n/=10 and cout << n;
+		first = n % 10;
+		n/=10;
 	}
-	cout << n << endl;
+	cout << first << " " << last << endl;
 	
 	return 0;
 }
