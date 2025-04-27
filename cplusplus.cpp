@@ -2,34 +2,25 @@
 using namespace std;
 
 int main() {
-	// chu so dau tien lon nhat : 9012019 => YES
-	int n; cin >> n;
-	int max_digit = n % 10;
-	int r;
-	// Toi uu 
-	while(n>=10) {
-		r = n % 10;
-		if(r > max_digit) max_digit = r;
-		n/=10;
-	}
-	if(n >= max_digit) {
-		cout << "YES";
+	// dem le nho hon dem chan
+	long long n; cin >> n;
+	n = abs(n);
+	if(n==0) {
+		cout << "28tech" << endl;
 	} else {
-		cout << "NO";
-	}
-	
-	// lan nao lap cung phai? xet dien kien
-	while(n>=10) {
-		r = n % 10;
-		if(r > max_digit) max_digit = r;
-		n/=10;
-		if(n>=0 && n <=9) {
-			cout << n << endl;
-			if(n >= max_digit) {
-				cout << "YES";
-			} else {
-				cout << "NO";
-			}
+		int chan=0, le=0;
+		int r;
+		while(n!=0) {
+			r = n % 10;
+			if(r%2==0) chan++;
+			else le++;
+			n/=10;
+		}
+		cout << le << " " << chan << endl;
+		if(le < chan) {
+			cout << "28tech";
+		} else {
+			cout << "29tech";
 		}
 	}
 	
