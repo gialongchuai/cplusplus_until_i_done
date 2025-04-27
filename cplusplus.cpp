@@ -2,17 +2,17 @@
 using namespace std;
 
 int main() {
-	// tong so trong day 
-	int n; cin >> n;
-	int sum = 0;
-	for(int i = 0; i<n; i++) {
-		char c; cin >> c;
-		if(c>='0' && c<='9') {
-			sum += c - '0'; // neu khong -0 thi no se lay vi du 0 48, 1 49,
-							// nen 49 - '0'  = 49 - 48 = 1
+	// digital root 12345 => 15 => 6
+	long long n; cin >> n;
+	while(n>10) {
+		int tong = 0;
+		while(n!=0) {
+			tong += n%10;
+			n/=10;
 		}
-	}	
-	cout << sum;
+		n = tong;
+	}
+	cout << n << endl;
 	
 	return 0;
 }
