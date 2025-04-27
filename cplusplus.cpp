@@ -2,14 +2,16 @@
 using namespace std;
 
 int main() {
-	// tong do chenh lech : 28939 = 6 + 1 + 6 + 6 = 19
-	long long n; cin >> n;
-	int sum = 0;
-	while(n>=10) { 
-		sum += (int)abs((n%10) - ((n/10)%10)); // khoi can` ep' kieu? cung~ dc
+	// chu so lon nhat : 2829292 => 9
+	int n; cin >> n;
+	int max_digit = n % 10;
+	int r;
+	while(n!=0) {
+		r = n % 10;
+		if(r > max_digit) max_digit = r;
 		n/=10;
 	}
-	cout << sum << endl;
+	cout << max_digit << endl;
 	
 	return 0;
 }
