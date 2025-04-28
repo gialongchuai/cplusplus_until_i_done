@@ -1,13 +1,18 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() {
-	// cout so chinh phuong trong doan [a,b] thuoc 10^12 => 10^6
-	long long a, b; cin >> a >> b;
-	int i = sqrt(a);
-	if(1ll * i * i < a) i++;
-	for(; i*i <= b; i++) {
-		cout << 1ll * i * i << " ";
+bool snt(int n) {
+	if (n<2) return false;
+	for(int i=2; i*i<=n; i++) {
+		if(n%i==0) return false;
 	}
+	return true;
+}
+
+int main() {
+	// kiem tra so nguyen to
+	long long n; cin >> n;
+	cout << snt(n);
+	
 	return 0;
 }
