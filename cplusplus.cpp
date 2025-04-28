@@ -1,24 +1,19 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-long long tong_uoc(long long n) {
-	long long sum = 0;
-	for (int i = 1; i<=sqrt(n); i++) {
-		if(n%i==0) {
-			sum+=i;
-			cout << "i: " << i << endl;
-			if(i != n / i) {
-				sum += n / i;
-				cout << "n/i: " << n/i << endl;
-			}
-		}
-	}
-	return sum;
+bool chinh_phuong(long long n) {
+	int can = sqrt(n);
+	if(1ll * can * can == n) return true;
+	return false;
 }
 
 int main() {
-	// tong cac uoc cua n : 100 => 217 
-	long long n; cin >> n; 
-	cout << tong_uoc(n);
+	// cout so chinh phuong trong doan [a,b]
+	long long a, b; cin >> a >> b;
+	for(long long i=a; i<=b; i++) {
+		if(chinh_phuong(i)) {
+			cout << i << " ";
+		}
+	}
 	return 0;
 }
