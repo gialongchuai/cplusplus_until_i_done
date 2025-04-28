@@ -1,19 +1,24 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool check_tang(int n) {
-	while(n>=10) {
-		int a = n % 10;
-		int b = n/10%10;
-		n/=10;
-		if(b >= a) return false;
+long long tong_uoc(long long n) {
+	long long sum = 0;
+	for (int i = 1; i<=sqrt(n); i++) {
+		if(n%i==0) {
+			sum+=i;
+			cout << "i: " << i << endl;
+			if(i != n / i) {
+				sum += n / i;
+				cout << "n/i: " << n/i << endl;
+			}
+		}
 	}
-	return true;
+	return sum;
 }
 
 int main() {
-	// tang: 1234 => 1 12334 => 0
+	// tong cac uoc cua n : 100 => 217 
 	long long n; cin >> n; 
-	cout << check_tang(n);
+	cout << tong_uoc(n);
 	return 0;
 }
