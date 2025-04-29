@@ -16,11 +16,17 @@ int main() { // mang danh dau dem so phan tu khac nhau trong mang
 		if(a[i] > max_val) max_val = a[i];
 	}
 	
-	int dem = 0;
-	for(int i = 0; i<= max_val; i++) {
-		if(cnt[i] == 1) ++dem;
+	for(int i = 0; i<= 1000000; i++) { // in cac so khac nhau
+		if(cnt[i] == 1) cout << i << " ";
 	}
-	cout << dem;
+	cout << endl;
+	
+	for(int i = 0; i <n; i++) { // in cac so khac nhau theo thu tu xuat hien
+		if(cnt[a[i]] == 1) {
+			cout << a[i] << " ";
+			cnt[a[i]] = 0;
+		}
+	}
 			
 	return 0;
 }
