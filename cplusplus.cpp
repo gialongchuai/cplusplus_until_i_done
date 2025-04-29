@@ -1,23 +1,23 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() { // cout phan tu chan o vi tri chan
+int main() { // cout so lan va tong cac vi tri bang so x
 	int n; cin >> n;
 	int a[n];
 	for(int i = 0; i<n; i++) {
 		cin >> a[i];
 	}
-	
-	int flag = true;
-	for(int i = 0 ; i < n; i++) {
-		if(i%2==0&&a[i]%2==0) {
-			cout << a[i] << " ";
-			flag = false;
+	int x; cin >> x;
+	int cnt = 0;
+	for(int i = 0 ; i < n - 1; i++) { // chuan luon 3 8 9 2 4 7 chi can toi 4 la du?
+		for(int j = i + 1; j < n; j++) {
+			if(a[i] + a[j] == x) {
+				cout << a[i] << " " << a[j] << endl;
+				cnt++;
+			}
 		}
 	}
-	if(flag) {
-		cout << "NONE";
-	}
+	cout << cnt;
 		
 	return 0;
 }
