@@ -1,18 +1,25 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() { // cout list 92 numbers fibonacci
-	long long fibo[100];
-	fibo[0] = 0, fibo[1] = 1;
-	
-	for(int i = 2; i<=92; i++) {
-		fibo[i] = fibo[i-2] + fibo[i-1];
+int cnt[1000001];
+
+int main() { // mang danh dau dem so phan tu khac nhau trong mang
+	int n; cin >> n;
+	int a[n];
+	for(int i = 0; i<n; i++) {
+		cin >> a[i];
 	}
 	
-	for(int i = 0; i<=92; i++) {
-		cout << fibo[i] << " ";
+	for(int i = 0; i<n; i++) {
+		cnt[a[i]] = 1;
 	}
-		
+	
+	int dem = 0;
+	for(int i = 0; i<= 1000000; i++) {
+		if(cnt[i] == 1) ++dem;
+	}
+	cout << dem;
+			
 	return 0;
 }
 
