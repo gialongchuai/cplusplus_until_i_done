@@ -1,50 +1,49 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int cnt[1000001];
+void thaydoi(int a[], int n) {
+	for(int i =0; i<n; i++) {
+		a[i] = 10;
+	}
+}
 
-int main() { // mang danh dau // tim so xuat hien nhieu nhat neu trung nhau
-			// in so dau tien trong day
+void thaydoi02(vector<int> &v) { // chu y
+	for(int i =0; i<v.size(); i++) {
+		v[i] = 10;
+	}
+}
+
+int main() { // vector basic
 	int n; cin >> n;
 	int a[n];
-	for(int i = 0; i<n; i++) {
+	for(int i =0; i<n;i ++) {
 		cin >> a[i];
 	}
-	
-	int max_val = a[0];
+	vector<int> v;
 	for(int i = 0; i<n; i++) {
-		cnt[a[i]]++;
-		if(a[i] > max_val) max_val = a[i];
+		int temp; cin >> temp;
+		v.push_back(temp);
 	}
 	
-	int tan_suat_max = 0;
-	for(int i = 0; i<=max_val; i++) {
-		if(cnt[i] != 0) {
-			if(cnt[i] > tan_suat_max) tan_suat_max = cnt[i];
-		}
-	}
-	
-	for(int i = 0 ; i<n; i++) {
-		if(cnt[a[i]] == tan_suat_max) {
-			cout << a[i] << " " << cnt[a[i]];
-			break;
-		}
+	for(int x : a) {
+		cout << x << " ";
 	}
 	cout << endl;
-	
-	// bp
-	int temp = 0, max_temp = 0;
-	for(int i = 0; i< n; i++) {
-		if(cnt[a[i]] != 0) {
-			if(cnt[a[i]] > max_temp) { // lay thang dau > ; lay thang cuoi >=
-				max_temp = cnt[a[i]];
-				temp = a[i];
-			}
-		}
+	thaydoi(a,n);
+	for(int x : a) {
+		cout << x << " ";
 	}
-	cout << temp << " " << max_temp;
-			
-	return 0;
+	cout << endl << "============" << endl;
+	
+	for(int i = 0; i<v.size();i++) {
+		cout << v[i] << " ";
+	}
+	thaydoi02(v);
+	cout << endl;
+			for(int i = 0; i<v.size();i++) {
+		cout << v[i] << " ";
+	}
+ 	return 0;
 }
 
 
