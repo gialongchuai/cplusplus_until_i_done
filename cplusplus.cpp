@@ -3,7 +3,8 @@ using namespace std;
 
 int cnt[1000001];
 
-int main() { // mang danh dau
+int main() { // mang danh dau // tim so xuat hien nhieu nhat neu trung nhau
+			// in so dau tien trong day
 	int n; cin >> n;
 	int a[n];
 	for(int i = 0; i<n; i++) {
@@ -16,19 +17,32 @@ int main() { // mang danh dau
 		if(a[i] > max_val) max_val = a[i];
 	}
 	
-	for(int i = 0; i<= max_val; i++) { // in theo thu tu tang dan cung voi tan so xuat hien
+	int tan_suat_max = 0;
+	for(int i = 0; i<=max_val; i++) {
 		if(cnt[i] != 0) {
-			cout << i << " " << cnt[i] << endl; 	
+			if(cnt[i] > tan_suat_max) tan_suat_max = cnt[i];
 		}
 	}
-	cout << "============" << endl;
 	
-	for(int i = 0; i<n; i++) { // in theo thu tu xuat hien cung voi tan suat tuong ung
-		if(cnt[a[i]] != 0) {
-			cout << a[i] << " " << cnt[a[i]] << endl;
-			cnt[a[i]] = 0;
+	for(int i = 0 ; i<n; i++) {
+		if(cnt[a[i]] == tan_suat_max) {
+			cout << a[i] << " " << cnt[a[i]];
+			break;
 		}
 	}
+	cout << endl;
+	
+	// bp
+	int temp = 0, max_temp = 0;
+	for(int i = 0; i< n; i++) {
+		if(cnt[a[i]] != 0) {
+			if(cnt[a[i]] > max_temp) { // lay thang dau > ; lay thang cuoi >=
+				max_temp = cnt[a[i]];
+				temp = a[i];
+			}
+		}
+	}
+	cout << temp << " " << max_temp;
 			
 	return 0;
 }
