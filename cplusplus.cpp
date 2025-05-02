@@ -1,35 +1,53 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() { // so phan tu khac nhau, in nguoc xuoi so phan tu do
-	set<char> s;
+int main() { //	5
+			// 3 1 5 2 3
 	int n; cin >> n;
-	for(int i = 0; i<n; i++) {
-		char c; cin >> c;
-		s.insert(c);
+	map<int,int> m;
+	for(int i = 0 ; i<n; i++) {
+		int tmp; cin >> tmp;
+		m.insert({tmp, 100}); // tmp => 1:100 2:100 3:100 5:100
 	}
-	cout << s.size() << endl;
-	
-	vector<char> v;
-	for(char x : s) {
-		v.push_back(x);
-		cout << x << " ";
-	}
-	cout << endl;
-	
-	set<char>::reverse_iterator it;
-	for(it = s.rbegin(); it!=s.rend(); it++) {
-		cout << *it << " ";
+	cout << m.size() << endl; // size: 4
+	for(pair<int,int> x : m) {
+		cout << x.first << " " << x.second << endl; // cout tmp 1:100 2:100 3:100 5:100
 	}
 	
-	cout << endl << "=========" << endl;
-	for(int i = 0; i<v.size(); i++) {
-		cout << v[i] << " ";
+	m[3] = 999;
+	for(pair<int,int> x : m) {
+		cout << x.first << " " << x.second << endl; // cout tmp 1:100 2:100 3:999 5:100
 	}
 	
-	cout << endl;
-	for(int i = v.size() - 1; i>=0; i--) {
-		cout << v[i] << " ";
+	m[901] = 902;
+	for(pair<int,int> x : m) {
+		cout << x.first << " " << x.second << endl; // cout tmp 1:100 2:100 3:999 5:100 901:902
+	}
+	
+	map<int,int>::iterator it;
+	for(it = m.begin(); it!=m.end(); it++) {
+		cout << (*it).first << " " << (*it).second << endl; // cout tmp 1:100 2:100 3:999 5:100 901:902
+	}
+	
+	cout << "=====" << endl;
+	map<int, int>::iterator mp = m.find(3);
+	cout << (*mp).first << " " << (*mp).second << endl; // 3:999
+	
+	if(m.count(7)) { // 3 : YES
+		cout << "YES" << endl;
+	} else {
+		cout << "NO" << endl; // ting ting if change value => 3 => YES
+	}
+	
+	m.erase(901);
+	for(it = m.begin(); it!=m.end(); it++) {
+		cout << (*it).first << " " << (*it).second << endl; // 1:100 2:100 3:999 5:100 {901:902 : deleted}
+	}
+	
+	map<int,int>::iterator mp_sacua = m.find(2);
+	m.erase(mp_sacua);
+	for(pair<int,int> x : m) {
+		cout << x.first << " " << x.second << endl; // 1:100 {2:100:deleted} 3:999 5:100
 	}
 	
 	return 0;
