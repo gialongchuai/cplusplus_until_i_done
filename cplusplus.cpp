@@ -1,22 +1,44 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() { // pair basic
+int cnt[100000001];
+
+int main() { // count phan tu khac nhau _ 3 cach
+	// cach 1: 2 vong for
 	int n; cin >> n;
-	pair<int,int> p3[n];
-	for(int i=0; i<n; i++) {
-		cin >> p3[i].first >> p3[i].second;
-	}
-	cout << "=====" << endl;
-	for(int i=0; i<3; i++) {
-		cout << p3[i].first << " " << p3[i].second << endl;
+	int max_val = 0; // max_val cho mang danh dau
+	set<int> s;
+	
+	int a[n], cnt1 = 0;
+	for(int i = 0; i<n; i++) {
+		int tmp; cin >> tmp;
+		a[i] = tmp; // 2 vong for
+		cnt[tmp] = 1; // mang danh dau
+		s.insert(tmp); // set
+		if(a[i] > max_val) max_val = a[i];
 	}
 	
-	pair<int,int> p = {3,5};
-	cout << p.first << " " << p.second << endl; // 3 5
+	for(int i = 0; i<n; i++) {
+		bool flag = true;
+		for(int j = i-1; j>=0; j--) {
+			if(a[i] == a[j]) flag = false;
+		}
+		if(flag) cnt1++;
+	}
+	cout << cnt1 << endl;
 	
-	pair<int,int> p1 = make_pair(10,8);
-	cout << p1.first << " " << p1.second << endl; // 10 8
+	// cach 2: mang danh dau
+	int cnt2 = 0;
+	for(int i = 0; i<=max_val; i++) {
+		if(cnt[i] != 0) {
+			cnt2++;
+		}
+	}
+	cout << cnt2 << endl;
+	
+	// cach 3: set
+	cout << s.size();
+	return 0;
 }
 
 
