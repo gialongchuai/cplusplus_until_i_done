@@ -1,21 +1,27 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() { // truy van phan tu
-	set<int> s;
-	int n, x; cin >> n;
-	for(int i =0; i<n; i++) {
-		cin >> x;
-		s.insert(x);
+int main() { // xoa phan tu
+	set<int> s = {1,3,5,7,9};
+	s.erase(5);
+	for(int x : s) {
+		cout << x << " "; // 1 3 7 9
 	}
-	int t; cin >> t;
-	while(t--) {
-		int x; cin >> x;
-		if(s.count(x)) {
-			cout << "YES" << endl;
-		} else {
-			cout << "NO" << endl;
-		}
+	cout << endl;
+	
+	set<int>::iterator it = s.begin();
+	it++;
+	s.erase(it);
+	for(int x : s) {
+		cout << x << " "; // 1 7 9
+	}
+	cout << endl;
+
+	vector<int> v = {1,3,5,7,9};
+	vector<int>::iterator it_vector = v.begin() + 3;
+	v.erase(it_vector);
+	for(int i : v) {
+		cout << i << " "; // 1 3 5 9
 	}
 	
 	return 0;
