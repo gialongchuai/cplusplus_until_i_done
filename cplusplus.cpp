@@ -1,27 +1,35 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() { // xoa phan tu
-	set<int> s = {1,3,5,7,9};
-	s.erase(5);
-	for(int x : s) {
-		cout << x << " "; // 1 3 7 9
+int main() { // so phan tu khac nhau, in nguoc xuoi so phan tu do
+	set<char> s;
+	int n; cin >> n;
+	for(int i = 0; i<n; i++) {
+		char c; cin >> c;
+		s.insert(c);
+	}
+	cout << s.size() << endl;
+	
+	vector<char> v;
+	for(char x : s) {
+		v.push_back(x);
+		cout << x << " ";
 	}
 	cout << endl;
 	
-	set<int>::iterator it = s.begin();
-	it++;
-	s.erase(it);
-	for(int x : s) {
-		cout << x << " "; // 1 7 9
+	set<char>::reverse_iterator it;
+	for(it = s.rbegin(); it!=s.rend(); it++) {
+		cout << *it << " ";
 	}
+	
+	cout << endl << "=========" << endl;
+	for(int i = 0; i<v.size(); i++) {
+		cout << v[i] << " ";
+	}
+	
 	cout << endl;
-
-	vector<int> v = {1,3,5,7,9};
-	vector<int>::iterator it_vector = v.begin() + 3;
-	v.erase(it_vector);
-	for(int i : v) {
-		cout << i << " "; // 1 3 5 9
+	for(int i = v.size() - 1; i>=0; i--) {
+		cout << v[i] << " ";
 	}
 	
 	return 0;
