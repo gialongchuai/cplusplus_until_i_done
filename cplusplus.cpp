@@ -13,7 +13,7 @@ int main() {
 	for(pair<int,int> x : m) {
 		if(x.second%2==0) {
 			cout << x.first << " " << x.second << endl;
-			v.push_back({x.first, x.second});
+			v.push_back({x.first, x.second}); // v.push_back(it);
 		}
 	}
 	
