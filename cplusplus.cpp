@@ -1,33 +1,36 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() { 
-	int n; cin >> n;
-	map<int,int> m;
-	vector<pair<int,int>> v;
-	for(int i = 0; i<n; i++) {
-		int x; cin >> x;
-		m[x]++;
+int prime[1000001];
+
+void sang() {
+	for(int i = 0; i <= 1000000; i++) {
+		prime[i] = 1;
 	}
 	
-	for(pair<int,int> x : m) {
-		if(x.second%2==0) {
-			cout << x.first << " " << x.second << endl;
-			v.push_back({x.first, x.second}); // v.push_back(it);
+	prime[0] = 0;
+	prime[1] = 0;
+	for(int i = 2 ; i*i <= 1000000; i++) {
+		for(int j = i*i; j <= 1000000; j+=i) {
+			prime[j] = 0;
 		}
 	}
-	
-	cout << "=========" << endl;
-	map<int,int>::reverse_iterator it;
-	for(it = m.rbegin(); it!=m.rend(); it++) {
-		if((*it).second%2==0) {
-			cout << (*it).first << " " << (*it).second << endl;
+}
+
+int main() { // sang so nguyen to
+	int n, x; cin >> n;
+	sang();
+	bool tmp = true;
+	while(n--) {
+		cin >> x;
+		if(prime[x] == 0) {
+			tmp = false;
 		}
 	}
-	
-	cout << "==========" << endl;
-	for(int i = v.size() - 1; i>=0; i--) {
-		cout << v[i].first << " " << v[i].second << endl;
+	if(tmp) {
+		cout << "YES";
+	} else {
+		cout << "NO";
 	}
 	
 	return 0;
