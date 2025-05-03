@@ -1,37 +1,31 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int prime[1000001];
-
-void sang() {
-	for(int i = 0; i <= 1000000; i++) {
-		prime[i] = 1;
+int main() { // uoc chung lon nhat giua 2 cap so bat ki
+	int n, x; cin >> n;
+	map<int,int> m;
+	int max_val = 0;
+	for(int i = 0 ; i < n; i++) {
+		cin >> x;
+		m[x]++;
+		if(x > max_val) max_val = x;
 	}
 	
-	prime[0] = 0;
-	prime[1] = 0;
-	for(int i = 2 ; i*i <= 1000000; i++) {
-		for(int j = i*i; j <= 1000000; j+=i) {
-			prime[j] = 0;
+	for(pair<int,int> x : m) {
+		cout << x.first << " " << x.second << endl;
+	}
+	
+	for(int i = max_val; i>=1; i--) {
+		int sum = 0;
+		for(int j = i; j <= max_val; j+=i) {
+			sum+= m[j];
+		}
+		if(sum >= 2) {
+			cout << i ;
+			break;
 		}
 	}
-}
-
-int main() { // sang so nguyen to
-	int n, x; cin >> n;
-	sang();
-	bool tmp = true;
-	while(n--) {
-		cin >> x;
-		if(prime[x] == 0) {
-			tmp = false;
-		}
-	}
-	if(tmp) {
-		cout << "YES";
-	} else {
-		cout << "NO";
-	}
+	
 	
 	return 0;
 }
