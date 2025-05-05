@@ -3,33 +3,49 @@ using namespace std;
 
 
 
-int main() { // tron 2 day tang dan
-	int n, m; cin >> n >> m;
+int main() { // sap xep mang tang dan theo 3 cach
+	int n, x; cin >> n;
 	int a[n];
-	int b[m];
-	
-	for(int i = 0; i<n; i++) {
-		cin >> a[i];
+	map<int,int> m;
+	for(int i = 0; i <n;i++) {
+		cin >>a[i];
+		m[a[i]]++;
 	}
-	for(int i = 0; i<m; i++) {
-		cin >> b[i];
-	}
-	int l = 0, r = 0;
-	while (l<n && r<m) {
-		if(a[l] < b[r]) {
-			cout << a[l] << " ";
-			l++;
-		} else {
-			cout << b[r] << " ";
-			r++;
+	for(pair<int,int> x : m) { // cach 01
+		while(x.second--) {
+			cout << x.first  << " ";
 		}
 	}
-	while(l<n) { // neu dung if in a[n-1] co the sot so 5 trong 2 day : 1 2 3 5 8 / 1 2 3
-		cout << a[l] << " "; l++;
-	} 
-	while(r<m) {
-		cout << b[r] << " "; r++;
-	} 
+	
+	cout << endl;
+	int min_val = 0, max_val = 0;
+	for(int x:a) {
+		if(x>max_val) max_val = x;
+		if(x<min_val) min_val = x;
+	}
+	
+	for(int i = min_val; i<=max_val; i++) { // duyet min max vuot pickelball
+		for(int j = 0; j < n; j++) {
+			if(a[j] == i) {
+				cout << i << " ";
+			}
+		}
+	}
+	cout << endl;
+	for(int i = 0; i<n; i++) { // doi cho voi thang nho nhat tu` i+1 ve sau
+		int min_value = a[i], res = i;
+		for(int j = i+1; j<n; j++) {
+			if(min_value > a[j]) min_value = a[j], res = j;
+		}
+		if(a[i] > min_value) {
+			int tmp = a[i];
+			a[i] = a[res];
+			a[res] = tmp;
+		}
+	}
+	for(int x : a) {
+		cout << x << " ";
+	}
 	
 	return 0;
 }
