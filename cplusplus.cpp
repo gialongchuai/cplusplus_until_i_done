@@ -10,11 +10,12 @@ int main() { // dem so phan tu khac nhau trong mang : sort
 		cin >> a[i];
 	}
 	sort(a,a+n);
-	int cnt = 1;
+	int min_val = a[1] - a[0];
 	for(int i = 0; i<n-1;i++) {
-		if(a[i] != a[i+1]) cnt++;
+		int r = a[i+1] - a[i];
+		if(r<min_val) min_val = r;
 	}
-	cout << cnt;
+	cout << min_val;
 	
 	return 0;
 }
