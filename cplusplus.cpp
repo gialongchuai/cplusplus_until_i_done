@@ -3,33 +3,33 @@ using namespace std;
 
 
 
-int main() { // tong cong don truy cap l, r 
-	int n; cin >> n;
+int main() { // tron 2 day tang dan
+	int n, m; cin >> n >> m;
 	int a[n];
-	int b[n];
+	int b[m];
 	
 	for(int i = 0; i<n; i++) {
 		cin >> a[i];
 	}
-	
-	b[0] = a[0];
-	for(int i = 1; i<n; i++) {
-		b[i] = a[i] + b[i-1];
+	for(int i = 0; i<m; i++) {
+		cin >> b[i];
 	}
-	int x; cin >> x;
-	int l, r;
-	while(x--){
-		cin >> l >> r;
-		l--, r--; // follow 2 cach thuan` va khong thuan` :)
-//		int sum = 0; // cach 01
-//		for(int i = l; i <= r; i++) {
-//			sum+=a[i];
-//		}
-//		cout << sum;
-		if(l==0) cout << b[r];  // cach 02
-		else 
-			cout << b[r] - b[l-1];
+	int l = 0, r = 0;
+	while (l<n && r<m) {
+		if(a[l] < b[r]) {
+			cout << a[l] << " ";
+			l++;
+		} else {
+			cout << b[r] << " ";
+			r++;
+		}
 	}
+	while(l<n) { // neu dung if in a[n-1] co the sot so 5 trong 2 day : 1 2 3 5 8 / 1 2 3
+		cout << a[l] << " "; l++;
+	} 
+	while(r<m) {
+		cout << b[r] << " "; r++;
+	} 
 	
 	return 0;
 }
