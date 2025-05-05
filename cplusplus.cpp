@@ -1,31 +1,20 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() { // uoc chung lon nhat giua 2 cap so bat ki
+long long giai_thua[1000000];
+long long mod = 1e9+7;
+
+int main() { // giai thua chia du 
 	int n, x; cin >> n;
-	map<int,int> m;
-	int max_val = 0;
-	for(int i = 0 ; i < n; i++) {
+	giai_thua[0] = 1;
+	for(long long i = 1; i<=1000000; i++) {
+		giai_thua[i] = i * giai_thua[i-1];
+		giai_thua[i] %= mod;
+	}
+	while(n--) {
 		cin >> x;
-		m[x]++;
-		if(x > max_val) max_val = x;
+		cout << giai_thua[x] << endl;
 	}
-	
-	for(pair<int,int> x : m) {
-		cout << x.first << " " << x.second << endl;
-	}
-	
-	for(int i = max_val; i>=1; i--) {
-		int sum = 0;
-		for(int j = i; j <= max_val; j+=i) {
-			sum+= m[j];
-		}
-		if(sum >= 2) {
-			cout << i ;
-			break;
-		}
-	}
-	
 	
 	return 0;
 }
