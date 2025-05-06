@@ -4,26 +4,39 @@ using namespace std;
 int main() {
 	int n; cin >> n;
 	int a[n];
+	set<int> s;
+	map<int,int> m;
 	for(int i = 0; i < n; i++) {
 		cin >> a[i];
+		s.insert(a[i]);
+		m[a[i]] = 100;
+	}
+	sort(a, a+n);
+
+	int x; cin >> x;
+	set<int>::iterator it = s.find(x); // truy van theo set
+	if(it!=s.end()) {
+		cout << "YES" << endl;
+	}else {
+		cout << "NO" << endl;
 	}
 	
-	int s; cin >> s;
-	int l = 0, r = n-1;
-	bool flag = false;
-	while(l<=r) {
-		int m = (l+r)/2;
-		if(a[m] == s) {
-			flag = true;
-			break;
-		}else if(a[m] > s) {
-			r = m - 1;
+	map<int,int>::iterator it_01 = m.find(x); // truy van theo map
+	if(it_01!=m.end()) {
+		cout << "YES" << endl;
+	}else {
+		cout << "NO" << endl;
+	}
+	
+	int t, e; cin >> t; // truy van theo binary_search
+	while(t--) {
+		cin >> e;
+		if(binary_search(a,a+n,e)) {
+			cout << "YES" << endl;
 		} else {
-			l = m + 1;
+			cout << "NO" << endl;
 		}
 	}
-	if(flag) cout << "YES";
-	else cout << "NO";
 	
 	return 0;
 }
