@@ -1,29 +1,29 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int tong(int n) {
-	int sum = 0;
+int cnt(int n) {
+	if(n==0) return 1; // 1 so 0 tinh' 1 khong vao duoc while 
+	int count = 0;
+	int tmp;
 	while(n) {
-		sum+=n%10;
+		tmp=n%10;
+		if(tmp == 0 || tmp == 6 || tmp == 8) count++;
 		n/=10;
 	}
-	return sum;
+	return count;
 }
 
 bool cmp(int x, int y) {
-	int sum_x = tong(x);
-	int sum_y = tong(y);
-	if(sum_x != sum_y) {
-		return sum_x < sum_y;
+	int cnt_x = cnt(x);
+	int cnt_y = cnt(y);
+	if(cnt_x != cnt_y) {
+		return cnt_x > cnt_y;
 	}
 	return x < y;
 }
 
-int main() { // sort : tang dan theo tong cua cac chu so
-			// bang nhau so nho dung truoc
-		//	8
-		//		100001 2 30002 5 303003 212 83 11
-		// ->	2 11 100001 5 212 30002 303003 83
+int main() { // sort : dem 0 6 8 xuat hien nhieu nhat
+			// trung in so nho toi lon
 	int n, x; cin >> n;
 	int a[n];
 	for(int i = 0; i <n; i++) {
