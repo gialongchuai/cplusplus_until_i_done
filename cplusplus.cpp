@@ -2,18 +2,28 @@
 using namespace std;
 
 int main() {
-	int a[5] = {3,1,5,7,9};
-	int *ptr = a + 3;
-	cout << ptr << endl; // 0x73fdec // ******
-	cout << *ptr << endl; // 7
-	for(int i = 0; i < 5; i++) {
-		cout << a+i << " " << *(a+i) << endl;
+	int n; cin >> n;
+	int a[n];
+	for(int i = 0; i < n; i++) {
+		cin >> a[i];
 	}
-		//	0x73fde0 3
-		//	0x73fde4 1
-		//	0x73fde8 5
-		//	0x73fdec 7 	// ******
-		//	0x73fdf0 9
+	
+	int s; cin >> s;
+	int l = 0, r = n-1;
+	bool flag = false;
+	while(l<=r) {
+		int m = (l+r)/2;
+		if(a[m] == s) {
+			flag = true;
+			break;
+		}else if(a[m] > s) {
+			r = m - 1;
+		} else {
+			l = m + 1;
+		}
+	}
+	if(flag) cout << "YES";
+	else cout << "NO";
 	
 	return 0;
 }
