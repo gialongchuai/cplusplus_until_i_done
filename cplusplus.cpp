@@ -4,12 +4,12 @@ using namespace std;
 int main() { // 10
 			//1 2 2 2 2 4 5 6 7 110
 			//2
-			//2
+			//4 2
 			
 			// 10
 			//1 2 2 2 2 4 5 6 7 110
 			//88
-			//7
+			//8 7
 	int n; cin >> n;
 	int a[n];
 	for(int i = 0; i < n; i++) {
@@ -31,7 +31,7 @@ int main() { // 10
 		}
 	}
 	if(flag) {
-		cout << a[res] << endl;
+		cout << res << " " << a[res] << endl;
 	} else {
 		cout << "NOT FOUND!" << endl;
 	}
