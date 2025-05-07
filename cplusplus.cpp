@@ -1,24 +1,49 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() {
-	vector<int> v = {1,3,5,7,9};
-	vector<int>::iterator it = v.begin();
-	cout << *it << endl; // 1
-	int a[5] = {2,4,6,8,10};
-	for(int i = 0; i<5; i++) {
-		cout << a+i << " "; // 0x73fdb0 0x73fdb4 0x73fdb8 0x73fdbc 0x73fdc0
+int main() { // co bao nhieu phan tu lon hon x trong day : upper;lower dk : day da sort
+			// 13 8
+			// 6 2 0 2 2 9 2 7 0 9 8 7 7
+			// 7 7 3 4 6 3 0 8
+			// 6 2 0 2 2 9 2 7 0 9 8 7 7
+			// 0 3 3 4 6 7 7 8
+			// 3 7 7 7 7 0 7 1 7 0 0 1 1 lower_bound : phan tu dan tien >= x dung while de dat duoc upper
+			// 3 7 7 7 7 0 7 1 7 0 0 1 1 upper_bound : phan tu dan tien > x
+	int n, m; cin >> n >> m;
+	int a[n], b[m];
+	for(int i = 0; i<n; i++) {
+		cin >> a[i];
+	}
+	for(int i = 0; i<m; i++) {
+		cin >> b[i];
+	}
+	for(int x : a ) {
+		cout << x << " ";
 	}
 	cout << endl;
-	cout << a << endl; // 0x73fdb0
-	cout << *a << endl; // 2
-	int *ptr = lower_bound(a,a+5,7);
-	cout << ptr << endl; // 0x73fdbc
-	cout << *ptr << " " << ptr - a; // 8 3
-	
+
+	sort(b,b+m);
+	for(int x : b) {
+		cout << x << " ";
+	}
 	cout << endl;
-	vector<int>::iterator it_01 = lower_bound(v.begin(), v.end(), 6);
-	cout << *it_01 << " " << it_01 - v.begin(); // 7 3
+	for(int x : a) {
+		int *ptr = lower_bound(b,b+m,x);
+		if(*ptr == m) {
+			cout << 0 << " ";
+		} else {
+			while(*ptr==x) {
+				*ptr++;
+			}
+			cout << m - (ptr - b) << " ";
+		}
+	}
+	cout << endl;
+	for(int x : a) {
+		int *ptr = upper_bound(b,b+m,x);
+		int index = ptr - b;
+		cout << m - index << " ";
+	}
 	
 	return 0;
 }
