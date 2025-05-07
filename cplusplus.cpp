@@ -1,51 +1,24 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() { // cho 2 day: voi moi phan tu day 1 
-			// thi co bao nhieu so nho hon no ben day 2
-			// 5 8
-			// 2 8 7 2 8 			{2:1,0,1} ; {8:3,7,1,0,4,1,5} ...
-			// 9 3 7 1 0 4 1 5
-			// => 3 7 6 3 7
-	int n, m; cin >> n >> m;
-	int a[n], b[m];
-	for(int i = 0; i <n; i++) {
-		cin >> a[i];
-	}
-	for(int i = 0; i <m; i++) {
-		cin >> b[i];
-	}
-	for(int x : a) {
-		int cnt = 0;
-		for(int y : b) {
-			if(y<x) cnt++;
-		}
-		cout << cnt << " ";
+int main() {
+	vector<int> v = {1,3,5,7,9};
+	vector<int>::iterator it = v.begin();
+	cout << *it << endl; // 1
+	int a[5] = {2,4,6,8,10};
+	for(int i = 0; i<5; i++) {
+		cout << a+i << " "; // 0x73fdb0 0x73fdb4 0x73fdb8 0x73fdbc 0x73fdc0
 	}
 	cout << endl;
-	sort(b,b+m);
-	for(int x : b) {
-		cout << x << " ";
-	}
+	cout << a << endl; // 0x73fdb0
+	cout << *a << endl; // 2
+	int *ptr = lower_bound(a,a+5,7);
+	cout << ptr << endl; // 0x73fdbc
+	cout << *ptr << " " << ptr - a; // 8 3
+	
 	cout << endl;
-
-	for(int x : a){
-		int res = 0;
-		int l = 0, r = m - 1;
-		bool flag = true;
-		while(l<=r) {
-			int m = (l+r) / 2;
-			if(b[m] < x) {
-				l = m + 1;
-				res = m;
-				flag = false;
-			} else {
-				r = m - 1;
-			}
-		}
-	if(flag) cout << res << " ";
-	else cout << res+1 << " ";
-	}
+	vector<int>::iterator it_01 = lower_bound(v.begin(), v.end(), 6);
+	cout << *it_01 << " " << it_01 - v.begin(); // 7 3
 	
 	return 0;
 }
