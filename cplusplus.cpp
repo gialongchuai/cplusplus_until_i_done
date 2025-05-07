@@ -1,42 +1,28 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() { // 10
-			//1 2 2 2 2 4 5 6 7 110
-			//2
-			//4 2
-			
-			// 10
-			//1 2 2 2 2 4 5 6 7 110
-			//88
-			//8 7
-	int n; cin >> n;
-	int a[n];
-	for(int i = 0; i < n; i++) {
-		cin >> a[i];
+bool snt(int n) {
+	if(n<2) return false;
+	for(int i = 2; i*i<=n; i++) {
+		if(n%i==0) return false;
 	}
-	sort(a,a+n);
-	int x; cin >> x;
-	int res = 0;
-	int l = 0, r = n - 1;
-	bool flag = false;
-	while(l<=r) {
-		int m = (l+r) / 2;
-		if(a[m] <= x) {
-			res = m;
-			l = m + 1; 
-			flag = true;
-		} else {
-			r = m -1;
+	return true;
+}
+
+int main() { // mang 2 chieu; duyet so nguyen to
+	int n, m; cin >> n >> m;
+	int a[n][m];
+	for(int i = 0; i <n; i++) {
+		for(int j = 0; j < m; j++){
+			cin >> a[i][j];
 		}
 	}
-	if(flag) {
-		cout << res << " " << a[res] << endl;
-	} else {
-		cout << "NOT FOUND!" << endl;
-	}
-	for(int x : a) {
-		cout << x << " ";
+	
+	for(int i = 0; i <n; i++) {
+		for(int j = 0; j <m; j++) {
+			if(snt(a[i][j])) cout << a[i][j] << " ";
+		}
+		cout << endl;
 	}
 	
 	return 0;
