@@ -1,16 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool snt(int n){
-	if(n<2) return false;
-	for(int i = 2; i*i<=n;i++) {
-		if(n%i==0) return false;
-	}
-	return true;
-}
-
-int main() { // mang 2 chieu; count phan tu la snt tren cheo chinh
-			// cheo phu khong trung` nhau
+int main() { // duyet theo pattern
 	int n; cin >> n;
 	int a[n][n];
 	for(int i = 0; i <n; i++) {
@@ -18,16 +9,38 @@ int main() { // mang 2 chieu; count phan tu la snt tren cheo chinh
 			cin >> a[i][j];
 		}
 	}
-	int cnt = 0;
-	for(int i = 0; i <n; i++) {
-		if(snt(a[i][i])) cnt++;
-		if(snt(a[i][n-i-1])) cnt++;
+	
+	cout << "Pattern 01:\n";
+	for(int i = 0; i<n; i++) {
+		for(int j = 0; j<n; j++) {
+			cout << a[j][i] << " ";
+		}
+		cout << endl;
 	}
-	if(n%2!=0) {
-		int tmp = n/2;
-		if(snt(a[tmp][tmp])) cnt--;
+	
+	cout << "Pattern 02:\n";
+	for(int i = n-1; i>=0; i--) {
+		for(int j = n-1; j>=0; j--) {
+			cout << a[i][j] << " ";
+		}
+		cout << endl;
 	}
-	cout << cnt;
+	
+	cout << "Pattern 03:\n";
+	for(int i = n-1; i>=0; i--) {
+		for(int j = 0; j<n; j++) {
+			cout << a[j][i] << " ";
+		}
+		cout << endl;
+	}
+	
+	cout << "Pattern 04:\n";
+	for(int i = 0; i<n; i++) {
+		for(int j = n-1; j>=0; j--) {
+			cout << a[i][j] << " ";
+		}
+		cout << endl;
+	}
 	
 	return 0;
 }
