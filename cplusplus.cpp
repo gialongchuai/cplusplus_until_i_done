@@ -1,63 +1,59 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int dx[4] = {-1, 0, 0, 1};
-int dy[4] = {0, -1, 1, 0};
-int a[500][500];
-
-void dfs(int i, int j, int z, int t, int n, int m, bool &flag) {
-	a[i][j] = 0;
-	for(int k=0; k<4; k++) {
-		int i1 = i + dx[k];
-		int y1 = j + dy[k];
-		if(i1>=0 && i1 <n && y1>=0 && y1<m && a[i1][y1] == 1) {
-			if(i1==z && y1==t) {
-				flag = true;
-				return;
-			}
-			dfs(i1,y1,z,t,n,m,flag);
-		}
+int main() { // basic string
+	string s = "hello world!";
+	cout << s << endl;
+	for(int i = 0; i <s.size(); i++) {
+		cout << s[i];
+	}		
+	cout << endl;
+	for(char x : s) {
+		cout << x;
 	}
-}
-
-int main() { // tim duong di cua con chuot thong qua 4 o xung quanh
-//		3 5
-//		1 1 3 5
-//		1 0 1 0 0
-//		0 1 1 1 1
-//		1 0 0 0 1
-// => 0;0 => 2;4 => NO
-	int n, m; cin >> n >> m;
-	int b[4];
-	for(int i = 0; i<4; i++) {
-		cin >> b[i];
+	cout << endl;
+	
+	string s1;
+	cin >> s1; // nhap chuoi khong dau cach : 28tech hoc lap trinh
+	cout << s1 << endl; // => 28tech
+	
+	string s2;
+	getline(cin,s2); // doc toi enter
+	cout << s2 << endl; // " hoc lap trinh"
+	
+	string t;
+	cin >> t; // "hello";
+	cout << t << endl;
+	string x;
+	getline(cin,x);
+	cout << x << endl; // xau rong do doc enter cua luong` cin >> t
+	cout << x.size() << endl; // 0
+ 
+ 	string t1; // "world"
+ 	cin >> t1;
+ 	cout << t1 << endl;
+ 	cin.ignore(); // loai bo 1 ki tu, cin.ignore(2) = loai bo 2 ki tu (enter + 1 ki tu sau dos)
+ 	string x1;
+ 	getline(cin,x1); // "hoc lap trinh"
+ 	cout << x1 << endl;
+ 
+ 	string x2;
+ 	getline(cin,x2); // "29tech lap trinh hoc"
+ 	cout << x2 << endl; // 29tech lap trinh hoc : khong can ignore do getline tai x1 da xu ly enter
+ 	string::iterator it;
+ 	for(it = x2.begin(); it!=x2.end(); it++) {
+ 		cout << *it; // 29tech lap trinh hoc
 	}
+	cout << endl;
 	
-	for(int i=0; i<n; i++) {
-		for(int j = 0; j<m; j++) {
-			cin >> a[i][j];
-		}
-	}
+	sort(x2.begin(), x2.end());
+	cout << x2 << endl; // "   29accehhhilnoprtt"
 	
-	int i = b[0] - 1;
-	int j = b[1] - 1;
-	
-	int z = b[2] - 1;
-	int t = b[3] - 1;
-	bool flag = false;
-	dfs(i,j,z,t,n,m,flag);
-	
-	if(flag) {
-		cout << "yes";
-	} else {
-		cout << "no";
-	}
-	
+	sort(x2.begin(), x2.end(), greater<char>()); // luu y tung char trong chuoi string
+	cout << x2 << endl; // "ttrponlihhhecca92   "
+ 	
 	return 0;
 }
-
-
-
 
 
 
