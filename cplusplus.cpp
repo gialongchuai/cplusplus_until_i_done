@@ -7,7 +7,7 @@ int a[100][100];
 
 void dfs(int i, int j, int n, int m) {
 	a[i][j] = 0;
-	for(int k=0; k<8; k++) {
+	for(int k=0; k<4; k++) {
 		int i1 = i + dx[k];
 		int y1 = j + dy[k];
 		if(i1>=0 && i1 <n && y1>=0 && y1<m && a[i1][y1] == 1) {
@@ -47,12 +47,3 @@ int main() { // count island
 	
 	return 0;
 }
-
-
-
-
-
-
-
-
-
