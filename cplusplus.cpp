@@ -2,6 +2,21 @@
 using namespace std;
 
 int main() { // basic string
+	string s3 = "xin chao";
+	s3 += " the";
+	s3 = s3 + " gioi";
+	cout << s3 << endl; // xin chao the gioi
+	
+	s3 = s3 + '@';
+	s3 += '@';
+	cout << s3 << endl; // xin chao the gioi@@
+	
+	string s4 = s3 + "hello world" + '%';
+	cout << s4 << endl; // xin chao the gioi@@hello world%
+	
+	s4+= "####" + 'l'; // ERROR + them char !!!!!!!!!!!!!
+	cout << s4 << endl; // xin chao the gioi@@hello world%· Çn· Çn· Çn· Çn· Pn· am· @n· ¦m·
+	
 	string s = "hello world!";
 	cout << s << endl;
 	for(int i = 0; i <s.size(); i++) {
