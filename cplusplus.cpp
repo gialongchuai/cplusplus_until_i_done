@@ -19,11 +19,12 @@ string chuan_hoa(string s) {
 	for(string x : v) {
 		result += x + ' ';
 	}
+	result.pop_back();
 	return result;
 }
 
 string bp_chuan_hoa(string s) {
-	string nam = "";
+	string name = "";
 	stringstream ss(s);
 	string word;
 	while(ss >> word) {
