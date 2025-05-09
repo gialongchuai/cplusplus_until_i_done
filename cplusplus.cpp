@@ -1,20 +1,25 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool check_upper(string s) {
+int main() { // cout ki tu duoc lap lai lan dau tien
+			// 5nLQoktlQgU7
+			// => Q
+			
+			// 1245
+			// => NONE
+	string s; cin >> s;
+	map<char,int> m;
+	
+	bool flag = true;
 	for(char x : s) {
-		if(x<65||x>90) return false; // if(!isupper(x)) return false;
+		m[x]++;
+		if(m[x] == 2) {
+			flag = false;
+			cout << x;
+			break;
+		}
 	}
-	return true;
-}
-
-int main() { // dem cac tu tat ca in hoa
-	string s;
-	int cnt = 0;
-	while(cin >> s) {
-		if(check_upper(s)) cnt++;
-	}
-	cout << cnt;
+	if(flag) cout << "NONE";
 
 	return 0;
 }
