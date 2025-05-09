@@ -1,26 +1,22 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() { // cout ki tu duoc lap lai lan dau tien
-			// 5nLQoktlQgU7
-			// => Q
-			
-			// 1245
-			// => NONE
-	string s; cin >> s;
-	map<char,int> m;
+int main() { // cout tu cung tan xuat theo thu tu xuat hien
+	string s;
+	map<string,int> m;
+	vector<string> v;
+	while(cin>>s) {
+		m[s]++;
+		v.push_back(s);
+	}
 	
-	bool flag = true;
-	for(char x : s) {
-		m[x]++;
-		if(m[x] == 2) {
-			flag = false;
-			cout << x;
-			break;
+	for(string x : v) {
+		if(m[x] != 0) {
+			cout << x << " " << m[x] << endl;
+			m[x] = 0;
 		}
 	}
-	if(flag) cout << "NONE";
-
+	
 	return 0;
 }
 
