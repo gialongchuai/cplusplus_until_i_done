@@ -1,26 +1,29 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() { // dem so luong tu khac nhau
-			// khong phan biet hoa thuong`
-			//	28tech 28TECH 28TECH dev Dev
-			//^Z
-			//2
-			//28tech dev
+bool cmp (string a, string b) {
+	if(a.size()!=b.size()) {
+		return a.size() < b.size();
+	} else {
+		return a < b;
+	}
+}
+
+int main() { // sap xep length tang dan
+			// trung len tang dan theo tu dien
+			// 28tech dev c dev abc
+			// => c abc dev dev 28tech
+	vector<string> v;
 	string s;
-	set<string> se;
-	while(cin >> s) { // enter xong CTRL+Z xong enter 1 phat' nua
-		for(char &x : s) {
-			x = tolower(x);
-		}
-		se.insert(s);
+ 	while(cin >> s) {
+ 		v.push_back(s);
 	}
-	cout << se.size();
-	cout << endl;
-	for(string x : se) {
+	
+	sort(v.begin(), v.end(), cmp);
+	for(string x : v) {
 		cout << x << " ";
-	}
- 	
+	}	 
+
 	return 0;
 }
 
