@@ -23,7 +23,7 @@ string chuan_hoa(string s) {
 }
 
 string bp_chuan_hoa(string s) {
-	string name;
+	string nam = "";
 	stringstream ss(s);
 	string word;
 	while(ss >> word) {
