@@ -1,23 +1,25 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() { // tong chu so trong chuoi string
-	// an1h28w102msnc => 128102 => 14
-	string s;
-	cin >> s; // nho la chuoi khong dau space moi dung` cin
-	int sum = 0;
-	for(int i = 0; i < s.size(); i++) {
-		if(isdigit(s[i])) { // kiem tra chu so; chu cai la isalpha
-			cout << s[i]; // 128102
-			sum+=s[i] - '0';
+bool check_so_dep(string s) {
+	for(int i =0; i < s.size() -1; i++) {
+		int x = abs(s[i] - s[i+1]); 
+		if(x!=1) {
+			return false;
 		}
 	}
-	cout << endl << sum << endl; // 14
-	
-	for(char x : s) {
-		if(isalpha(x)) {
-			cout << x; // anhwmsnc
-		}
+	return true;
+}
+
+int main() { // kiem tra so dep voi so cuc lon 	
+			// 1212321 => yes
+			// 679 => no
+	string s;
+	cin >> s;
+	if(check_so_dep(s)) {
+		cout << "YES";
+	} else {
+		cout << "NO";
 	}
  	 
 	return 0;
