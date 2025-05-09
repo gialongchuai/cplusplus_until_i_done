@@ -9,7 +9,7 @@ int main() { // dem so luong tu khac nhau
 			//28tech dev
 	string s;
 	set<string> se;
-	while(cin >> s) { // CTRL+Z xong enter 1 phat'
+	while(cin >> s) { // enter xong CTRL+Z xong enter 1 phat' nua
 		for(char &x : s) {
 			x = tolower(x);
 		}
