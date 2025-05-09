@@ -1,51 +1,47 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-string chuan_hoa_ten(string name) {
-	string name_result = "";
-	stringstream ss(name);
+vector<string> chuan_hoa_ten(string s) {
+	string name = "";
+	stringstream ss(s);
 	string word;
+	vector<string> v;
 	while(ss >> word) {
-		name_result += toupper(word[0]);
+		word[0] = toupper(word[0]);
 		for(int i =1; i<word.size() ;i++) {
-			name_result += tolower(word[i]);
+			word[i] = tolower(word[i]);
 		}
-		name_result += ' ';
+		v.push_back(word);
 	}
-	name_result.pop_back(); // loai bo space cuoi'
-	return name_result;
+	for(char &x : v[v.size()-1]) {
+		x = toupper(x);
+	}
+	return v;
 }
 
-string chuan_hoa_ngay_sinh(string birth) {
-	string birth_result = "";
-	stringstream ss(birth);
-	string word;
-	while(getline(ss, word, '/')) {
-		if(word.size() == 1) word.insert(0, "0");
-		birth_result += word + '/';
+int main() { // chuan hoa ten:
+				//tRAN    van  tECH28
+				//
+				//Tran Van, TECH28
+				//TECH28, Tran Van
+				
+	string name;
+	getline(cin,name);
+	vector<string> v = chuan_hoa_ten(name);
+	string s1 = "";
+	for(int i = 0 ; i<v.size()-1;i++) {
+		s1 += v[i] + ' ';
 	}
+	s1.pop_back();
+	cout << s1 << ", " << v[v.size()-1] << endl;
 	
-	birth_result.pop_back(); // loai bo / cuoi'
-	return birth_result;
-}
-
-int main() { // chuan hoa sinh vien: NgUYEN   Van  TECH28
-									//1/1/2022
-								// Nguyen Van Tech28
-								// 01/01/2022	
-	string name, birth;
-	getline(cin, name);
-	getline(cin, birth);
-	
-	string bp_birth = birth;
-	
-	string name_result = chuan_hoa_ten(name);
-	string birth_result = chuan_hoa_ngay_sinh(birth);
-	cout << name_result << endl << birth_result;
-	
-	if(bp_birth[1] == '/') bp_birth = "0" + bp_birth;
-	if(bp_birth[4] == '/') bp_birth.insert(3,"0");
-	cout << endl << bp_birth;
+	cout << v[v.size()- 1] << ", ";
+	string s2 = "";
+	for(int i = 0 ; i<v.size()-1;i++) {
+		s2 += v[i] + ' ';
+	}
+	s2.pop_back();
+	cout << s2;
 	
 	return 0;
 }
