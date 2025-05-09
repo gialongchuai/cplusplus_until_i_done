@@ -1,28 +1,22 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool cmp (string a, string b) {
-	if(a.size()!=b.size()) {
-		return a.size() < b.size();
-	} else {
-		return a < b;
-	}
-}
-
-int main() { // sap xep length tang dan
-			// trung len tang dan theo tu dien
-			// 28tech dev c dev abc
-			// => c abc dev dev 28tech
-	vector<string> v;
+int main() { // cout string cung tan xuat 
+			// 28tech dev abc 28tech dev c dev abc def
+			//^Z
+			//28tech 2
+			//abc 2
+			//c 1
+			//def 1
+			//dev 3
+	map<string,int> m;
 	string s;
  	while(cin >> s) {
- 		v.push_back(s);
+		m[s]++;
 	}
-	
-	sort(v.begin(), v.end(), cmp);
-	for(string x : v) {
-		cout << x << " ";
-	}	 
+	for(pair<string,int> x : m) {
+		cout << x.first << " " << x.second << endl;
+	}
 
 	return 0;
 }
