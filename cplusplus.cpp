@@ -23,10 +23,14 @@ vector<string> chuan_hoa_dau_gach(string s) {
 	return v;
 }
 
-int main() { // chuan hoa email: 
-				//2
-				//nguyen  VAN  NAM    22/07/2002
-				//le THI  HONG nHUNG 30/07/1991
+int main() { // chuan hoa email va mat khau
+			//2
+			//nguyen  VAN  NAM    02/07/2002
+			//namnv@xyz.edu.vn
+			//272002
+			//le THI  HONG nHUNG 8/02/1991
+			//nhunglth@xyz.edu.vn
+			//821991
 	int n; cin >> n; cin.ignore();
 	while(n--) {
 		string s;
