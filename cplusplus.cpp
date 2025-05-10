@@ -1,39 +1,29 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() { // cout tang dan theo thu tu tu` dien?
-			// khong phan biet hoa thuong
-			//abc abc abcd abcd AB
-			//abC CD ZAH abd ABcD
-			// => abc abcd
-	string a, b;
-	getline(cin,a);
-	getline(cin,b);
-	for(char &x : a) {
-		x = tolower(x);
+int main() { // abcd123aad22a05
+		// tong cac so trong xau
+	string s; cin >> s;
+	for(char &x : s) {
+		if(x < '0' || x > '9') x = ' ';
 	}
-	for(char &x : b) {
-		x = tolower(x);
+	stringstream ss(s);
+	string word;
+	vector<string> v;
+	while(ss >> word){
+		v.push_back(word);
 	}
-	
-	set<string> se_a;
-	set<string> se_b;
-	stringstream ss_a(a);
-	string word_a;
-	while(ss_a>>word_a) {
-		se_a.insert(word_a);
-	}
-	
-	stringstream ss_b(b);
-	string word_b;
-	while(ss_b>>word_b) {
-		se_b.insert(word_b);
-	}
-	for(string x : se_a) {
-		if(se_b.count(x)) {
-			cout << x << " ";
+	for(string &x : v) {
+		if(x.size() >1 && x[0] == '0') {
+			x.erase(0,1);
 		}
-	} 
+	}
+	long long sum = 0;
+	for(string x : v) {
+		long long tmp = stoll(x);
+		sum+=tmp;
+	}
+	cout << sum;
 
 	return 0;
 }
