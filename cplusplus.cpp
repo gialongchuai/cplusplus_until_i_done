@@ -1,31 +1,42 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() { // cout string theo dk: tat ca cac tu cung tang suat theo thu tu tu` dien?
-			// endl + theo thu tu xuat hien tu cung tan suat
-			//	bb aa bb cc aa bb cc
-			//^Z
-			//aa 2
-			//bb 3
-			//cc 2
-			//
-			//bb 3
-			//aa 2
-			//cc 2
+bool cmp(string a, string b) {
+	if(a.size()!=b.size()) {
+		return a.size() > b.size();
+	} else {
+		return a > b; // 9 > 8 theo thu tu tu` dien
+	}
+}
+
+int main() { // so lon nhat xuat hien trong sau
+			// sjandj123123jfsdan000000000000012128842jn81212131823238asjn@@@@@@@@@@@@@@@djas81212131823239wej
+			//       123123      000000000000012128842  81212131823238                       81212131823239
+			// => 81212131823239
+			// 0a0
+			// => 0
 	string s;
-	map<string,int> m;
+	cin >> s;
+	for(int i = 0; i<s.size(); i++) {
+		char x = s[i];
+		if(x<'0'|| x>'9') {
+			s[i] = ' ';
+		}
+	}
+	cout << s << endl;
+	stringstream ss(s);
+	string word;
 	vector<string> v;
-	while(cin >> s) {
-		if(!m.count(s)) v.push_back(s); // co the them het sau do duyet xong cout ra cho m[x] = 0 ;)))
-		m[s]++;
+	while(ss >> word) {
+		v.push_back(word);
 	}
-	for(pair<string,int> x : m) {
-		cout << x.first << " "<<  x.second << endl;
+	for(string &x : v){
+		while(x[0]=='0' && x.size() > 1) { // xoa so 0 vo nghia
+			x.erase(0,1);
+		}
 	}
-	cout << endl;
-	for(int i = 0; i<v.size(); i++) {
-		cout << v[i] << " " << m[v[i]] << endl;
-	}
+	sort(v.begin(), v.end(), cmp);
+	cout << v[0];
 	
 	return 0;
 }
