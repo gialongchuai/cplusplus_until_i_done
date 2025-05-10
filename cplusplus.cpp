@@ -1,43 +1,40 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() { 
-			// co the loai bo het va ton tai chu "python" ?
-			// phabptoython => YES
-	string s; cin >> s;
-	string x = "python";
-	int st = 0;
-	int cnt = 0;
-	
-	// cach 01
-	for(int i = 0; i < x.size(); i++) {
-		for(int j = st; j < s.size(); j++) {
-			if(x[i] == s[j]) {
-				cnt++;
-				st = j+1;
-				break;
-			}
-		}
+int main() { // cout tang dan theo thu tu tu` dien?
+			// khong phan biet hoa thuong
+			//abc abc abcd abcd AB
+			//abC CD ZAH abd ABcD
+			// => abc abcd
+	string a, b;
+	getline(cin,a);
+	getline(cin,b);
+	for(char &x : a) {
+		x = tolower(x);
 	}
-	if(cnt == x.size()) {
-		cout << "YES" << endl;
-	} else {
-		cout << "NO" << endl;
+	for(char &x : b) {
+		x = tolower(x);
 	}
 	
-	// cach 02
-	int index = 0;
-	for(char xt : s) {
-		if(xt == x[index]) {
-			index++;
-		}
-		if(index == 6) {
-			cout << "YES";
-			return 0;
-		}
+	set<string> se_a;
+	set<string> se_b;
+	stringstream ss_a(a);
+	string word_a;
+	while(ss_a>>word_a) {
+		se_a.insert(word_a);
 	}
-	cout << "NO";
 	
+	stringstream ss_b(b);
+	string word_b;
+	while(ss_b>>word_b) {
+		se_b.insert(word_b);
+	}
+	for(string x : se_a) {
+		if(se_b.count(x)) {
+			cout << x << " ";
+		}
+	} 
+
 	return 0;
 }
 
