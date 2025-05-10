@@ -8,24 +8,15 @@ bool cmp(string a, string b){
 }
 
 int main() {
-		// ghep thanh` so lon nhat tuc la sap xep theo tu dien giam nhi?
-		//123abcda234kkf11
-		//23412311
+		// tinh tong cac chu so trong so cuc lon
+		// 81212112312312312331823239
+		// => 70
 	string s; cin >> s;
-	for(char &x : s) {
-		if(isalpha(x)) x = ' ';
+	int sum = 0;
+	for(char x : s) {
+		sum+=x-'0';
 	}
-	stringstream ss(s);
-	string word;
-	vector<string> v;
-	while(ss>>word) {
-		if(word[0] == '0' && word.size() > 1) {
-			word.erase(0,1);
-		}
-		v.push_back(word);
-	}
-	sort(v.begin(), v.end(), cmp);
-	for(string x : v) cout << x;
+	cout << sum;
 
 	return 0;
 }
