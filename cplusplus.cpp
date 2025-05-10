@@ -2,6 +2,19 @@
 using namespace std;
 
 int main() { // chuan hoa email, pass tranh trung email
+			//4
+			//nguyen   van LOng 20/10/2002
+			//longnv@xyz.edu.vn
+			//20102002
+			//ngo Vang Long 20/02/2002
+			//longnv2@xyz.edu.vn
+			//2022002
+			//Nguyen   Vu Long 02/12/2003
+			//longnv3@xyz.edu.vn
+			//2122003
+			//ho van   nam 17/09/2002
+			//namhv@xyz.edu.vn
+			//1792002
 	int n; cin >>n; cin.ignore();
 	string s;
 	map<string,int> map_email;
