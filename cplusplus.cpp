@@ -1,30 +1,43 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() { // cout khong trung theo thu tu tu` dien?
-			// dong 1: chu xuat hien o ca 2 day 
-			// dong 2: chu xuat hien ca 2 xau
-			// nTOhOGvRBk
-			//bUJtZSoONh
-			//Oh
-			//BGJNORSTUZbhknotv
-	string a, b;
-	cin >> a >> b;
-	int cnt1[256] = {0};
-	int cnt2[256] = {0};
-	for(char x : a) {
-		cnt1[x] = 1;
+int main() { 
+			// co the loai bo het va ton tai chu "python" ?
+			// phabptoython => YES
+	string s; cin >> s;
+	string x = "python";
+	int st = 0;
+	int cnt = 0;
+	
+	// cach 01
+	for(int i = 0; i < x.size(); i++) {
+		for(int j = st; j < s.size(); j++) {
+			if(x[i] == s[j]) {
+				cnt++;
+				st = j+1;
+				break;
+			}
+		}
 	}
-	for(char x : b) {
-		cnt2[x] = 1;
+	if(cnt == x.size()) {
+		cout << "YES" << endl;
+	} else {
+		cout << "NO" << endl;
 	}
-	for(int i = 0; i < 256; i++) {
-		if(cnt1[i] && cnt2[i]) cout << (char)i;
+	
+	// cach 02
+	int index = 0;
+	for(char xt : s) {
+		if(xt == x[index]) {
+			index++;
+		}
+		if(index == 6) {
+			cout << "YES";
+			return 0;
+		}
 	}
-	cout << endl;
-	for(int i = 0; i < 256; i++) {
-		if(cnt1[i] || cnt2[i]) cout << (char)i;
-	}	
+	cout << "NO";
+	
 	return 0;
 }
 
