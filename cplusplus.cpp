@@ -1,42 +1,19 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool cmp(string a, string b) {
-	if(a.size()!=b.size()) {
-		return a.size() > b.size();
-	} else {
-		return a > b; // 9 > 8 theo thu tu tu` dien
-	}
-}
-
-int main() { // so lon nhat xuat hien trong sau
-			// sjandj123123jfsdan000000000000012128842jn81212131823238asjn@@@@@@@@@@@@@@@djas81212131823239wej
-			//       123123      000000000000012128842  81212131823238                       81212131823239
-			// => 81212131823239
-			// 0a0
-			// => 0
+int main() { // 81212112312312312331823239
+			// 5
+			// => 4
+			// chi du 1 so cuc lon cho 1 so <= long long
 	string s;
 	cin >> s;
-	for(int i = 0; i<s.size(); i++) {
-		char x = s[i];
-		if(x<'0'|| x>'9') {
-			s[i] = ' ';
-		}
+	long long m; cin >> m;
+	long long r = 0;
+	for(char x : s) {
+		r = r*10+(x-'0');
+		r%=m;
 	}
-	cout << s << endl;
-	stringstream ss(s);
-	string word;
-	vector<string> v;
-	while(ss >> word) {
-		v.push_back(word);
-	}
-	for(string &x : v){
-		while(x[0]=='0' && x.size() > 1) { // xoa so 0 vo nghia
-			x.erase(0,1);
-		}
-	}
-	sort(v.begin(), v.end(), cmp);
-	cout << v[0];
+	cout << r;
 	
 	return 0;
 }
