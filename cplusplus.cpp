@@ -3,35 +3,28 @@ using namespace std;
 
 int main() { // cout khong trung theo thu tu tu` dien?
 			// dong 1: chu xuat hien o ca 2 day 
-			// dong 2: chu con lai
+			// dong 2: chu xuat hien ca 2 xau
 			// nTOhOGvRBk
-			// bUJtZSoONh
-			//	Oh
-			//	BGJNRSTUZbknotv
+			//bUJtZSoONh
+			//Oh
+			//BGJNORSTUZbhknotv
 	string a, b;
 	cin >> a >> b;
-	set<char> se_dk1;
-	for(int i = 0; i<a.size();i++) {
-		for(int j = 0; j<b.size(); j++) {
-			if(a[i] == b[j]) {
-				se_dk1.insert(a[i]);
-				break;
-			}	
-		}
+	int cnt1[256] = {0};
+	int cnt2[256] = {0};
+	for(char x : a) {
+		cnt1[x] = 1;
 	}
-	for(char x : se_dk1) {
-		cout << x;
+	for(char x : b) {
+		cnt2[x] = 1;
+	}
+	for(int i = 0; i < 256; i++) {
+		if(cnt1[i] && cnt2[i]) cout << (char)i;
 	}
 	cout << endl;
-	string z = a+b;
-	set<char> se_dk2;
-	for(int i = 0; i<z.size() ; i++) {
-		if(!se_dk1.count(z[i])) se_dk2.insert(z[i]);
-	}
-	for(char x : se_dk2) {
-		cout << x;
-	}
-		
+	for(int i = 0; i < 256; i++) {
+		if(cnt1[i] || cnt2[i]) cout << (char)i;
+	}	
 	return 0;
 }
 
