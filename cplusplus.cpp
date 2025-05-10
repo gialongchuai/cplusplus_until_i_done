@@ -1,53 +1,30 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<string> v;
-bool cmp (string a, string b) {
-	if(a.size() != b.size()) {
-		return a.size() < b.size();
-	}else {
-		vector<string>::iterator it;
-		for(it = v.begin();it!= v.end();it++) {
-			if(*it == a) {
-				vector<string>::iterator it1;
-				for(it1 = v.begin(); it1!=v.end(); it1++) {
-					if(*it==b) return (it - v.begin()) < (it1 - v.begin());
-				}
-			}
-		}
-	}
-}
-
-bool cmp_02(string a, string b) {
-	return a.size() < b.size();
-}
-
-int main() { // cout dk: sap xep theo chieu dai cua chuoi thuan nghich "KHAC NHAU"
-			// trung` length thi` in theo thu tu index trong chuoi nhap ban dau`
-			//php aba aaaa nguyen aba huu hoc pop
+int main() { // cout string theo dk: tat ca cac tu cung tang suat theo thu tu tu` dien?
+			// endl + theo thu tu xuat hien tu cung tan suat
+			//	bb aa bb cc aa bb cc
 			//^Z
-			//php aba pop aaaa
+			//aa 2
+			//bb 3
+			//cc 2
+			//
+			//bb 3
+			//aa 2
+			//cc 2
 	string s;
-	set<string> se;
+	map<string,int> m;
+	vector<string> v;
 	while(cin >> s) {
-		string tmp = s;
-		reverse(tmp.begin(), tmp.end());
-		if(s == tmp) {
-			if(!se.count(s)) v.push_back(s);
-			se.insert(s);
-		}
+		if(!m.count(s)) v.push_back(s); // co the them het sau do duyet xong cout ra cho m[x] = 0 ;)))
+		m[s]++;
 	}
-	vector<string> bp_v = v;
-	
-	sort(v.begin(),v .end(),cmp); // cach_01 do forgot cach 02 ;)))
-	for(string x : v) {
-		cout << x << " ";
+	for(pair<string,int> x : m) {
+		cout << x.first << " "<<  x.second << endl;
 	}
 	cout << endl;
-												// cach_02_bp
-	stable_sort(bp_v.begin(), bp_v.end(), cmp_02); // stable_sort dam bao tinh on dinh chuoi nhap
-	for(string x : bp_v) {
-		cout << x << " ";
+	for(int i = 0; i<v.size(); i++) {
+		cout << v[i] << " " << m[v[i]] << endl;
 	}
 	
 	return 0;
