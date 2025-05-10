@@ -1,31 +1,31 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+bool cmp(string a, string b){
+	string x = a+b;
+	string y = b+a;
+	return x>y;
+}
+
 int main() {
-		// tong cac so trong xau
-		// abcd123aad22a05
-		// 150
+		// ghep thanh` so lon nhat tuc la sap xep theo tu dien giam nhi?
+		//123abcda234kkf11
+		//23412311
 	string s; cin >> s;
 	for(char &x : s) {
-		if(x < '0' || x > '9') x = ' ';
+		if(isalpha(x)) x = ' ';
 	}
 	stringstream ss(s);
 	string word;
 	vector<string> v;
-	while(ss >> word){
+	while(ss>>word) {
+		if(word[0] == '0' && word.size() > 1) {
+			word.erase(0,1);
+		}
 		v.push_back(word);
 	}
-	for(string &x : v) {
-		if(x.size() >1 && x[0] == '0') {
-			x.erase(0,1);
-		}
-	}
-	long long sum = 0;
-	for(string x : v) {
-		long long tmp = stoll(x);
-		sum+=tmp;
-	}
-	cout << sum;
+	sort(v.begin(), v.end(), cmp);
+	for(string x : v) cout << x;
 
 	return 0;
 }
