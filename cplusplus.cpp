@@ -1,8 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() { // abcd123aad22a05
+int main() {
 		// tong cac so trong xau
+		// abcd123aad22a05
+		// 150
 	string s; cin >> s;
 	for(char &x : s) {
 		if(x < '0' || x > '9') x = ' ';
