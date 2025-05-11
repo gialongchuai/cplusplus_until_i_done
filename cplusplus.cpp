@@ -1,48 +1,78 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() {
-		// cout so lon nhat co m chu so ma tong bang` s
-		//	4 23
-		// => 9950
-		// 5 0
-		// => NOT FOUND
-	int m, s; cin >> m >> s;
-	if(s > 9*m || (m>1 && s == 0)) {
-		cout << "NOT FOUND";
-		return 0;
-	} else {
-		int t = s;
-		int a[m], b[m];
-		for(int i = 0; i <m;i++) {
-			if(s>=9) {
-				a[i] = 9;
-				s-=9;
-			} else {
-				a[i] = s;
-				s-=s; // s=0 do' ;)))) hoc qua' 180ph 
-			}
-		}
-		t--;
-		for(int i = m-1; i > 0; i--) { // khong xu ly chu so cuoi cung
-			if(t>=9) { // cong voi t vi du 9-1=8 thi xuong dong
-				b[i] = 9; // 37 cung da + 1 nen thanh` 9 yen tam
-				t-=9;
-			} else {
-				b[i] = t;
-				t = 0;
-			}
-		}
-		
-		b[0] = t + 1;
-		for(int x : a) {
-			cout << x;
-		}
-		cout << endl;
-		for(int x : b) {
-			cout << x;
+bool cmp(string a, string b) {
+	if(a.size()!=b.size()) {
+		return a.size()>b.size();
+	} else return a>b;
+}
+
+int main() { // tim` chuoi con lien tiep dai nhat
+			// trung` in chuoi co tu dien lon hon
+		//  zzaabcccyybc
+		// => ccc
+		// zzaab
+		// => zz 
+		// azbc
+		// => z
+		//zabccccc
+		//= > ccccc
+	string s; cin >> s;
+	for(int i = 0; i<s.size() - 1; i++) {
+		if(s[i] != s[i+1]) {
+			i++;
+			s.insert(i, " ");
 		}
 	}
+	stringstream ss(s);
+	string word;
+	vector<string> v;
+	while(ss >> word) {
+		v.push_back(word);
+	}
+	sort(v.begin(),v.end(),cmp);
+	cout << v[0];
+	cout << endl;
+	
+	string x = s;
+	string tmp = "";
+	string res = "";
+	res += x[0];
+	for(int i = 1; i<x.size(); i++) {
+		if(x[i] == res[0] && x[i] == x[i-1]) {
+			res+=x[i];
+		}
+		else {
+			tmp+=x[i];
+			if(tmp.size() > res.size()) {
+				res = "";
+				res+=tmp;
+				tmp = "";
+			} else if(tmp.size() == res.size() && tmp > res) {
+				res = "";
+				res+=tmp;
+				tmp = "";
+			}
+			if(tmp[0] != x[i+1]) tmp = "";
+		}
+	}
+	cout << res << endl;
+	
+	string p = s + '@'; // them ki tu @ de xet vi tri size - 1 // zabccccc@ => @ != c update ccccc
+	string tem = "";i // thi` nhay vao else de cap nhap chuoi cuoi ne thoa !!!!
+	tem+=p[0];
+	string ret = "";
+	ret+=p[0];
+	for(int i = 1; i<p.size();i++) {
+		if(p[i] == p[i-1]) tem+=p[i];
+		else {
+			if(tem.size()>ret.size()) ret = tem;
+			else if(tem.size() == ret.size() && tem > ret) ret = tem;
+			tem = "";
+			tem+=p[i];
+		}
+	}
+	cout << ret;
 
 	return 0;
 }
