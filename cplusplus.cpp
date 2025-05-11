@@ -1,32 +1,26 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool snt(int n) {
-	if(n<2) return false;
-	for(int i =2; i*i<=n; i++) {
-		if(n%i==0) return false;
+bool check_01(string s) { // check giam
+	for(int i = 0; i < s.size() - 1; i++) {
+		if(s[i] < s[i+1]) {
+			return false;
+		}
+	}
+	return true;
+}
+bool check_02(string s) { // check tang
+	for(int i = 0; i < s.size() - 1; i++) {
+		if(s[i] > s[i+1]) {
+			return false;
+		}
 	}
 	return true;
 }
 
-int main() { // kiem tra so dep cua 1 so cuc lon
-			// chu so la snt, tong la snt
-			//373
-			// => YES	
-			//129
-			// => NO
+int main() { 
 	string s; cin >> s;
-	int sum = 0;
-	for(char x : s){
-		int tmp = x - '0';
-		if(tmp != 2 && tmp != 3 && tmp != 5 && tmp != 7) {
-			cout << "NO";
-			return 0;
-		}
-		sum+=tmp;
-	}
-	
-	if(snt(sum)) {
+	if(check_02(s)||check_01(s)) {
 		cout << "YES";
 	} else {
 		cout << "NO";
