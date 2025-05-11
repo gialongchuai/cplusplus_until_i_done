@@ -7,32 +7,21 @@ struct SV {
 	double gpa;
 };
 
-bool cmp(SV a, SV b) {
-	return a.gpa > b.gpa;
+bool thang_04(string s) {
+	stringstream ss(s);
+	string word;
+	vector<string> v;
+	while(getline(ss,word,'/')) {
+		v.push_back(word);
+	}
+	if(stoi(v[1]) == 4) {
+		return true;
+	}
+	return false;
 }
 
 int main() { // struct basic
-			//4
-			//Teo
-			//22/12/2002
-			//3.5
-			//Ty
-			//10/10/2001
-			//2.5
-			//Thuong
-			//30/07/2002
-			//2.8
-			//Long
-			//30/07/2002
-			//2.8
-			//Teo 22/12/2002 3.50
-			//Ty 10/10/2001 2.50
-			//Thuong 30/07/2002 2.80
-			//Long 30/07/2002 2.80
-			//Teo 22/12/2002 3.50
-			//Thuong 30/07/2002 2.80
-			//Long 30/07/2002 2.80
-			//Ty 10/10/2001 2.50
+			// liet ke sinh vien sinh vao thang 04
 	int n; cin >> n;
 	SV a[n];
 	for(int i = 0; i<n; i++) {
@@ -43,13 +32,11 @@ int main() { // struct basic
 		cin >> v.gpa;
 		a[i] = v;
 	}
-	for(SV v : a) {
-		cout << v.name  << " " << v.birth << " " << fixed << setprecision(2) << v.gpa << endl;
-	}
 	
-	sort(a, a+n, cmp);
-		for(SV v : a) {
-		cout << v.name  << " " << v.birth << " " << v.gpa << endl;
+	for(SV v : a) {
+		if(thang_04(v.birth)) {
+			cout << v.name  << " " << v.birth << " " << fixed << setprecision(2) << v.gpa << endl;
+		}
 	}
 	
 	return 0;
