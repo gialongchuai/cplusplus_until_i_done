@@ -9,7 +9,7 @@ bool cmp(pair<string,int> a, pair<string,int> b) {
 
 int main() { // sap xep tong ban thang giam dan
 			// trung` in theo thu tu tu` dien?
-			Barca 3 - 18 Man City
+			// Barca 3 - 18 Man City
 			//28Tech Football Club 5 - 19 Newcastle United
 			//Chelsea 6 - 0 Newcastle United
 			//28Tech Football Club 18 - 12 Liverpool
