@@ -1,23 +1,30 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() { // dem so luong tu xuat hien lien tuc theo thu tu cua day
-			// aacducuucdcabczubduuuubaa
-			// => a2c1d1u1c1u2c1d1c1a1b1c1z1u1b1d1u4b1a2
+int main() { // cout tu theo tan xuat ke ben tu
+			// cach 01: a10c1d1u1c1u2c1d1c1a1b1c1z1u1b1d1u4b1a2
+			// => aaaaaaaaaacducuucdcabczubduuuubaa
 	string s; cin >> s;
-	vector<pair<char, int>> v;
-	int cnt = 1;
-	for(int i = 0; i<s.size();i++) {
-		if(s[i] == s[i+1]) {
-			cnt++;
+	for(int i = 0; i<s.size(); i++) {
+		int tmp = 1;
+		string so = "";
+		while(isdigit(s[i+tmp])) {
+			so+=s[i+tmp];
+			tmp++;
 		}
-		else {
-			v.push_back({s[i], cnt});
-			cnt = 1;
+		int x = stoi(so);
+		for(int j = 0; j<x; j++) {
+			cout << s[i];
 		}
+		i += tmp - 1;
 	}
-	for(pair<char,int> x : v) {
-		cout << x.first << x.second;
+	
+	cout << endl;
+	
+	char c; // cach 02: a10c1d1u1c1u2c1d1c1a1b1c1z1u1b1d1u4b1a2
+	int n;
+	while(cin >> c >> n) {
+		for(int i = 0; i<n; i++) cout << c;
 	}
 	
 	return 0;
