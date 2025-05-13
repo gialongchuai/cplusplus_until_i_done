@@ -3,7 +3,7 @@ using namespace std;
 
 int main() { // dem so luong tu xuat hien lien tuc theo thu tu cua day
 			// aacducuucdcabczubduuuubaa
-			// => a2c0d0u0c0u1c0d0c0a0b0c0z0u0b0d0u3b0a1
+			// => a2c1d1u1c1u2c1d1c1a1b1c1z1u1b1d1u4b1a2
 	string s; cin >> s;
 	vector<pair<char, int>> v;
 	int cnt = 1;
