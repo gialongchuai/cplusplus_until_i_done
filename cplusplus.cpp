@@ -1,108 +1,48 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-bool cmp(pair<string,int> a, pair<string,int> b) {
-	if(a.second!=b.second) {
-		return a.second > b.second;
-	} else return a.first < b.first;
-}
-
-int main() { // sap xep tong ban thang giam dan
-			// trung` in theo thu tu tu` dien?
-			// Barca 3 - 18 Man City
-			//28Tech Football Club 5 - 19 Newcastle United
-			//Chelsea 6 - 0 Newcastle United
-			//28Tech Football Club 18 - 12 Liverpool
-			//Manchester United 13 - 13 Aston Villa
-			//Arsenal 19 - 0 Aston Villa
-			//Barca 19 - 15 Man City
-			//Manchester United 19 - 6 Aston Villa
-			//Manchester United 19 - 13 Aston Villa
-			//Chelsea 15 - 3 Liverpool
-			//^Z
-			//Manchester United 51
-			//Man City 33
-			//Aston Villa 32
-			//28Tech Football Club 23
-			//Barca 22
-			//Chelsea 21
-			//Arsenal 19
-			//Newcastle United 19
-			//Liverpool 15
-	string s;
-	vector<string> v;
-	while(getline(cin,s)) {
-		stringstream ss(s);
-		string word;
-		while(getline(ss,word,'-')) {
-			v.push_back(word);
+int main() { // nhap tv, moi tv q tang k o vi tri left right
+			// theo mang hieu => mang cong don`
+			// 3 2 1 2 3 2 1
+			//3
+			//0 5 0
+			//0 3 1
+			//0 5 1
+			// => 5 4 3 4 4 3 1
+			// => 5 4 3 4 4 3 1
+	int n; cin >> n;
+	int a[n];
+	int mang_hieu[n];
+	for(int i = 0; i<n; i++){
+		cin >> a[i];
+	}
+	for(int i = 0; i<n; i++){
+		if(i==0) {
+			mang_hieu[0] = a[0];
+		} else {
+			mang_hieu[i] = a[i] - a[i-1];
 		}
+	}
+	int q; cin >> q;
+	while(q--) {
+		int l, r, tang; cin >> l >> r >> tang;
+		for(int i = l; i<=r; i++) {
+			a[i] += tang;
+		}
+		
+		mang_hieu[l] += tang;
+		mang_hieu[r+1] -= tang;
+	}
+	for(int x : a) {
+		cout << x << " ";
 	}
 	
-	map<string,int> m;
-	for(int i = 0; i<v.size(); i++) {
-		if(i%2==0) {
-			stringstream ss(v[i]);
-			string word;
-			vector<string> tmp;
-			while(ss>>word) {
-				tmp.push_back(word);
-			}
-			string ten_db = "";
-			for(int i = 0; i<tmp.size() - 1; i++) {
-				if(i!=tmp.size()-2) {
-					ten_db += tmp[i] + " ";
-				} else {
-					ten_db += tmp[i];
-				}
-			}
-			int so_ban = stoi(tmp[tmp.size()-1]);
-			if(m.count(ten_db)) {
-				int x = m[ten_db];
-				so_ban+=x;
-				m[ten_db] = so_ban;
-			} else {
-				m.insert({ten_db,so_ban});
-			}
-		} else {
-			stringstream ss(v[i]);
-			string word;
-			vector<string> tmp;
-			while(ss>>word) {
-				tmp.push_back(word);
-			}
-			string ten_db = "";
-			for(int i = 1; i<tmp.size(); i++) {
-				if(i!=tmp.size()-1) {
-					ten_db += tmp[i] + " ";
-				} else {
-					ten_db += tmp[i];
-				}
-			}
-			int so_ban = stoi(tmp[0]);
-			if(m.count(ten_db)) {
-				int x = m[ten_db];
-				so_ban+=x;
-				m[ten_db] = so_ban;
-			} else {
-				m.insert({ten_db,so_ban});
-			}
-		}
-	}
-	vector<pair<string,int>> v_pair;
-	for(pair<string,int> x : m) {
-		v_pair.push_back(x);
- 	}
- 	sort(v_pair.begin(),v_pair.end(),cmp);
-	for(pair<string,int> x : v_pair) {
-		cout << x.first << " " << x.second << endl;
+	cout << endl;
+	int tong = 0;
+	for(int x : mang_hieu) {
+		tong += x;
+		cout << tong << " ";
 	}
 	
 	return 0;
 }
-
-
-
-
-
-
