@@ -1,48 +1,54 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+bool cmp(int a, int b) {
+	return a > b;
+}
+
 int main() { // nhap tv, moi tv q tang k o vi tri left right
-			// theo mang hieu => mang cong don`
-			// 3 2 1 2 3 2 1
-			//3
-			//0 5 0
-			//0 3 1
-			//0 5 1
-			// => 5 4 3 4 4 3 1
-			// => 5 4 3 4 4 3 1
-	int n; cin >> n;
+			// 6 2
+			// 5 2 5 3 5 1
+			//2 5 : truy cap 2 toi 5
+			//2 4 : truy cap 2 toi 4
+			// 0 2 2 2 1 0 : result
+			// => 33
+			// => 33
+	int n, q; cin >> n >> q;
 	int a[n];
-	int mang_hieu[n+1]; // mang hieu nen la n+1
-	for(int i = 0; i<n; i++){
+	for(int i = 0; i<n; i++) {
 		cin >> a[i];
 	}
-	for(int i = 0; i<n; i++){
-		if(i==0) {
-			mang_hieu[0] = a[0];
-		} else {
-			mang_hieu[i] = a[i] - a[i-1];
-		}
-	}
-	int q; cin >> q;
+	int mang_hieu[n+1] = {0};
+	int b[n] = {0};
 	while(q--) {
-		int l, r, tang; cin >> l >> r >> tang;
+		int l, r; cin >> l >> r;
+		l--, r--;
 		for(int i = l; i<=r; i++) {
-			a[i] += tang;
+			b[i]++;
 		}
-		
-		mang_hieu[l] += tang;
-		mang_hieu[r+1] -= tang; // mang hieu nen la n+1
+//		int le = l-1;
+//		int ri = r-1;
+		mang_hieu[l] += 1;
+		mang_hieu[r + 1] -= 1;
 	}
-	for(int x : a) {
-		cout << x << " ";
+	sort(a,a+n,cmp);
+	sort(b,b+n,cmp);
+	int con = 0;
+	for(int i = 0; i<n; i++) {
+		con+=mang_hieu[i];
+		mang_hieu[i] = con; // co the dung mang khac thay vi` dung` mang hieu!!!!
 	}
-	
-	cout << endl;
+	sort(mang_hieu, mang_hieu + n, cmp);
 	int tong = 0;
 	for(int i = 0; i<n; i++) {
-		tong += mang_hieu[i];
-		cout << tong << " ";
+		tong += a[i] * b[i];
 	}
-	
+	cout << tong << endl;
+	int tong_2 = 0;
+	for(int i = 0; i<n; i++) {
+		tong_2 += a[i] * b[i];
+	}
+	cout << tong_2 << endl;
+		
 	return 0;
 }
