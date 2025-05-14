@@ -12,7 +12,7 @@ int main() { // nhap tv, moi tv q tang k o vi tri left right
 			// => 5 4 3 4 4 3 1
 	int n; cin >> n;
 	int a[n];
-	int mang_hieu[n];
+	int mang_hieu[n+1]; // mang hieu nen la n+1
 	for(int i = 0; i<n; i++){
 		cin >> a[i];
 	}
@@ -31,7 +31,7 @@ int main() { // nhap tv, moi tv q tang k o vi tri left right
 		}
 		
 		mang_hieu[l] += tang;
-		mang_hieu[r+1] -= tang;
+		mang_hieu[r+1] -= tang; // mang hieu nen la n+1
 	}
 	for(int x : a) {
 		cout << x << " ";
@@ -39,8 +39,8 @@ int main() { // nhap tv, moi tv q tang k o vi tri left right
 	
 	cout << endl;
 	int tong = 0;
-	for(int x : mang_hieu) {
-		tong += x;
+	for(int i = 0; i<n; i++) {
+		tong += mang_hieu[i];
 		cout << tong << " ";
 	}
 	
