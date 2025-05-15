@@ -1,86 +1,50 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int a[500][500];
-int prefix[500][500];
-int prefix_2[500][500];
+int C[1005][1005];
 
-int main() { // tinh tong hcn ben trong ma tran
-			//7 7
-			//2 1 1 5 5 6 7
-			//2 5 4 2 2 2 8
-			//1 4 3 4 2 3 9
-			//3 2 2 2 1 2 2
-			//4 2 5 2 2 1 2
-			//1 3 3 2 4 1 3
-			//3 1 6 1 5 4 5
-			//
-			// 4 2    // hang 2 cot 3 => hang 3 cot 4
-			// 3 4*
-			
-			// chuyen thanh ma tran cong don prefix
-			// 2 3   4 9 14 20 27
-			// 4 10 15 22 29 37 52
-			// 5 15 23 34 43 54 78
-			//8 20 30 43 53 66 92
-			//12 26 41 56 68 82 110
-			//13 30 48 65 81 96 127
-			//16 34 58 76 97 116 152
-			
-			// 4* = 34 - (tren 22 = 9) - (trai 23 = 15) 
-			// = 10 + (1:2 = 3 // do - tren - trai da duplicate) = 13 == 4+2+3+4
-	int n, m; cin >> n >> m;
-
-	for(int i = 1; i<=n ;i++) {
-		for(int j = 1; j <=m; j++) {
-			cin >> a[i][j];
-		}
-	}
-	cout << endl;
-	for(int i = 1; i<=n ;i++) {
-		for(int j = 1; j <=m; j++) {
-			cout << a[i][j] << " ";
-		}
-		cout << endl;
-	}
-	
-	for(int i = 1; i<=n ;i++) {
-		for(int j = 1; j <=m; j++) {
-			int tong = 0;
-			for(int i1 = 0; i1 <=i; i1++) {
-				for(int j1 = 0; j1 <= j; j1++) {
-					tong += a[i1][j1];
-				}
-			}
-			prefix[i][j] = tong;
-		}
-	}
-	
-	cout << endl;
-	for(int i = 1; i<=n ;i++) {
-		for(int j = 1; j <=m; j++) {
-			cout << prefix[i][j] << " ";
-		}
-		cout << endl;
-	}
-	
-	for(int i=1; i<=n; i++) { // i-1 or j-1 tai hang 1 cot 1 thi no' = 0 tranh loi truy cap !!!!!!!
-		for(int j =1; j<=m;j++) {
-			prefix_2[i][j] = prefix_2[i-1][j] + prefix_2[i][j-1] - prefix_2[i-1][j-1] + a[i][j];
-		}
-	}
-	
-	cout << endl;
-	for(int i = 1; i<=n ;i++) {
-		for(int j = 1; j <=m; j++) {
-			cout << prefix_2[i][j] << " ";
-		}
-		cout << endl;
-	}
-	int h1, h2, cot1, cot2;
-	cin >> h1 >> h2 >> cot1 >> cot2; // hang 2 cot 3 => hang 3 cot 4 // => 2 3 3 4
-	int result = prefix_2[h2][cot2] - prefix_2[h1-1][cot2] - prefix_2[h2][cot1-1] + prefix_2[h1-1][cot1-1];
-	cout << result; // 13 = 4+2+3+4
+int main() { // xay dung tam giac pascal
+		//1 		// C00
+		//1 1 		// C01 C11
+		//1 2 1		// C02 C12 C22
+		//1 3 3 1
+		//1 4 6 4 1
+		//1 5 10 10 5 1
+		//1 6 15 20 15 6 1
+		// => ung dung tinh to hop chap k cua n chia du 10^9+7
 		
+		// tv : 5
+		//9 0
+		//13 8
+		//16 7
+		//9 9
+		//7 6
+		//		result : 
+		//5
+		//9 0
+		//1
+		//13 8
+		//1287
+		//16 7
+		//11440
+		//9 9
+		//1
+		//7 6
+		//7
+	for(int i = 0; i<1000; i++) {
+		for(int j = 0; j <= i; j++) {
+			if(j==0 || i == j) C[i][j] = 1; // cot 1 va` duong` cheo chinh'
+			else {
+				C[i][j] = C[i-1][j-1] + C[i-1][j];
+				C[i][j] %= 1000000007;
+			}
+		}
+	}
+	int q; cin >> q;
+	while(q--) {
+		int n, k; cin >> n >> k;
+		cout << C[n][k] << endl;
+	}
+	
 	return 0;
 }
