@@ -1,35 +1,26 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int prime[1000001];
-
-void sang() {
-	for(int i = 0; i <= 1000000; i++) {
+void sang(long long l, long long r) {
+	int prime[r-l+1];
+	for(long long i = 0; i<=r-l; i++){
 		prime[i] = 1;
 	}
-	
-	prime[0] = 0;
-	prime[1] = 0;
-	for(int i = 2 ; i*i <= 1000000; i++) { // check xem i bi danh dau la hop so chua moi tiep tuc loai bo
-		if(prime[i] == 1) { 			// boi cua i (tuc loai bo i*i) 
-			for(int j = i*i; j <= 1000000; j+=i) {
-				prime[j] = 0;
-			}
+	for(int i = 2; i*i<=r; i++) { // cong thuc tim boi dau tien lon hon l
+		for(long long j = max(1ll * i*i,(l+i-1) / i * i); j<=r; j+=i) { 
+			prime[j-l] = 0; // j-l
 		}
-		
 	}
+	for(long long i = max(2ll, l); i<=r ;i++) {
+		if(prime[i-l] == 1) { // i - l
+			cout << i << " ";
+		}
+	}
+ 	 
 }
 
-int main() { // 1 so co dung 3 uoc, binh phuong so nguyen to tuc la 1 uoc 1 chinh no va snt vua ^2
-	//	int n, x; cin >> n;
-			//  duoi 10
-			//4 9 25 49
-	sang();
-	for(int i = 0; i*i<= 100; i++) {
-		if(prime[i] == 1) {
-			cout << i*i << " ";
-		}
-	}
+int main() { // sang so nguyen to tren doan a b cuc lon
+	sang(10001000,10010000);
 	
 	return 0;
 }
