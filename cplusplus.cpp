@@ -1,41 +1,42 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() { // ve xem phim nho hon hoac bang
-			//5 4
-			//5 3 7 8 5
-			//4 6 6 6
-			//3 5 5 7 8
-			//3
-			//5
-			//5
-			//-1
-	int n, m; cin >> n >> m;
-	multiset<int> ms;
-	int a[m];
-	for(int i = 0; i<n; i++) {
-		int tmp; cin >> tmp;
-		ms.insert(tmp);
+int pos[100];
+
+int main() { // mang danh dau: dem day con co tong bang k
+			//10 7
+			//3 1 1 2 4 3 2 5 4 1
+			//
+			//3 4 5 7 11 14 16 21 25 26
+			//3 4 5 7 11 14 16 21 25 26
+			//4
+	int n, k; cin >> n >> k;
+	int a[n];
+	set<int> s;
+	for(int i = 0; i <n ;i++) {
+		cin >> a[i];
 	}
-	for(int &x : a) {
-		cin >> x;
+	for(int i =0; i<n; i++) {
+		if(i == 0) pos[0] = a[0];
+		int x = pos[i-1] + a[i];
+		pos[i] = x;
+		s.insert(x);
 	}
-//	cout << endl;
-	for(int x : ms) {
-		cout <<  x << " ";
+	int cnt = 0;
+	cout << endl;
+	for(int i = 0; i <n; i++) {
+		cout << pos[i] << " ";
 	}
-	cout << endl;	
-	multiset<int>::iterator it;
-	for(int x : a) {
-		it = ms.upper_bound(x); // tl: it = upper_bound(ms.begin(),ms.end(),x);
-		if(it!=ms.begin()) { // tranh dung cmt bi time limit
-			--it;
-			cout << *it << endl;
-			ms.erase(it); // xoa 1 ve tranh *it xoa all ve co gia tri bang *it
-		} else {
-			cout << -1 << endl;
-		}
+	cout << endl;
+	for(int x: s) {
+		cout << x << " ";
 	}
+	cout << endl;
+	if(s.count(k)) cnt++;
+	for(int i = 0; i <n; i++) {
+		if(s.count(pos[i] - k)) cnt++;
+	}
+	cout << cnt;
 
 	return 0;
 }
