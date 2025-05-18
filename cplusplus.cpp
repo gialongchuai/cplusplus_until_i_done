@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() { // ghep cap co tong bang k
+int main() { // ghep cap co tong nho hon k
 	int n, k; cin >> n >> k;
 	int a[n];
 	for(int i = 0; i<n; i++) {
@@ -16,8 +16,8 @@ int main() { // ghep cap co tong bang k
 	for(int i = 0; i < n; i++) {
 		int tim = k - a[i];
 		int *it = lower_bound(a+i+1,a+n,tim);
-		int *it2 = upper_bound(a+i+1,a+n,tim);
-		ans += it2-it;
+		it--;
+		ans +=it - (a+i+1); // khong tinh thang i hien tai
 	}
 	cout << ans;
 	
