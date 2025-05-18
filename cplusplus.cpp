@@ -3,13 +3,11 @@ using namespace std;
 
 int pos[100];
 
-int main() { // cach 02 : map : dem day con co tong bang k
-			//10 7
-			//3 1 1 2 4 3 2 5 4 1
-			//
-			//3 4 5 7 11 14 16 21 25 26
-			//3 4 5 7 11 14 16 21 25 26
-			//4
+int main() { // dem mang con do dai` bang 7: luu luon tan suat
+			//13 7
+			//3 -2 2 0 0 1 1 2 0 0 4 3 5
+			// 3 1 3 3 3 4 5 7 7 7 11 14 19 7 => tong cong don
+			//7
 	int n, k; cin >> n >> k;
 	int a[n];
 	for(int i = 0; i <n ;i++) {
@@ -20,11 +18,12 @@ int main() { // cach 02 : map : dem day con co tong bang k
 	int ans = 0;
 	for(int i = 0; i<n; i++) {
 		sum+=a[i];
-		if(m.count(sum-k)) ans++;
-		m[sum] = 1;
+		if(m.count(sum-k)) ans+=m[sum-k];
+		if(sum==k) ans++;
+		m[sum]++;
+		cout << sum << " ";
 	}
-	if(m.count(k)) ans++; // truong hop lo sum == k check trong for cung dc
-	cout << ans;
+	cout << endl << ans;
  
 	return 0;
 }
