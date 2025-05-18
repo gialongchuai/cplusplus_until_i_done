@@ -1,27 +1,31 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() { // ghep cap co tong lon hon k
+int main() { // dat 3 dau cong vao 3 so lon nhat khong thay doi so dau` tien
+			//6 3
+			//9560 5571 9008 3649 1473 3782
+			
+			// => 22799
 	int n, k; cin >> n >> k;
 	int a[n];
 	for(int i = 0; i<n; i++) {
 		cin >> a[i];  
 	}
-	sort(a,a+n);
+	sort(a+1,a+n, greater<int>()); // sort giam dan
 	for(int x : a) {
-		cout << x << " ";
+		cout << x << " " ;
 	}
 	cout << endl;
 	int ans = 0;
-	for(int i = 0; i<n; i++) {
-		int tim = k - a[i]; // phan tu khong phai chi so i
-		int *it = upper_bound(a+i+1,a+n,tim);
-		ans += n - (it - a);
+	for(int i = 0; i < n; i++) {
+		if(i <= k) {
+			ans += a[i];
+		} else {
+			ans -= a[i];
+		}
 	}
-
 	cout << ans;
 	
-
 	return 0;
 }
 
