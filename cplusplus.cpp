@@ -1,31 +1,42 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() { // dat 3 dau cong vao 3 so lon nhat khong thay doi so dau` tien
-			//6 3
-			//9560 5571 9008 3649 1473 3782
-			
-			// => 22799
-	int n, k; cin >> n >> k;
-	int a[n];
+int main() { // ve xem phim nho hon hoac bang
+			//5 4
+			//5 3 7 8 5
+			//4 6 6 6
+			//3 5 5 7 8
+			//3
+			//5
+			//5
+			//-1
+	int n, m; cin >> n >> m;
+	multiset<int> ms;
+	int a[m];
 	for(int i = 0; i<n; i++) {
-		cin >> a[i];  
+		int tmp; cin >> tmp;
+		ms.insert(tmp);
 	}
-	sort(a+1,a+n, greater<int>()); // sort giam dan
+	for(int &x : a) {
+		cin >> x;
+	}
+//	cout << endl;
+	for(int x : ms) {
+		cout <<  x << " ";
+	}
+	cout << endl;	
+	multiset<int>::iterator it;
 	for(int x : a) {
-		cout << x << " " ;
-	}
-	cout << endl;
-	int ans = 0;
-	for(int i = 0; i < n; i++) {
-		if(i <= k) {
-			ans += a[i];
+		it = ms.upper_bound(x); // tl: it = upper_bound(ms.begin(),ms.end(),x);
+		if(it!=ms.begin()) { // tranh dung cmt bi time limit
+			--it;
+			cout << *it << endl;
+			ms.erase(it); // xoa 1 ve tranh *it xoa all ve co gia tri bang *it
 		} else {
-			ans -= a[i];
+			cout << -1 << endl;
 		}
 	}
-	cout << ans;
-	
+
 	return 0;
 }
 
