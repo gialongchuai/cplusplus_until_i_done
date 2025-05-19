@@ -20,7 +20,7 @@ bool check() {
 
 void sinh() {
 	int i = n; 
-	while(i>1 && a[i] == 1) {
+	while(i>=1 && a[i] == 1) {
 		a[i] = 0;
 		i--;
 	}
