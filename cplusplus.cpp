@@ -1,37 +1,63 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int a[1000];
-int n, final = 0;
+int a[500];
+int n, k;
 
-void khoitao() {
-	cin >> n;
-	for(int i = 1; i<=n; i++) {
-		a[i] = 0;
+void khoitao(){
+	cin >> n >> k; // C 5 cua 9 : k=5 , n=9
+	for(int i = 1; i <= k; i++) {
+		a[i] = i;
 	}
 }
 
 void sinh() {
-	int i = n; 
-	while(i>=1 && a[i] == 1) {
-		a[i] = 0;
-		i--;
+	int i = k;
+	while(i>=1 && a[i]==n-k+i) {
+		i--; // tim phan tu dau tien chua dat gia tri max tinh tu ben phai
 	}
-	if(i==0) {
-		final = 1;
-	} else {
-		a[i] = 1;
+	a[i] += 1;	
+	int ans = 1; // 3 5 6 => 4 5 6
+	for(int j = i + 1; j<=k; j++) {
+		a[j] = a[i] + ans;
+		ans++;
 	}
 }
 
-int main() { // thuat toan sinh nhi phan
+bool check() { // kiem tra co dat gia tri cuoi 5 6 7 8 9
+	for(int i = 1; i<=k ; i++) {
+		if((n-k+i) != a[i]) return false;
+	}
+	return true;
+}
+
+int main() { // thuat toan sinh to hop tang dan
+			//6 4
+			//1 2 3 4
+			//1 2 3 5
+			//1 2 3 6
+			//1 2 4 5
+			//1 2 4 6
+			//1 2 5 6
+			//1 3 4 5
+			//1 3 4 6
+			//1 3 5 6
+			//1 4 5 6
+			//2 3 4 5
+			//2 3 4 6
+			//2 3 5 6
+			//2 4 5 6
+			//3 4 5 6
 	khoitao();
-	while(final == 0) {
-		for(int i = 1 ; i<=n; i++) {
-			cout << a[i] ;
+	while(!check()) {
+		for(int i = 1; i<=k; i++) {
+			cout << a[i] << " ";
 		}
 		cout << endl;
 		sinh();
+	}
+	for(int i = 1; i <=k; i++) {
+		cout << a[i] << " ";
 	}
 
 	return 0;
