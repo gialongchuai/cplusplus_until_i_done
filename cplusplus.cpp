@@ -2,7 +2,7 @@
 using namespace std;
 
 int a[1000];
-int n;
+int n, final = 0;
 
 void khoitao() {
 	cin >> n;
@@ -11,33 +11,27 @@ void khoitao() {
 	}
 }
 
-bool check() {
-	for(int i = 1 ; i<=n; i++) {
-		if(a[i] == 0) return false;
-	}
-	return true;
-}
-
 void sinh() {
 	int i = n; 
 	while(i>=1 && a[i] == 1) {
 		a[i] = 0;
 		i--;
 	}
-	a[i] = 1;
+	if(i==0) {
+		final = 1;
+	} else {
+		a[i] = 1;
+	}
 }
 
 int main() { // thuat toan sinh nhi phan
 	khoitao();
-	while(!check()) {
+	while(final == 0) {
 		for(int i = 1 ; i<=n; i++) {
 			cout << a[i] ;
 		}
 		cout << endl;
 		sinh();
-	}
-	for(int i = 1 ; i<=n; i++) {
-		cout << a[i] ;
 	}
 
 	return 0;
