@@ -51,7 +51,16 @@ int main() { // dem chuoi con to hop
 		}
 		cout << endl;
 	}
-	cout << stt << " " << v.size();
+	cout << endl << stt << " " << v.size() << endl << endl;
+	vector<vector<int>>::reverse_iterator it; // duyet nguoc vector 
+	for(it = v.rbegin(); it!=v.rend(); it++) { // duyet nguoc day con voi iterator
+		vector<int> x = *it;
+		vector<int>::iterator it_tamp;
+		for(it_tamp = x.begin(); it_tamp!=x.end(); it_tamp++) {
+			cout << *it_tamp;
+		}
+		cout << endl;
+	}
 
 	return 0;
 }
