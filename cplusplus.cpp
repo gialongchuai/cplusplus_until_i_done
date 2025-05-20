@@ -1,118 +1,41 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int a[500];
-int n, k, final = 1;
+int a[100];
+int n, final = 1;
 
-void khoitao(){
-	cin >> n >> k; // C 5 cua 9 : k=5 , n=9
-	for(int i = 1; i <= k; i++) {
+
+void khoitao() {
+	cin >> n;
+	for(int i = 1; i <=n; i++) {
 		a[i] = i;
 	}
 }
 
 void sinh() {
-	int i = k;
-	while(i>=1 && a[i]==n-k+i) {
-		i--; // tim phan tu dau tien chua dat gia tri max tinh tu ben phai
+	int i = n-1; 
+	while(i>=1 && a[i] > a[i+1]) {
+		i--;
 	}
 	if(i == 0) {
 		final = 0;
-	} else {
-			a[i] += 1;	
-		int ans = 1; // 3 5 6 => 4 5 6
-		for(int j = i + 1; j<=k; j++) {
-			a[j] = a[i] + ans;
-			ans++;
-		}
+	} {
+		int j = n;
+		while(a[i] > a[j]) j--;
+		swap(a[i], a[j]);
+		sort(a+i+1, a+n+1);
 	}
 }
 
-int main() { // dem chuoi con to hop voi vector duyet xuyen luc dia
-			// output behin !
+int main() { // thuat toan sinh hoan vi
 	khoitao();
-	vector<vector<int>> v;
-	int stt = 0;
 	while(final) {
-		stt++;
-		vector<int> v_tamp;
-		for(int i = 1; i<=k; i++) {
+		for(int i = 1; i<=n; i++) {
 			cout << a[i];
-			v_tamp.push_back(a[i]);
 		}
-		v.push_back(v_tamp);
 		cout << endl;
 		sinh();
 	}
-	cout << endl;
-	
-	for(vector<int> x : v) {
-		for(int j : x) {
-			cout << j;
-		}
-		cout << endl;
-	}
-	cout << endl << stt << " " << v.size() << endl << endl;
-	vector<vector<int>>::reverse_iterator it; // duyet nguoc vector 
-	for(it = v.rbegin(); it!=v.rend(); it++) { // duyet nguoc day con voi iterator
-		vector<int> x = *it;
-		vector<int>::iterator it_tamp;
-		for(it_tamp = x.begin(); it_tamp!=x.end(); it_tamp++) {
-			cout << *it_tamp;
-		}
-		cout << endl;
-	}
-		//6 4
-		//1234
-		//1235
-		//1236
-		//1245
-		//1246
-		//1256
-		//1345
-		//1346
-		//1356
-		//1456
-		//2345
-		//2346
-		//2356
-		//2456
-		//3456
-		//
-		//1234
-		//1235
-		//1236
-		//1245
-		//1246
-		//1256
-		//1345
-		//1346
-		//1356
-		//1456
-		//2345
-		//2346
-		//2356
-		//2456
-		//3456
-		//
-		//15 15
-		//
-		//3456
-		//2456
-		//2356
-		//2346
-		//2345
-		//1456
-		//1356
-		//1346
-		//1345
-		//1256
-		//1246
-		//1245
-		//1236
-		//1235
-		//1234
-
 
 	return 0;
 }
