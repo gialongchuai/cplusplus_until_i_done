@@ -14,7 +14,9 @@ long long binpow(long long a, long long b, long long c) {
 int main() { // binpow
 	//luy thua voi so mu cuc lon a^b voi b cuc lon
 	// luy thua nhi phan chia du cho c
-	cout << binpow(2,1000000000, 10);
+	
+	cout << binpow(20005,1000000000, 10) << endl; // 5
+	cout << binpow(20005%10,1000000000, 10); // 5 neu a qua lon co the chia du truoc 
 	
 	return 0;
 }
