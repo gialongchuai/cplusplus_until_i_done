@@ -19,7 +19,8 @@ void QL(int i) { // di tu 1 den n
 				QL(i+1); // quay chua toi i==n thi` tiep tuc quay (dua vao ngan xep)
 			}
 			used[j] = 0; // danh dung het trong if roi` thi` tra lai cho ngta
-						// chac chan la giai phong het nhanh di sang nhanh khac j++
+						// chac chan la giai phong het con chu khong phai ca nhanh 
+						//de di sang nhanh khac j++
 		}
 	}
 }
