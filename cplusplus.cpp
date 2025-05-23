@@ -17,7 +17,23 @@ int main() { // binpow
 	
 	cout << binpow(20005,1000000000, 10) << endl; // 5
 	cout << binpow(20005%10,1000000000, 10); // 5 neu a qua lon co the chia du truoc 
+	// neu so a qua lon phai dung string gom` 1000 bit vuot 64 bit long long
+	// duyet tung so chia du cho c truoc chu khong duoc 20005%10
 	
+	//5
+	//5
+	//
+	//5
+	cout << endl;
+	string s = "20005";
+	long long c = 10;
+	long long n = 0;
+	
+	for(char x : s) {
+		n = n * 10 + (x - '0');
+		n %= c;
+	}
+	cout << endl << binpow(n,1000000000,c);
 	return 0;
 }
 
