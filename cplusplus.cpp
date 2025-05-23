@@ -21,7 +21,22 @@ void QL(int i) { // gia tri ban dau bat dau voi gia tri ban dau la 1
 int main() { // quay lui sinh nhi phan
 	cin >> n >> k;
 	QL(1);
-		
+	//	6 4
+	//1234
+	//1235
+	//1236
+	//1245
+	//1246
+	//1256
+	//1345
+	//1346
+	//1356
+	//1456
+	//2345
+	//2346
+	//2356
+	//2456
+	//3456
 	return 0;
 }
 
