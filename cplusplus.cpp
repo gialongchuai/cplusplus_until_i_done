@@ -1,18 +1,18 @@
 #include <bits/stdc++.h>
 using namespace std;
 int a[100];
-int n;
+int n; // gia tri ket thuc
 
-void QL(int i) {
-	for(int j = 0; j <= 1; j++) {
-		a[i] = j;
+void QL(int i) { // gia tri ban dau bat dau
+	for(int j = 0; j <= 1; j++) { // cac gia tri can luu tru
+		a[i] = j; // luu tru
 		if(i==n) {
-			for(int k = 1; k <=n; k++) {
+			for(int k = 1; k <=n; k++) { // du end in ra
 				cout << a[k];	
 			}
 			cout << endl;
 		} else {
-			QL(i+1);
+			QL(i+1); // try dat end
 		}
 	}
 }
