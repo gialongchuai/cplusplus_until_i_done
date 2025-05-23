@@ -1,43 +1,56 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int a[100][100];
-int n;
-int used[100];
-bool check = true;
-string s = "";
+char a[100][100];
+int n, m;
+int used[100][100];
+bool check = false;
+string s;
 
-void Try(int i, int j) {
-	if(i==n && j==n) {
-		cout << s << endl;
-		check = false;
+int dx[4] = {-1, 0, 0, 1};
+int dy[4] = {0, -1, 1, 0};
+
+void Try(int i, int j, int pos) {
+	if(s.size() == pos) { // da di duoc den s tuc pos = size of s
+		check = true;
 		return;
 	}
-	
-	if(i+1 <=n && a[i+1][j] == 1) {
-		s+="D";
-		Try(i+1,j);
-		s.pop_back();
-	}
-	if(j+1 <=n && a[i][j+1] == 1) {
-		s+="R";
-		Try(i,j+1);
-		s.pop_back();
+	for(int k = 0; k<4; k++) {
+		int x = i + dx[k];
+		int y = j + dy[k]; // pos da tinh tu chu cai xung neu giong thi try chu cai tiep theo of s
+		if(x <= n && x>=1 && y>=1 && y <= m && used[x][y] == 0 && a[x][y] == s[pos]) {
+			used[x][y] = 1; // khong tinh di lai
+			Try(x,y,pos+1); // ki tu tiep theo trong s
+			used[x][y] = 0; // tra de di cai khac
+		}
 	}
 }
 
-int main() { // con chuot tu 1:1 di den n:n, neu khong di den cout -1
-	cin >> n;
-	for(int i = 1; i<=n; i++) {
-		for(int j = 1; j<=n; j++) {
+int main() { // chu cai bat ki trong ma tran tao thanh` chuoi S 
+			//khong tinh tai vi tri bat dau
+	cin >> n >> m;
+	for(int i= 1; i<=n; i++) {
+		for(int j = 1; j<=m; j++) {
 			cin >> a[i][j];
 		}
 	}
-	cout << endl;
-	Try(1,1);
-	if(check) {
-		cout << -1;
+	cin >> s;
+	
+	for(int i= 1; i<=n; i++) { // 1
+		for(int j = 1; j<=m; j++) { // 2+1: xet tung chu cai trong ma tran
+			if(a[i][j] == s[0]) {
+				used[i][j] = 1; // khong cho di lai
+				Try(i,j,1); // di tiep chu cai thu 2 cua xau s
+				used[i][j] = 0; // tra lai
+			}
+		}
 	}
+	if(check) {
+		cout << "Yes";
+	} else {
+		cout << "No";
+	}
+	
 	
 	return 0;
 }
