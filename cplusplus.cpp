@@ -1,50 +1,31 @@
 #include <bits/stdc++.h>
 using namespace std;
-int a[100];
-int n, k; // gia tri ket thuc
 
-void QL(int i) { // gia tri ban dau bat dau voi gia tri ban dau la 1
-	for(int j = a[i-1]+1; j <= n-k+i; j++) { // cac gia tri can luu tru
-		a[i] = j; // luu tru voi j luon lon hon 1 don vi
-		if(i==k) {
-			for(int e = 1; e <=k; e++) { // du end in ra
-				cout << a[e];	
+int a[100];
+int n;
+int used[100];
+
+void QL(int i) { // di tu 1 den n
+	for(int j = 1; j <= n; j++) {
+		if(used[j] == 0) {
+			a[i] = j;
+			used[j] = 1; // danh dau so dung roi khong dung lai
+			if(i==n) { // dat den n in ra
+				for(int k =1 ; k<=n; k++) {
+					cout << a[k];
+				}
+				cout << endl;
+			} else {
+				QL(i+1); // quay chua toi i==n thi` tiep tuc quay (dua vao ngan xep)
 			}
-			cout << endl;
-		} else {
-			QL(i+1); // try dat end
+			used[j] = 0; // danh dung het trong if roi` thi` tra lai cho ngta
 		}
 	}
 }
 
-
-int main() { // quay lui sinh nhi phan
-	cin >> n >> k;
+int main() { // thuat toan sinh hoan vi
+	cin >> n;
 	QL(1);
-	//	6 4
-	//1234
-	//1235
-	//1236
-	//1245
-	//1246
-	//1256
-	//1345
-	//1346
-	//1356
-	//1456
-	//2345
-	//2346
-	//2356
-	//2456
-	//3456
+	
 	return 0;
 }
-
-
-
-
-
-
-
-
-
