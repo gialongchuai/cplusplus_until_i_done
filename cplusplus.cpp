@@ -13,7 +13,7 @@ void khoitao() {
 }
 
 void sinh() {
-	int i = n-1; 
+	int i = n-1; // bat dau voi n-1 de den duoc voi so dau tien nho hon thang a[i]
 	while(i>=1 && a[i] > a[i+1]) {
 		i--;
 	}
@@ -21,8 +21,8 @@ void sinh() {
 		final = 0;
 	} {
 		int j = n;
-		while(a[i] > a[j]) j--;
-		swap(a[i], a[j]);
+		while(a[i] > a[j]) j--; // di den thang` lon hon no la dung ngay
+		swap(a[i], a[j]); // doi cho xong sap xep day sau tang dan
 		sort(a+i+1, a+n+1);
 	}
 }
