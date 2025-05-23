@@ -1,14 +1,14 @@
 #include <bits/stdc++.h>
 using namespace std;
 int a[100];
-int n; // gia tri ket thuc
+int n, k; // gia tri ket thuc
 
-void QL(int i) { // gia tri ban dau bat dau
-	for(int j = 0; j <= 1; j++) { // cac gia tri can luu tru
-		a[i] = j; // luu tru
-		if(i==n) {
-			for(int k = 1; k <=n; k++) { // du end in ra
-				cout << a[k];	
+void QL(int i) { // gia tri ban dau bat dau voi gia tri ban dau la 1
+	for(int j = a[i-1]+1; j <= n-k+i; j++) { // cac gia tri can luu tru
+		a[i] = j; // luu tru voi j luon lon hon 1 don vi
+		if(i==k) {
+			for(int e = 1; e <=k; e++) { // du end in ra
+				cout << a[e];	
 			}
 			cout << endl;
 		} else {
@@ -19,7 +19,7 @@ void QL(int i) { // gia tri ban dau bat dau
 
 
 int main() { // quay lui sinh nhi phan
-	cin >> n;
+	cin >> n >> k;
 	QL(1);
 		
 	return 0;
