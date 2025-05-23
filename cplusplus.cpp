@@ -1,66 +1,19 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, final = 0;
-int a[500];
-int cnt;
-
-void khoitao() {
-	cin >> n;
-	cnt = 1;
-	a[cnt] = n;
-}
-
-void sinh() {
-	int i = cnt; // tinh so vong lap do khong co dinh nhu n
-	while(i>=1 && a[i] == 1) {
-		i--;
-	}
-	if(i==0){
-		final = 1;
+long long binpow(long long a, long long b) {
+	if(b==0) return 1; // tuc a^0 thi return 1 
+	long long X = binpow(a, b/2); // behind chia do de toi 2^0 nhan de quy lai
+	if(b%2==0) { // neu chan thi khong can * a vd : 2^100 = 2^50 * 2^50 
+		return X * X;  // else 2^100 = 2^50 * 2^50 * 2 
 	} else {
-		--a[i]; // d : con thieu di qua bao nhieu so 1 cong don them ca --a[i] + 1 vao`
-				// thay vi cong cac so dau roi` lay n - (sum)
-		int d = cnt - i + 1;
-		int x = d / a[i]; // tinh so vong lap de gan a[cnt] chia het cho a[i] 
-		int r = d % a[i]; // neu du gan vao cnt cuoi
-		cnt = i; // i giam ma cnt khong giam, nen cau phai update lai cnt
-		for(int j = 1; j<=x; j++) {
-			cnt++;
-			a[cnt] = a[i];
-		}
-		if(r!=0) {
-			cnt++;
-			a[cnt] = r;
-		}
+		return X * X * a;
 	}
 }
 
-int main() { // thuat toan sinh phan hoach
-	khoitao();
-	while(final == 0) {
-		for(int i = 1; i<=cnt; i++) {
-			cout << a[i] << " ";
-		}
-		sinh();
-		cout << endl;
-	}
-		//7
-		//7
-		//6 1
-		//5 2
-		//5 1 1
-		//4 3
-		//4 2 1
-		//4 1 1 1
-		//3 3 1
-		//3 2 2
-		//3 2 1 1
-		//3 1 1 1 1
-		//2 2 2 1
-		//2 2 1 1 1
-		//2 1 1 1 1 1
-		//1 1 1 1 1 1 1
+int main() { // binpow
+	//luy thua voi so mu cuc lon a^b voi b cuc lon
+	cout << binpow(2,13);
 	
 	return 0;
 }
