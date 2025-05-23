@@ -1,39 +1,27 @@
 #include <bits/stdc++.h>
 using namespace std;
+int a[100];
+int n;
 
-long long binpow(long long a, long long b, long long c) {
-	if(b==0) return 1; // tuc a^0 thi return 1 
-	long long X = binpow(a, b/2, c); // behind chia do de toi 2^0 nhan de quy lai
-	if(b%2==0) { // neu chan thi khong can * a vd : 2^100 = 2^50 * 2^50 
-		return (X%c) *(X%c) % c;  // else 2^100 = 2^50 * 2^50 * 2 
-	} else {
-		return (X%c) *(X%c) % c * (a%c) % c;
+void QL(int i) {
+	for(int j = 0; j <= 1; j++) {
+		a[i] = j;
+		if(i==n) {
+			for(int k = 1; k <=n; k++) {
+				cout << a[k];	
+			}
+			cout << endl;
+		} else {
+			QL(i+1);
+		}
 	}
 }
 
-int main() { // binpow
-	//luy thua voi so mu cuc lon a^b voi b cuc lon
-	// luy thua nhi phan chia du cho c
-	
-	cout << binpow(20005,1000000000, 10) << endl; // 5
-	cout << binpow(20005%10,1000000000, 10); // 5 neu a qua lon co the chia du truoc 
-	// neu so a qua lon phai dung string gom` 1000 bit vuot 64 bit long long
-	// duyet tung so chia du cho c truoc chu khong duoc 20005%10
-	
-	//5
-	//5
-	//
-	//5
-	cout << endl;
-	string s = "20005";
-	long long c = 10;
-	long long n = 0;
-	
-	for(char x : s) {
-		n = n * 10 + (x - '0');
-		n %= c;
-	}
-	cout << endl << binpow(n,1000000000,c);
+
+int main() { // quay lui sinh nhi phan
+	cin >> n;
+	QL(1);
+		
 	return 0;
 }
 
