@@ -1,56 +1,36 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-char a[100][100];
-int n, m;
-int used[100][100];
-bool check = false;
-string s;
+int a[100];
+int n;
+int xuoi[100], nguoc[100], cot[100];
 
-int dx[4] = {-1, 0, 0, 1};
-int dy[4] = {0, -1, 1, 0};
-
-void Try(int i, int j, int pos) {
-	if(s.size() == pos) { // da di duoc den s tuc pos = size of s
-		check = true;
-		return;
-	}
-	for(int k = 0; k<4; k++) {
-		int x = i + dx[k];
-		int y = j + dy[k]; // pos da tinh tu chu cai xung neu giong thi try chu cai tiep theo of s
-		if(x <= n && x>=1 && y>=1 && y <= m && used[x][y] == 0 && a[x][y] == s[pos]) {
-			used[x][y] = 1; // khong tinh di lai
-			Try(x,y,pos+1); // ki tu tiep theo trong s
-			used[x][y] = 0; // tra de di cai khac
+void Try(int i) { // i quay toi n lot duoc vao if thi` in ra
+	for(int j = 1; j<=n; j++) {
+		if(xuoi[i-j+n] == 0 && nguoc[i+j-1] == 0 && cot[j] == 0) { // dam bao dat tai vi tri nay khong bi an
+			a[i] = j; // a[hang] = cot;
+			xuoi[i-j+n] = 1; nguoc[i+j-1] = 1; cot[j] = 1; // dam bao duong cheo chinh, phu, va cot khong duoc dung lai
+													// tuc la cac con khac khong bi an nhau
+			if(i==n) { // dam bao het vong for phai thoa man, quay toi 8 ma khong thoa if thi` backtrack
+				for(int row = 1; row<=n; row++) { // hang
+					for(int col =1; col <=n; col++) { // cot
+						if(a[row] == col) cout << "#"; // a[hang] = cot
+						else cout << ".";
+					}
+					cout << endl;
+				}
+				cout << endl;
+			} else {
+				Try(i+1); // co gang toi 8 de in ra voi dieu kien phai nhay vao if khong ay backtrack
+			} // neu quay tiep toi thang kia khong thoa
+			xuoi[i-j+n] = 0; nguoc[i+j-1] = 0; cot[j] = 0; // tra lai cho thang cu di
 		}
 	}
 }
 
-int main() { // chu cai bat ki trong ma tran tao thanh` chuoi S 
-			//khong tinh tai vi tri bat dau
-	cin >> n >> m;
-	for(int i= 1; i<=n; i++) {
-		for(int j = 1; j<=m; j++) {
-			cin >> a[i][j];
-		}
-	}
-	cin >> s;
-	
-	for(int i= 1; i<=n; i++) { // 1
-		for(int j = 1; j<=m; j++) { // 2+1: xet tung chu cai trong ma tran
-			if(a[i][j] == s[0]) {
-				used[i][j] = 1; // khong cho di lai
-				Try(i,j,1); // di tiep chu cai thu 2 cua xau s
-				used[i][j] = 0; // tra lai
-			}
-		}
-	}
-	if(check) {
-		cout << "Yes";
-	} else {
-		cout << "No";
-	}
-	
+int main() { // 
+	cin >> n;
+	Try(1);
 	
 	return 0;
 }
