@@ -1,39 +1,56 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-long long F[100];
+long long mod = 1e9 + 7;
 
-string Find(long long n, long long k) {
-	cout << n << " " << k << endl;
-	if(n==1) return "28TECH";
-	if(n==2) return "C++";
-	if(n==3) {
-		if(k==1) {
-			return "DSA";
-		} else {
-			return "JAVA";
+struct matran{
+	long long a[2][2];
+	friend matran operator * (matran x, matran y) {
+		matran kq;
+		for(int i = 0; i<2; i++) {
+			for(int j = 0; j<2; j++) {
+				kq.a[i][j] = 0;
+				for(int k = 0; k <2; k++) {
+					kq.a[i][j] += (x.a[i][k]*y.a[k][j]);
+					kq.a[i][j] %= mod; // vuot qua mod moi bat dau chia du 
+				}
+			}	
 		}
+		return kq;
 	}
-	if(k<=F[n-3]) {
-		return Find(n-3, k);
-	} else if(k<=F[n-2]+F[n-3]) {
-		return Find(n-2, k-F[n-3]);
+};
+
+matran binpow(matran x, long long n) { // luy thua nhi phan => luy thua ma tran
+	if(n==1) return x;
+	matran X = binpow(x, n/2);
+	if(n%2==0) {
+		return X * X;
 	} else {
-		return Find(n-1, k-F[n-3]-F[n-2]);
+		return X * X * x;
 	}
 }
 
 int main() {
-	F[1] = 1, F[2] = 1, F[3] = 2;	
-	for(int i = 4; i<=60; i++) {
-		F[i] = F[i-3] + F[i-2] + F[i-1];
+	matran x;
+	x.a[0][0] = 1;
+	x.a[0][1] = 1;
+	x.a[1][0] = 1;
+	x.a[1][1] = 0;
+	
+	matran y;
+	y.a[0][0] = 1;
+	y.a[0][1] = 1;
+	y.a[1][0] = 1;
+	y.a[1][1] = 0;
+	for(int i = 1; i <=10; i++) {
+		x=x*y;
 	}
-
-	int tv; cin >> tv;
-	while(tv--) {
-		long long n, k; cin >> n >> k;
-		cout << Find(n,k) << endl;
-	}
+	cout << x.a[0][1] << endl; // cout 89
+	
+	matran tmp = binpow(y, 11); // khong truyen x do x da bi thay doi
+	cout << tmp.a[0][1]; // cout 89
+	
+	return 0;
 }
 
 
