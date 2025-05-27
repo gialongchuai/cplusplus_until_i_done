@@ -1,49 +1,29 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n;
-int a[100][100];
-int used[100];
-int mang[100];
-int sum = 0;
-int min_val = INT_MAX; int cmin = INT_MAX;
-void Try(int i) { 
-	for(int j = 1; j<=n; j++) { 
-		if(used[j] == 0) {
-			mang[i] = j; 
-			used[j] = 1;
-			sum+=a[mang[i-1]][mang[i]]; 
-			if(i==n) { 
-				for(int t = 2; t<=n; t++) { 
-					cout << mang[t-1] << " " << mang[t] << endl; 
-					if(t==n) {
-						cout << mang[t] << " " << 1 << endl; 
-					}
-				}
- 				sum+=a[mang[i]][1]; 
-				min_val = min(min_val,sum); // chay lan` dau` de cap nhat min_val 
-				cout << sum << endl << endl;
-				sum-=a[mang[i]][1]; 
-			} else if(sum + (n-i+1) * cmin < min_val) { // sau do chap nhan nhung doan duong cua cac
-				Try(i+1); // doan duong con` lai la min nho nhat trong matrix
-			}
-			sum-=a[mang[i-1]][mang[i]];
-			used[j] = 0; 
-		} 
+long long F[100];
+
+char Find(long long n, long long k) {
+	cout << n << " " << k << endl;
+	if(n==1) return 'A';
+	if(n==2) return 'B';
+	if(k<=F[n-2]) {
+		return Find(n-2, k);
+	} else {
+		return Find(n-1, k-F[n-2]);
 	}
 }
 
-int main() { 
-	cin >> n;
-	for(int i = 1; i<=n; i++) {
-		for(int j =1; j<=n; j++) {
-			cin >> a[i][j];
-			if(a[i][j]) cmin = min(cmin, a[i][j]); // tim min
-		}
+int main() {
+	F[1] = 0, F[1] = 1;
+	for(int i = 2; i<=92; i++) {
+		F[i] = F[i-2] + F[i-1];
 	}
-	used[1] = 1, mang[1] = 1; 
-	Try(2); 
-	cout << min_val;
+
+	// A B AB BAB
+	long long n, k;
+	cin >> n >> k;
+	cout << Find(n,k);
 }
 
 
