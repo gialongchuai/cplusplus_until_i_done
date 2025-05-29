@@ -1,32 +1,38 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-int main() { // bai toan con soc nhay trong mang voi buoc nhay k
-			//5 3
-			//5 1 1 4 7
-			//0 4 4 1 4
-			//4
-	int n, k; cin >> n >> k;
+int main() { // day con co chieu dai` dai` nhat
+			//10
+			//1 3 1 2 4 7 1 5 6 2
+			//1 2 1 2 3 4 1 4 5 2
+			//5
+			// note: 1 2 4 5 6
+	int n; cin >> n;
 	int a[n];
-	for(int i = 0; i <n; i++) {
+	int F[n];
+	for(int &i : F) i=1;
+	for(int i = 0; i<n; i++) {
 		cin >> a[i];
 	}
-	int F[n];
-	F[0] = 0;
-	for(int i=1; i<n; i++) {
-		F[i] = INT_MAX;
-		for(int j = 1; j <= k; j++) { // lui tu` 1 den k
-			if(i-j >=0) { // dam bao tinh chi truy cap >=a[0]
-				F[i] = min(F[i], F[i-j] + abs(a[i] - a[i-j]));
+	for(int i = 0; i<n; i++) {
+		int max_val = 1;
+		bool check = false;
+		for(int j = i-1; j >=0; j--) {
+			if(a[j]<a[i]) {
+				check = true;
+				max_val = max(F[j], max_val);
 			}
 		}
+		if(check) F[i] = max_val + 1;
 	}
-	for(int x : F) {
-		cout << x << " ";
-	}
-	cout << endl << F[n-1];
+	for(int i : F) cout << i << " ";
+	cout << endl;
 	
- 	return 0;
+	int max_val = INT_MIN;
+	for(int x:F) max_val=max(x,max_val);
+	cout << max_val;
+
+	return 0;
 }
 
 
