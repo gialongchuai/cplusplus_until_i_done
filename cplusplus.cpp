@@ -1,36 +1,37 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int main() { // day con co chieu dai` dai` nhat
-			//10
-			//1 3 1 2 4 7 1 5 6 2
-			//1 2 1 2 3 4 1 4 5 2
-			//5
-			// note: 1 2 4 5 6
-	int n; cin >> n;
+int main() { // day con co tong = k hay khong ?
+			//4 12
+			//1 3 7 5
+			//0 1 2 3 4 5 6 7 8 9 10 11 12 // day f: voi moi gia tri coi mang a
+			//1 1 0 1 1 1 1 1 1 1 1  1  1 // co the tao thanh mang con bang khong (tuc bang 1)
+			//Yes
+	int n, k; cin >> n >> k;
 	int a[n];
-	int F[n];
-	for(int &i : F) i=1;
-	for(int i = 0; i<n; i++) {
-		cin >> a[i];
+	for(int &i : a) {
+		cin >> i;
 	}
-	for(int i = 0; i<n; i++) {
-		int max_val = 1;
-		bool check = false;
-		for(int j = i-1; j >=0; j--) {
-			if(a[j]<a[i]) {
-				check = true;
-				max_val = max(F[j], max_val);
-			}
-		}
-		if(check) F[i] = max_val + 1;
-	}
-	for(int i : F) cout << i << " ";
-	cout << endl;
+	int f[k+1] = {0}; // luu mang tu` 0 den k
+	f[0] = 1;// bai toan con cho tai vi tri dau luon = 1
 	
-	int max_val = INT_MIN;
-	for(int x:F) max_val=max(x,max_val);
-	cout << max_val;
+	for(int i=0; i<n; i++) { // voi moi phan tu kiem tra xem
+		for(int j=k; j>=a[i]; j--) { // tu vi tri k toi phan tu dang xet
+			if(f[j - a[i]]) f[j] = 1; // lay hieu xem f[hieu] = 1 hay khong
+		} // bang 1 tuc la co tong day con co the tao thanh` vi tri a[i] dang xet
+	}	// bat f = 1
+	for(int i = 0; i<=12; i++) {
+		cout << i << " ";
+	}
+
+	cout << endl;
+	for(int i = 0; i<=12; i++) {
+		cout << f[i] << " ";
+	}
+	
+	cout << endl;
+	if(f[k]) cout << "Yes";
+	else cout << "No";
 
 	return 0;
 }
