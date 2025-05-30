@@ -1,39 +1,76 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int main() { // day con co tong = k hay khong ?
-			//4 12
-			//1 3 7 5
-			//0 1 2 3 4 5 6 7 8 9 10 11 12 // day f: voi moi gia tri coi mang a
-			//1 1 0 1 1 1 1 1 1 1 1  1  1 // co the tao thanh mang con bang khong (tuc bang 1)
-			//Yes
-	int n, k; cin >> n >> k;
-	int a[n];
-	for(int &i : a) {
-		cin >> i;
+int main() { // tim chuoi con dai` nhat khong lien tiep 
+			//abzuvt adxuzv
+			//1 2 3 4 5 6
+			//a b z u v t
+			//a d x u z v
+			//1 2 3 4 5 6
+			
+			//0 0 0 0 0 0 0
+			//0 1 1 1 1 1 1
+			//0 1 1 1 1 1 1
+			//0 1 1 1 1 2 2
+			//0 1 1 1 2 2 2
+			//0 1 1 1 2 2 3
+			//0 1 1 1 2 2 3
+			
+			//3 => result : auv
+	string x, y; cin >> x >> y;
+	int n = x.size();
+	int m = y.size();
+	char s[500]; // khong duoc s[n+1] nhe' : bp => string s = " " + x;
+	char t[500];
+	for(int i=1; i<=n; i++) { // luu tung string vao mang s char va` t char start tu` 1
+		s[i] = x[i-1];
 	}
-	int f[k+1] = {0}; // luu mang tu` 0 den k
-	f[0] = 1;// bai toan con cho tai vi tri dau luon = 1
-	
-	for(int i=0; i<n; i++) { // voi moi phan tu kiem tra xem
-		for(int j=k; j>=a[i]; j--) { // tu vi tri k toi phan tu dang xet
-			if(f[j - a[i]]) f[j] = 1; // lay hieu xem f[hieu] = 1 hay khong
-		} // bang 1 tuc la co tong day con co the tao thanh` vi tri a[i] dang xet
-	}	// bat f = 1
-	for(int i = 0; i<=12; i++) {
-		cout << i << " ";
+	for(int i=1; i<=m; i++) {
+		t[i] = y[i-1];
 	}
-
+	for(int i=1; i<=n; i++) {
+		cout << s[i] << " ";
+	}
 	cout << endl;
-	for(int i = 0; i<=12; i++) {
-		cout << f[i] << " ";
+	for(int i=1; i<=m; i++) {
+		cout << t[i] << " ";
 	}
-	
 	cout << endl;
-	if(f[k]) cout << "Yes";
-	else cout << "No";
+	
+	int F[500][500] = {0}; // bai toan con cot 0 hang 0 bang 0 het
+	for(int i=1; i<=n; i++) {
+		for(int j=1; j<=m; j++) {
+			if(s[i] == t[j]){ // xet tung ki tu neu bang nhau thi i-1 j-1 => + them 1 don vi
+				F[i][j] = F[i-1][j-1] + 1;
+			} else { // khac nhau thi` lay max voi cot - 1 va hang - 1;
+				int max_val = max(F[i-1][j], F[i][j-1]);
+				F[i][j] = max_val;
+			}
+		}
+	}
+	for(int i=0; i<=n; i++) {
+		for(int j=0; j<=m; j++) {
+			cout << F[i][j] << " ";
+		}
+		cout << endl;
+	}
+	cout << F[n][m]; // ket qua la gia tri cuoi cung trong ma tran F
 
 	return 0;
+	//ZHFTDFHF
+	//TFISHROV
+	//Z H F T D F H F
+	//T F I S H R O V
+	//0 0 0 0 0 0 0 0 0
+	//0 0 0 0 0 0 0 0 0
+	//0 0 0 0 0 1 1 1 1
+	//0 0 1 1 1 1 1 1 1
+	//0 1 1 1 1 1 1 1 1
+	//0 1 1 1 1 1 1 1 1
+	//0 1 2 2 2 2 2 2 2
+	//0 1 2 2 2 3 3 3 3
+	//0 1 2 2 2 3 3 3 3
+	//3
 }
 
 
