@@ -4,31 +4,32 @@ using namespace std;
 int a[1000][1000];
 
 int main() { // ly thuyet do thi
-			// chuyen doi do thi vo huong cua danh sach canh thanh ma tran ke
-			//5 4	 // 5 dinh 4 canh
-			//4 3
-			//3 1
+			// chuyen doi do thi vo huong cua danh sach canh thanh danh sach ke
+			// cout dinh ke tang dan`
+			//5 4	// 5 dinh 4 canh
+			//2 5
+			//4 1
 			//4 2
-			//5 4
-			//
-			//0 0 1 0 0
-			//0 0 0 1 0
-			//1 0 0 1 0
-			//0 1 1 0 1
-			//0 0 0 1 0
+			//4 3
+			//^Z
+			//1 : 4 	.. canh 1 ke voi 4
+			//2 : 4 5 	.. canh 2 ke voi 4 va` 5
+			//3 : 4 	...
+			//4 : 1 2 3	
+			//5 : 2
 	int dinh, canh; cin >> dinh >> canh;
-	for(int i=0; i<canh; i++) {
-		int from, to; cin >> from >> to;
-		a[from][to] = 1;
-		a[to][from] = 1;
+	map<int,set<int>> m;
+	for(int i=0; i<=canh; i++) {
+		int x, y; cin >> x >> y;
+		m[x].insert(y);
+		m[y].insert(x);
 	}
-	for(int i=1; i<=dinh; i++) {
-		for(int j=1; j<=dinh; j++){
-			cout << a[i][j] << " ";
-		}
+	for(pair<int,set<int>> x : m) {
+		cout << x.first << " : ";
+		for(int y : x.second) cout << y << " ";
 		cout << endl;
 	}
-
+	
 	return 0;
 }
 
