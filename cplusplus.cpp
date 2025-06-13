@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int a[1000][1000];
+vector<int> ke[1005];
 
 int main() { // ly thuyet do thi
 			// chuyen doi do thi vo huong cua danh sach canh thanh danh sach ke
@@ -18,15 +18,19 @@ int main() { // ly thuyet do thi
 			//4 : 1 2 3	
 			//5 : 2
 	int dinh, canh; cin >> dinh >> canh;
-	map<int,set<int>> m;
-	for(int i=0; i<=canh; i++) {
+	for(int i=0; i<canh; i++) {
 		int x, y; cin >> x >> y;
-		m[x].insert(y);
-		m[y].insert(x);
+		ke[x].push_back(y);
+		ke[y].push_back(x);
 	}
-	for(pair<int,set<int>> x : m) {
-		cout << x.first << " : ";
-		for(int y : x.second) cout << y << " ";
+	
+	for(int i=1; i<=dinh; i++) {
+		cout << i << " : ";
+		vector<int> x = ke[i];
+		sort(x.begin(), x.end());
+		for(int y : x) {
+			cout << y << " ";
+		}
 		cout << endl;
 	}
 	
