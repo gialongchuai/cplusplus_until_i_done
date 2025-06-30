@@ -1,49 +1,44 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int main() { // covert danh sach ke sang danh sach canh
-			//5		// 5 dinh
-			//4 	// dinh 1 ke voi 4
-			//3 4 5 // 2 ke voi 3 4 5
-			//2 5 	// 3 ke 2 do 2 ke 3 above nen output khoi
-			//1 2
-			//2 3
-			
-			//1 4
-			//2 3
-			//2 4
+vector<int> ke[100];
+
+bool cmp(int x, int y) {
+	return x < y;
+}
+
+int main() { // convert danh sach canh sang danh sach ke
+			// do thi co huong
+			//5 10	// 5 dinh va 10 canh ke giua cac dinh
+			//4 2
+			//4 1
 			//2 5
-			//3 5
-	int n; cin >> n;
-	cin.ignore();
-	string s;
-	map<int,set<int>> m;
-	for(int i = 1; i <= n; i++) {
-		getline(cin, s);
-		stringstream ss(s);
-		string word;
-		while(ss >> word) {
-			int x = stoi(word); // thay vi` dung` count coi ton tai
-			if(m.count(x)) { // co the kiem tra xem so do co lon hon i  (tuc lon hon dong hien tai)
-				bool flag = true; // neu lon hon cout ra i -> cout ra so lon hon done!
-				set<int> tmp = m[x];
-				if(tmp.count(i)) {
-					flag = false;
-				}
-				if(flag) {
-					m[i].insert(x);
-				}
-			} else {
-				m[i].insert(x);
-			}
-		}
+			//3 4
+			//1 5
+			//2 3
+			//5 1
+			//2 1
+			//1 4
+			//4 5
+			
+			//1 : 4 5
+			//2 : 1 3 5
+			//3 : 4
+			//4 : 1 2 5
+			//5 : 1
+	int dinh, canh; cin >> dinh >> canh;
+	while(canh--) {
+		int x, y; cin >> x >> y;
+		ke[x].push_back(y);
 	}
-	for(pair<int,set<int>> x : m) {
-		set<int> s = x.second;
-		set<int>::iterator it;
-		for(it=s.begin(); it!=s.end(); it++) {
-			cout << x.first << " " << *it << endl;
-		}
+	for(int i=1; i<=dinh; i++) {
+		cout << i << " : ";
+		vector<int> v = ke[i];
+		sort(v.begin(), v.end(), cmp);
+		for(int x : v) {
+			cout << x << " ";
+		} 
+		cout << endl;
 	}
 		
 	return 0;
