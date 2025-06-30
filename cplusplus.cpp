@@ -27,9 +27,35 @@ void DFS(int u) {
 	}
 }
 
+void ds_ke() {
+	cout << endl;
+	for(int i=1; i<=dinh; i++) {
+		cout << i << " : ";
+		for(int x : ke[i]) {
+			cout << x << " ";
+		}
+		cout << endl;
+	}
+}
+
 int main() { // dfs : deep first search : duyet theo chieu sau cua dinh can tim
+			//5 5 3 	// 5 dinh 5 canh ; tim` kiem 3 
+			//5 2
+			//3 2
+			//5 4
+			//5 3
+			//5 1
+			
+			//3 2 5 1 4 	// explain: 3 co 2, 2 co 3 voi co 5
+							// ma` 3 tham roi` nen di 5
+			//1 : 5			// 5 di 1 xong 1 di 5 roi` nen 5 di them 4.
+			//2 : 3 5
+			//3 : 2 5
+			//4 : 5
+			//5 : 1 2 3 4
 	nhap();
 	DFS(timkiem); // bat dau duyet dinh can tim
+	ds_ke();
 		
 	return 0;
 }
