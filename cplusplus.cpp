@@ -1,16 +1,16 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int dinh, canh, timkiem;
+int dinh, canh;
 vector<int> ke[1005];
 int visited[105];
 
 void nhap() {
-	cin >> dinh >> canh >> timkiem;
+	cin >> dinh >> canh;
 	for(int i=1; i<=canh; i++) {
 		int x, y; cin >> x >> y;
 		ke[x].push_back(y);
-//		ke[y].push_back(x);
+		ke[y].push_back(x);
 	}
 	for(int i=1; i<=dinh; i++) { // mac dinh danh sach dinh ke trong ma tran ke cua tung dinh
 		sort(ke[i].begin(), ke[i].end()); // tang dan 
@@ -23,7 +23,6 @@ void BFS(int u) {
 	visited[u] = 1;
 	while(!q.empty()) {
 		int e = q.front();
-		cout << e << " ";
 		q.pop();
 		for(int x : ke[e]) {
 			if(!visited[x]) {
@@ -35,18 +34,23 @@ void BFS(int u) {
 }
 
 int main() { // bfs : breath first search : tim kiem theo chieu rong
-		//5 7 5
-		//4 1
-		//5 3
-		//4 3
-		//5 1
-		//3 2
-		//4 2
-		//2 1
-		//5 1 3 2
-		// do thi co huong, khong co dinh nao vao` duoc 4 nen ouput above
+		//6 3
+		//1 2
+		//2 3
+		//3 4
+		//
+		//3
+		
+		// cout : thanh phan lien thong trong do thi, do 5 6 co don duyet rong khong toi dc
 	nhap();
-	BFS(timkiem);
+	int cnt = 0;
+	for(int i=1; i<=dinh; i++) {
+		if(!visited[i]) {
+			++cnt;
+			BFS(i);
+		}
+	}
+	cout << endl << cnt;
 	
 	return 0;
 }
