@@ -4,8 +4,7 @@ using namespace std;
 vector<int> ke[105];
 int visited[105];
 int dinh, canh;
-vector<int> danhdau;
-void DFS(int u);
+void BFS(int u);
 int tplt[105];
 int cnt = 0;
 
@@ -22,8 +21,7 @@ void nhap() {
 	for(int i=1; i<=dinh; i++) { // chay 1 lan duy nhat xet thanh phan lien thong
 		if(!visited[i]) {		// tranh danh vao` while time limit
 			++cnt;
-			tplt[i] = cnt;
-			DFS(i);
+			BFS(i);
 		}
 	}
 	int tv; cin >> tv;
@@ -35,12 +33,19 @@ void nhap() {
 	}
 }
 
-void DFS(int u) {
+void BFS(int u) {
+	queue<int> q;
+	q.push(u);
 	visited[u] = 1;
-	for(int e : ke[u]) {
-		if(!visited[e]) {
-			tplt[e] = cnt;
-			DFS(e);
+	while(!q.empty()) {
+		int x = q.front();
+		q.pop();
+		tplt[x] = cnt;
+		for(int e : ke[x]) {
+			if(!visited[e]) {
+				visited[e] = 1;
+				q.push(e);
+			}
 		}
 	}
 }
