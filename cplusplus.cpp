@@ -1,19 +1,19 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+int dinh, canh;
 vector<int> ke[105];
-int dinh, canh, s, t;
-int parent[105], visited[105];
+int visited[105];
 
 void nhap() {
-	cin >> dinh >> canh >> s >> t;
+	cin >> dinh >> canh;
 	for(int i=1; i<=canh; i++) {
 		int x, y; cin >> x >> y;
 		ke[x].push_back(y);
 		ke[y].push_back(x);
 	}
 	for(int i=1; i<=dinh; i++) {
-		sort(ke[i].begin(), ke[i].end());
+		sort(ke[i].begin(),ke[i].end());
 	}
 }
 
@@ -21,55 +21,56 @@ void DFS(int u) {
 	visited[u] = 1;
 	for(int x : ke[u]) {
 		if(!visited[x]) {
-			parent[x] = u; // nhung thang` con co gia tri cua cha
 			DFS(x);
 		}
 	}
 }
 
-void BFS(int u) {
-	queue<int> q;
-	q.push(u);
-	visited[u] = 1;
-	while(!q.empty()) {
-		int x = q.front(); q.pop();
-		for(int e : ke[x]) {
-			if(!visited[e]) {
-				parent[e] = x;
-				visited[e] = 1;
-				q.push(e);
-			}
+int main() { // dinh tru : la bo dinh nay` ra lam` tang thanh` phan`
+			// lien thong cua do thi
+	nhap();
+	
+	//b1: dem thanh phan lien thong ban dau de xiu' so sanh xem
+	// xoa moi dinh neu co lam tang thanh phan lien thong tuc la dinh tru
+	int cnt = 0;
+	for(int i=1; i<=dinh; i++) {
+		if(!visited[i]) {
+			cnt++;
+			DFS(i);
 		}
 	}
-}
-
-int main() { // cout ra duong di bang DFS
-		//5 3 4 3 			// tim` duong` di tu` 4 toi 3 khong co cout -1, co cout ra duong di
-		//4 2
-		//2 1
-		//3 1
-		
-		// output : 
-		// 3 1 2 4
-		// 4 2 1 3
-		
-		// explain : trong moi con parent luon luu tru cha cua no
-	nhap();
-	BFS(s);
-	if(!visited[t]) {
-		cout << "-1"; // khong di duoc den t
-	} else {
-		vector<int> kq; // tao vector duong di chung to di duoc den t
-		while (t!=s) {
-			kq.push_back(t); 		// vi du 1 dc den 3, 4 thi 3 1 ; 4 1  => 4 di duoc den 7 thi 7 : 4 => 1 4 7
-			t = parent[t]; 		// kq push dich 7 tuc dich truoc, xong gan lai t = parent[7] = 4 xong t = parent[4] = 1
-		} // t gan lai de tiep tuc thang cha
-		kq.push_back(t); // luc nay do while da den dich nen khong push_back dich' nen break while thi` push s hay t deu` dc
-		for(int x : kq) cout << x << " "; 		// 3 1 2 4
-		reverse(kq.begin(), kq.end());
-		cout << endl;
-		for(int x : kq) cout << x << " "; 		// 4 2 1 3
+	
+	// bat dau xoa dinh do khoi do` thi
+	// tuc trong ke[105]  xoa cua dinh i va xoa luon cac dinh con` lai ma` co i trong do
+	// bp : danh dau visited cua no la 1 de no khong xet, cung nhu cac dinh khac
+	// ke vs no cung khong xet
+	int tru = 0;
+	for(int i=1; i<=dinh; i++) { 
+		memset(visited, 0, sizeof(visited)); // reset ve 0 de toi dinh khac danh dau 
+		visited[i] = 1; // danh dau de khong xet, tuc loai bo khoi do` thi
+		int dem = 0;	// dem thanh phan lien thong sau khi loai bo dinh do
+		for(int j=1; j<=dinh; j++) {
+			if(!visited[j]) {
+				dem++;
+				DFS(j);
+			}
+		}
+		if(dem > cnt) { // neu lon hon lam tang thanh phan lien thong do thi
+			cout << i << " ";
+			tru++;
+		}
 	}
+	cout << endl << tru;
+	
+	//10 6 // bai toan cho 10 dinh voi 6 canh ke
+	//5 4
+	//5 2
+	//10 2
+	//10 7
+	//5 3
+	//10 1
+	//2 5 10		// loai bo 2 or 5 or 10 (dinh tru) lam` tang so thanh phan lien thong cua do thi
+	//3
 	
 	return 0;
 }
