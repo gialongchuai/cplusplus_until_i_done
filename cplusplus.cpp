@@ -35,6 +35,7 @@ void BFS(int u) {
 		int x = q.front(); q.pop();
 		for(int e : ke[x]) {
 			if(!visited[e]) {
+				parent[e] = x;
 				visited[e] = 1;
 				q.push(e);
 			}
@@ -54,7 +55,7 @@ int main() { // cout ra duong di bang DFS
 		
 		// explain : trong moi con parent luon luu tru cha cua no
 	nhap();
-	DFS(s);
+	BFS(s);
 	if(!visited[t]) {
 		cout << "-1"; // khong di duoc den t
 	} else {
