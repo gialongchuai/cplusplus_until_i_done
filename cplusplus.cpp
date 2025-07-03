@@ -1,81 +1,68 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-set<int> ke[105];
+vector<int> ke[105];
 int dinh, canh;
-vector<pair<int,int>> ds_canh;
-int visited[105];
-int cnt = 0;
+int visited[105], parent[105];
+
+int check = 0;
 
 void nhap() {
 	cin >> dinh >> canh;
 	for(int i=1; i<=canh; i++) {
 		int x, y; cin >> x >> y;
-		ke[x].insert(y); // chuyen thanh set de xiu' xoa cho de~
-		ke[y].insert(x);
-		ds_canh.push_back({x,y}); // them canh ke, xoa duyet xoa tung canh 
+		ke[x].push_back(y);
+		ke[y].push_back(x);
 	}
-	
-	// do luu voi set roi` nen tu dong sap xep cach dinh ke cua dinh co trong mang? set'
+	for(int i=1; i<=dinh; i++) {
+		sort(ke[i].begin(), ke[i].end());
+	}
 }
 
 void DFS(int u) {
 	visited[u] = 1;
 	for(int x : ke[u]) {
+		if(visited[x]==1 && x!=parent[u]) { // neu quay lai cha tuc da vieng tham cha roi` == 1
+			check = 1;		// and : thang dang xet khong duoc ke ben thang cha (tuc ko phai 2 dinh ke nha)
+		}
+		
 		if(!visited[x]) {
+			parent[x] = u; // danh dau all con co cha la` u
 			DFS(x);
 		}
 	}
 }
 
-int main() { // canh cau: tuc la` loai bo no lam` tang thanh` phan` lien thong do thi
-			// xoa no khoi danh sach ke nhung khong loai bo 2 dinh cua canh do
+int main() { // chu trinh: vong tron va khong dc 2 dinh ke nhau
+			// tu` cha di toi con loang loang ma quay lai. cha la` lum.
 	nhap();
-	
-	// b1: dem thanh phan lien thong ban dau cua do thi
-	for(int i=1; i<=dinh; i++) {
-		if(!visited[i]) {
-			DFS(i);
-			cnt++;
+	for(int i=1; i<=dinh; i++) { // duyet tung thanh` phan` lien thong, neu bat dau` voi dinh 1 
+		if(!visited[i]) { // khong theo tao tu` 1, nhung khi loang den 2 ma 2 loang den con quay lai dc 2
+			DFS(i); // lap tuc danh dau check = 1 chu khong phai xet tung dinh?
 		}
 	}
-	
-	// b2: xoa tung` canh sau do so sanh thanh phan lien thong
-	int canh_cau = 0;
-	for(pair<int,int> x : ds_canh) {
-		int s = x.first, t = x.second;
-		memset(visited, 0, sizeof(visited)); // reset cho ve` 0 de thuc hien lan luot cac canh
-		
-		// neu la` dinh cau` thi` visited de khong di
-		// con` cai nay` co the xoa de khong xet no luon
-		ke[s].erase(t); ke[t].erase(s);
-		int dem = 0; // sau khi xoa thuc hien dem tplt
-		for(int i=1; i<=dinh; i++) {
-			if(!visited[i]) {
-				dem++;
-				DFS(i);
-			}
-		}
-		if(dem > cnt) {
-			cout << s << ":" << t << " ";
-			canh_cau++; 
-		}
-		ke[s].insert(t); ke[t].insert(s); // xoa roi` thi` insert lai xiu canh khac chien' tiep'
- 	}
- 	cout << endl << canh_cau;
+	if(check) cout << "1";
+	else cout << "-1";
 
-	//10 8 		// 10 dinh voi 8 canh ke cho do thi vo huong
-	//10 9
-	//10 8
-	//10 3
-	//10 4
 	//5 3
+	//2 1
+	//3 4
+	//4 5
+	//-1
+	//
+	//10 11
+	//10 5
+	//10 4
 	//10 1
-	//5 1
+	//10 3
+	//5 2
 	//5 4
-	//10:9 10:8 		// khi xoa canh ke nay` tang tplt
-	//2					// cout 2 canh
-
+	//10 8
+	//5 3
+	//5 1
+	//10 6
+	//10 9
+	//1
 	return 0;
 }
 
