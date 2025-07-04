@@ -11,7 +11,7 @@ void nhap() {
 	for(int i=1; i<=canh; i++) {
 		int x, y; cin >> x >> y;
 		ke[x].push_back(y);
-		ke[y].push_back(x);
+		//ke[y].push_back(x);
 	}
 	
 	for(int i=1; i<=dinh; i++) {
