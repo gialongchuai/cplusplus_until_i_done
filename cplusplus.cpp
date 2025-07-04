@@ -3,9 +3,8 @@ using namespace std;
 
 vector<int> ke[105];
 int dinh, canh;
-int visited[105], parent[105];
-
-int check = 0;
+int visited[105];
+stack<int> s;
 
 void nhap() {
 	cin >> dinh >> canh;
@@ -14,6 +13,7 @@ void nhap() {
 		ke[x].push_back(y);
 		ke[y].push_back(x);
 	}
+	
 	for(int i=1; i<=dinh; i++) {
 		sort(ke[i].begin(), ke[i].end());
 	}
@@ -22,53 +22,37 @@ void nhap() {
 void DFS(int u) {
 	visited[u] = 1;
 	for(int x : ke[u]) {
-		if(visited[x]==1 && x!=parent[u]) { // neu quay lai cha tuc da vieng tham cha roi` == 1
-			check = 1;		// and : thang dang xet khong duoc ke ben thang cha (tuc ko phai 2 dinh ke nha)
-		}
-		
 		if(!visited[x]) {
-			parent[x] = u; // danh dau all con co cha la` u
 			DFS(x);
 		}
 	}
-}
+	// xong vong for tuc la da di den dinh cuoi
+	//bat dau push vao` stack xong quay lui do de quy
+	s.push(u); // tuc la push 4 la dinh cuoi roi` 6 3 2 5 1
+}	// cout lan luot top truoc tuc  1 5 2 3 6 4
 
-int main() { // chu trinh: vong tron va khong dc 2 dinh ke nhau
-			// tu` cha di toi con loang loang ma quay lai. cha la` lum.
+	//6 6			// 6 dinh voi 6 canh ke voi do thi co huong
+	//1 2
+	//2 3
+	//2 4
+	//3 6
+	//4 6
+	//1 5
+	//1 5 2 3 6 4
+
+int main() { // topo : topological sorting
+			// ap dung cho do thi co huong khong co chu trinh, dinh nay` phai dung sau dinh kia
 	nhap();
-	for(int i=1; i<=dinh; i++) { // duyet tung thanh` phan` lien thong, neu bat dau` voi dinh 1 
-		if(!visited[i]) { // khong theo tao tu` 1, nhung khi loang den 2 ma 2 loang den con quay lai dc 2
-			DFS(i); // lap tuc danh dau check = 1 chu khong phai xet tung dinh?
+	for(int i=1; i<=dinh; i++) {
+		if(!visited[i]) {
+			DFS(i);
 		}
 	}
-	if(check) cout << "1";
-	else cout << "-1";
-
-	//5 3
-	//2 1
-	//3 4
-	//4 5
-	//-1
-	//
-	//10 11
-	//10 5
-	//10 4
-	//10 1
-	//10 3
-	//5 2
-	//5 4
-	//10 8
-	//5 3
-	//5 1
-	//10 6
-	//10 9
-	//1
+	// duyet thuat toan topo di tu` thang` top cua stack
+	while(!s.empty()) {
+		cout << s.top() << " ";
+		s.pop();
+	}
+	
 	return 0;
 }
-
-
-
-
-
-
-
