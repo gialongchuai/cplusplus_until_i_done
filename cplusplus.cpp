@@ -1,81 +1,88 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-vector<int> ke[105];
+vector<int> ke[105], t_ke[105];
 int dinh, canh;
-//int visited[105];
-int degree[105];
-queue<int> q;
+int visited[105];
+stack<int> s;
 
 void nhap() {
 	cin >> dinh >> canh;
 	for(int i=1; i<=canh; i++) {
 		int x, y; cin >> x >> y;
 		ke[x].push_back(y);
-		//ke[y].push_back(x);
-		degree[y]++;
-	}
-	
-	for(int i=1; i<=dinh; i++) {
-		sort(ke[i].begin(), ke[i].end());
+		t_ke[y].push_back(x);
 	}
 }
 
-void Kahn() {
-	queue<int> q;
-	for(int i=1; i<=dinh; i++) { // 7 8 9 neu la` chu trinh` thi` khong bh duoc them de xet tai day
-		if(degree[i] == 0) {
-			cout << i << " ";
-			q.push(i);
+void DFS(int u) {
+	visited[u] = 1;
+	for(int v : ke[u]) {
+		if(!visited[v]) {
+			DFS(v);
 		}
 	}
-	
-	vector<int> kq;
-	while(!q.empty()) {
-		int x = q.front();
-		q.pop();
-		kq.push_back(x);
-		for(int v : ke[x]) {
-			degree[v]--;	// giam bat cua dinh khi xoa dinh cha cua no
-			if(degree[v] == 0) {	// neu dinh con giam bang 0 thi` push vao ket qua
-				q.push(v);
-			}
-		}
-	}
-	cout << endl;
-	for(int x : kq) cout << x << " ";
+	s.push(u);
 }
 
-int main() { // Kahn : ap dung cung la do thi co huong
-			// duyet ban bac == 0
+void DFS2(int u) {
+	cout << u << " ";
+	visited[u] = 1;
+	for(int v : t_ke[u]) {
+		if(!visited[v]) {
+			DFS2(v);
+		}
+	}
+}
+
+int main() {	// do thi lien thong manh neu chon random 2 dinh trong do thi luon co road
+			// thanh phan lien thong manh tuc la do thi khong lien thong manhc chia thanh nhieu
+			// thanh` phan` lien thong manh
+			// neu dem ma thanh phan lien thong manh == 1 tuc la` do thi lien thong manh\
+			
+	// Kosaraju
 	nhap();
-	Kahn();
+	for(int i=1; i<=dinh; i++) {
+		if(!visited[i]) {
+			DFS(i);
+		}
+	}
 	
-	//8 7 : do thi co huong voi 8 dinh va 8 canh tu` s toi t
+	memset(visited, 0, sizeof(visited));
+	while(!s.empty()) {
+		int x = s.top(); s.pop();
+		if(!visited[x]) {
+			DFS2(x);
+			cout << endl;
+		}
+	}
+	//8 9	// 8 dinh voi 9 canh ke cho do thi co huong
 	//1 2
-	//1 5
 	//2 3
-	//2 4
-	//4 6
-	//3 6
-	//7 8
-	//1 7		// khong dinh nao di duoc den 1 va 7 nen mac dinh 2 dinh nay` bang == 0 va duoc 
-	//1 7 2 5 8 3 4 6 			// push vao` q
+	//3 8
+	//8 1
+	//3 4
+	//4 5
+	//5 6
+	//6 7
+	//7 5
 	
-	//9 9
-	//1 2
-	//1 5
-	//2 3
-	//2 4
-	//4 6
-	//3 6
-	//7 8
-	//8 9
-	//9 7
-	//1		// lo bo mat 7 8 9 neu 3 cai nay` la chu trinh` thi` ban bac la` 1
-	//1 2 5 3 4 6		// co chu trinh` v.size != dinh
+	//		output : 3 thanh` phan` lien thong manh		notice : > 1 nen 
+	//1 8 3 2							khong phai la` do` thi lien thong manh
+	//4
+	//5 7 6
 	
-	// Note : co the kq.size neu == dinh thi` tuc la ko co chu trinh`
-	
-	return 0;
+ 	return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
