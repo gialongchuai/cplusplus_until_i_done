@@ -21,7 +21,7 @@ int find(int u) {
 bool union_func(int v, int u) {
 	int x = find(v);
 	int y = find(u);
-	if(x == y) return false;
+	if(x == y) return false; // da cung thuoc 1 thanh phan lien thong
 	
 	if(x < y) parent[y] = x;
 	else parent[x] = y;
