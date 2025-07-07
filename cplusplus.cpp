@@ -23,7 +23,7 @@ bool union_func(int v, int u) {
 	int y = find(u);
 	if(x == y) return false; // da cung thuoc 1 thanh phan lien thong
 	
-	if(x < y) parent[y] = x;
+	if(x < y) parent[y] = x; // lay so nho hon lam dai dien
 	else parent[x] = y;
 	
 	return true;
