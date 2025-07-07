@@ -37,12 +37,13 @@ bool union_func(int v, int u) {
 	int y = find(u);
 	if(x == y) return false; // da cung thuoc 1 thanh phan lien thong
 	
+	// gan cay nho hon vao cay lon hon
 	if(sz[x] < sz[y]) { // bat dau` gop lan` 01 : mac dinh nhay? vao` else 
-		parent[y] = x;
-		sz[x] += sz[y];
-	} else { // lay thang co cay con nho nhat cho no lam cha
 		parent[x] = y;
-		sz[y] += sz[x]; // tang so cay con cho thang cha
+		sz[y] += sz[x];
+	} else { // lay thang co cay con nho nhat cho no lam cha
+		parent[y] = x;
+		sz[x] += sz[y]; // tang so cay con cho thang cha
 	}
 	
 	return true;
