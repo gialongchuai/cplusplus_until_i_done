@@ -1,16 +1,27 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+struct dscanh {
+	int x, y, w;
+};
+
 int dinh, canh;
 vector<int> ke[105];
 int visited[105], parent[105], sz[105];
+vector<dscanh> ds_canh;
 
-//void nhap() {
-//	cin >> dinh >> canh;
-//	for(int i=1; i<=canh; i++) {
-//		
-//	}
-//}
+bool cmp(dscanh a, dscanh b) {
+	return a.w < b.w;
+}
+
+void nhap() {
+	cin >> dinh >> canh;
+	for(int i=1; i<=canh; i++) {
+		int x, y, w; cin >> x >> y >> w;
+		ds_canh.push_back({x,y,w}); // cau truc tu` x toi y voi trong so w
+	}
+	sort(ds_canh.begin(), ds_canh.end(), cmp); // sap xep lai cho w tang dan de tim cay khung voi trong so nho nhat
+}
 
 void init() {
 	for(int i=1; i<=dinh; i++) {
@@ -49,41 +60,31 @@ bool union_func(int v, int u) {
 	return true;
 }
 
-int main() {	// disjoint set union
-	// dem so thanh phan lien thong do thi
-	// kiem tra do thi vo huong co chu trinh
-	
-	//	7 6
-	//1 2
-	//Gop dc: dai dien 1: 2
-	// dai dien 2: 2
-	//2 3
-	//Gop dc: dai dien 1: 3
-	// dai dien 2: 3
-	//5 3
-	//Gop dc: dai dien 1: 5
-	// dai dien 2: 5
-	//4 6
-	//Gop dc: dai dien 1: 6
-	// dai dien 2: 6
-	//6 7
-	//Gop dc: dai dien 1: 7
-	// dai dien 2: 7
-	//5 4
-	//Gop dc: dai dien 1: 7
-	// dai dien 2: 7
-	cin >> dinh >> canh;
-	init();
-	for(int i=1; i<=canh; i++) {
-		int x, y; cin >> x >> y;
-		if(union_func(x,y)) {
-			cout << "Gop dc: ";
-			cout << "dai dien 1: " << find_02(x) << endl << " dai dien 2: " << find_02(y) << endl;
-		} else {
-			cout << endl << "Khong dc" << endl;
+void kruskal() {
+	vector<dscanh> kq;
+	int tong_trong_so_min = 0;
+	for(dscanh i : ds_canh) {
+		if(tong_trong_so_min == dinh - 1) break; // neu tong_trong_so_min != dinh - 1 tuc la khong tao duoc cay khung
+		if(union_func(i.x, i.y)) { // cay khung nhung khong dc tao thanh chu trinh`
+			tong_trong_so_min+=i.w; // tuc la them canh vao cay khung nhung canh do khong duoc tao thanh chu trinh`
+			kq.push_back(i);
 		}
 	}
-	
+	cout << tong_trong_so_min << endl;
+	for(dscanh p : kq) {
+		cout << p.x << " " << p.y << " " << p.w << endl;
+	}
+}
+
+int main() {	// disjoint set union => kruskal : tim cay khung (duong di toi all dinh with w minest)
+	nhap();
+	init();
+	cout << endl;
+	for(dscanh i : ds_canh) {
+		cout << i.x << " " << i.y << " " << i.w << endl;
+	}
+	kruskal();
+
     return 0;
 }
 
