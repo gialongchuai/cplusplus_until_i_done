@@ -1,63 +1,57 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-vector<int> ke[105];
 int dinh, canh;
-int visited[105];
+//vector<int> ke[105];
+int visited[105], parent[105];
 
-void nhap() {
+void init() {
+	for(int i=1; i<=dinh; i++) {
+		parent[i] = i;
+	}
+}
+
+int find(int u) {
+	while(u != parent[u]) {
+		u = parent[u];
+	}
+	return u;
+}
+
+bool union_func(int v, int u) {
+	int x = find(v);
+	int y = find(u);
+	if(x == y) return false;
+	
+	if(x < y) parent[y] = x;
+	else parent[x] = y;
+	
+	return true;
+}
+
+int main() {	// disjoint set union
+	// dem so thanh phan lien thong do thi
+	// kiem tra do thi vo huong co chu trinh
 	cin >> dinh >> canh;
+	init();
+	int cnt = dinh; // so thanh phan lien thong lon nhat co the dat duoc
 	for(int i=1; i<=canh; i++) {
 		int x, y; cin >> x >> y;
-		ke[x].push_back(y);
-		ke[y].push_back(x);
-	}
-	for(int i=1; i<=dinh; i++) {
-		sort(ke[i].begin(), ke[i].end());
-	}
-}
-
-void DFS(int u) {
-	visited[u] = 1;
-	for(int v : ke[u]) {
-		if(!visited[v]) {
-			DFS(v);
+		if(union_func(x,y)) { // neu co the gop 2 canh thi` - 1 thanh phan lien thong
+			cnt--;
 		}
 	}
+	cout << cnt << endl;
+
+    return 0;
 }
 
-int main(){ // do thi co phai la 1 cay 
-			// canh != dinh - 1 and phai lien thong 
-	//4 3
-	//1 2
-	//2 3
-	//3 1
-	//Khong phai cay
-	
-	//5 4
-	//1 2
-	//2 3
-	//2 4
-	//4 5
-	//La cay
-	nhap();
-	
-	if(canh != dinh - 1) {
-		cout << "Khong phai cay";
-		return 0;
-	}
-	
-	DFS(1); // bat dau duyet tu` 1 neu la` cay thi` visited == 1 het trong lan dau` duyet
-	for(int i=1; i<=dinh; i++) {
-		if(!visited[i]) {
-			cout << "Khong phai cay";
-			return 0;
-		}
-	}
-	cout << "La cay";
-	
-	return 0;
-}
+
+
+
+
+
+
 
 
 
