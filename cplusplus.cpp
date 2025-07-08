@@ -1,72 +1,67 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int dinh, canh;
-vector<pair<int,int>> ke[105];
-int d[105]; // d de luu trong so duong di ngan nhat xuat phat tu s
+typedef pair<int,int> ii;
+typedef pair<int,pair<int,int>> iii; // {trong_so: {i;j}} de luu trong_so min va hang cot tai diem do'
+int a[105][105];
+int d[105][105];
+int hang, cot;
+
+int dx[4] = {-1, 0, 1, 0};
+int dy[4] = {0, -1, 0, 1};
 
 void nhap() {
-	cin >> dinh >> canh;
-	for(int i=1; i<=canh; i++) {
-		int x, y, w; cin >> x >> y >> w;
-		ke[x].push_back({y,w}); // do thi co huong nen khong push nguoc // neu vo huong thi push nguoc
-	}
+	cin >> hang >> cot;
+	for(int i=1; i<=hang; i++) {
+		for(int j=1; j<=cot; j++) {
+			cin >> a[i][j];
+			d[i][j] = 1e9; // mac dinh luu max
+		}
+	} 
 }
 
-void dijkstra(int s) { // bat dau voi dinh dau tien
-	for(int i=1; i<=dinh; i++) {
-		d[i] = 1e9; // cho tat ca tai cac dinh co duong di MAX
-	}
-	// do bat dau` tu` s nen tai s chua di thi` set = 0
-	d[s] = 0;
+void dijkstra(int i, int j) {
+	d[i][j] = a[i][j]; // diem bat dau` thi` bang trong so tai diem do trong ma tran
 	
-	// tao hang doi de luu cac {trong_so, dinh} va sort trong_so tang dan de lay duong di min di truoc
-	priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> q;
+	// tao hang don tang dan trong so
+	priority_queue<iii, vector<iii>, greater<iii>> q; // sap xem tang dan trong so de lay ra thang min trong_so trong hang doi ra truoc
+	q.push({d[i][j], {i,j}});
 	
-	// day diem bat dau vao hang` doi sau do tim cac dinh ke voi dinh bat dau`
-	q.push({0,s}); // {trong_so,dinh}
 	while(!q.empty()) {
-		pair<int,int> tmp = q.top(); q.pop();
-		int dis = tmp.first, u = tmp.second; // trong_so ; dinh
+		iii tmp = q.top(); q.pop();
 		
-		// 0 > 0 => no nen bo qua if nay` lan` dau`
-		if(dis > d[u]) continue; // neu trong_so > trong_so cu thi` di tiep; 
-						// tuc la lay hang doi ra xet neu xet lai dinh di roi` ma` dis lon hon thi khong tinh duogn di do
-		// neu nho hon xet cac dinh ke tuc la` tinh` duong` di tu` dinh do'
-		for(pair<int,int> v : ke[u]) { // 1: {2,1} {3,5} voi 2 3 la` dinh` con` 3 5 la trong_so
-			int x = v.first, y = v.second; // x: dinh , y: trong so
-			
-			// neu khoang canh tai dinh ke` lon hon tuc la xet vo cuc > khoang canh dinh cu + do dai` toi dinh hien tai thi` update
-			if(d[x] > d[u] + y) {
-				d[x] = d[u] + y;
-				q.push({d[x], x});
+		int trong_so = tmp.first, hang_x = tmp.second.first, cot_y = tmp.second.second;
+		if(trong_so > d[hang_x][cot_y]) continue;
+		
+		for(int k=0; k<4; k++) { // do ma tran co the di dc 4 dinh xung quanh no
+			int tmp_x = hang_x + dx[k], tmp_y = cot_y + dy[k];
+			if(tmp_x >= 1 && tmp_x <= hang && tmp_y >= 1 && tmp_y <= cot) { // kiem tra tinh hop le
+				if(d[tmp_x][tmp_y] > trong_so + a[tmp_x][tmp_y]) { // trong so vo cuc > trong so cac dinh cu + trong so trong mang
+					d[tmp_x][tmp_y] = trong_so + a[tmp_x][tmp_y]; // sure => update
+					q.push({d[tmp_x][tmp_y], {tmp_x, tmp_y}}); // them vao` hang` doi de xu ly tiep
+				}
 			}
 		}
-		
 	}
+	cout << d[hang][cot];
 }
 
-int main() {	// disjoint set union => kruskal : tim cay khung (duong di toi all dinh with w minest)
+int main() {	// duong di trong ma tran tu` 1:1 toi hang:cot max voi minest road
 	nhap();
-	dijkstra(1);
+	dijkstra(1,1); // toi hang max : cot max
 	
-	for(int i=1; i<=dinh; i++) {
-		cout << d[i] << " ";
-	}
-	//6 9 		// 6 dinh voi 9 canh duong di co huong kem` trong so
-	//1 2 1
-	//1 3 5
-	//2 5 1
-	//2 3 2
-	//2 4 3
-	//3 4 2
-	//4 5 4
-	//4 6 12
-	//5 6 7
-	//0 1 3 4 2 9 		// duong di ngan nhat toi cac dinh con` lai khi xuat phat tu` dinh so 1
+	//6 7
+	//0 3 6 0 5 9 1
+	//6 5 4 4 0 7 6
+	//4 0 2 1 5 6 1
+	//2 7 7 3 3 1 6
+	//4 4 9 6 9 7 2
+	//3 6 4 4 1 9 2
+	//28				// ton 28 duong di tu` 11 toi 67 di them 4 o xung quanh
+	
+	
 	return 0;
 }
-
 
 
 
