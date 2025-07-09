@@ -12,16 +12,16 @@ string solve(string s) {
 			st.pop();
 			string top2 = st.top();
 			st.pop();
-			string re = "(" + top1 + s[i] + top2 + ")";
+			string re = top1 + top2 + s[i];
 			st.push(re);
 		}
 	}
 	return st.top();
 }
 
-int main() {	// prefix to infix : chuyen doi tu tien to sang trung to
-	//			-*AB+CD
-	//		=> ((A*B)-(C+D))
+int main() {	// prefix to suffix : chuyen doi tu tien to sang hau to
+		//	*+AB-UV
+		//	=> AB+UV-*
 	string s; cin >> s;
 	cout << solve(s);
 	
