@@ -1,63 +1,62 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-typedef pair<int,int> ii;
-typedef pair<int,pair<int,int>> iii; // {trong_so: {i;j}} de luu trong_so min va hang cot tai diem do'
-int a[105][105];
-int d[105][105];
-int hang, cot;
+struct edge {
+	int x, y, w;
+};
 
-int dx[4] = {-1, 0, 1, 0};
-int dy[4] = {0, -1, 0, 1};
+vector<edge> edges;
+int dinh, canh, src;
+int d[105];
 
 void nhap() {
-	cin >> hang >> cot;
-	for(int i=1; i<=hang; i++) {
-		for(int j=1; j<=cot; j++) {
-			cin >> a[i][j];
-			d[i][j] = 1e9; // mac dinh luu max
-		}
-	} 
+	cin >> dinh >> canh >> src;
+	for(int i=1; i<=canh; i++) {
+		int x, y, w; cin >> x >> y >> w;
+		edges.push_back({x,y,w});
+	}
 }
 
-void dijkstra(int i, int j) {
-	d[i][j] = a[i][j]; // diem bat dau` thi` bang trong so tai diem do trong ma tran
+void bellman_ford(int s) {
+	for(int i=1; i<=dinh; i++) { // danh dau tat cac duong di max het
+		d[i] = 1e9;
+	}
 	
-	// tao hang don tang dan trong so
-	priority_queue<iii, vector<iii>, greater<iii>> q; // sap xem tang dan trong so de lay ra thang min trong_so trong hang doi ra truoc
-	q.push({d[i][j], {i,j}});
-	
-	while(!q.empty()) {
-		iii tmp = q.top(); q.pop();
-		
-		int trong_so = tmp.first, hang_x = tmp.second.first, cot_y = tmp.second.second;
-		if(trong_so > d[hang_x][cot_y]) continue;
-		
-		for(int k=0; k<4; k++) { // do ma tran co the di dc 4 dinh xung quanh no
-			int tmp_x = hang_x + dx[k], tmp_y = cot_y + dy[k];
-			if(tmp_x >= 1 && tmp_x <= hang && tmp_y >= 1 && tmp_y <= cot) { // kiem tra tinh hop le
-				if(d[tmp_x][tmp_y] > trong_so + a[tmp_x][tmp_y]) { // trong so vo cuc > trong so cac dinh cu + trong so trong mang
-					d[tmp_x][tmp_y] = trong_so + a[tmp_x][tmp_y]; // sure => update
-					q.push({d[tmp_x][tmp_y], {tmp_x, tmp_y}}); // them vao` hang` doi de xu ly tiep
-				}
+	d[s] = 0; // cho dinh nguon bang `0 de bat dau` di
+	for(int i=1; i<=dinh-1; i++) { // duyet voi so lan dinh-1 cho thuat toan
+	// voi moi lan` duyet thi` duyet qua tat ca cac canh de update
+		for(edge e : edges) {
+			int u = e.x, v = e.y, trong_so = e.w;
+			if(d[u] != 1e9 && d[v] > d[u] + trong_so) { // kiem tra dinh cu da duoc update roi` && duong di den
+				d[v] = d[u] + trong_so; // dinh moi hon co duong nho hon thi` update 
 			}
 		}
+	}// het tat ca dinh-1 thi` tu dong moi dinh se co duong di nho nhat ;))
+	for(int i=1; i<=dinh; i++) {
+		cout << d[i] << " ";
 	}
-	cout << d[hang][cot];
 }
 
-int main() {	// duong di trong ma tran tu` 1:1 toi hang:cot max voi minest road
+int main() {	// thuat toan bellman_ford :
 	nhap();
-	dijkstra(1,1); // toi hang max : cot max
+	bellman_ford(src);
 	
-	//6 7
-	//0 3 6 0 5 9 1
-	//6 5 4 4 0 7 6
-	//4 0 2 1 5 6 1
-	//2 7 7 3 3 1 6
-	//4 4 9 6 9 7 2
-	//3 6 4 4 1 9 2
-	//28				// ton 28 duong di tu` 11 toi 67 di them 4 o xung quanh
+	//5 8 1 			// gom 5 dinh va 8 canh ke co huong tim` dinh` xuat phat (nguon) la` 1
+	//1 2 -1
+	//1 3 4
+	//2 3 3
+	//2 4 2
+	//2 5 2
+	//4 3 5
+	//4 2 1
+	//5 4 -3
+	//0 -1 2 -2 1 		// 1 toi cac dinh con 
+	
+	//1: 0          // chính nó
+	//2: -1         // 1 -> 2
+	//3: 2          // 1 -> 2 -> 3
+	//4: -2         // 1 -> 2 -> 5 -> 4 
+	//5: 1          // 1 -> 2 -> 5
 	
 	
 	return 0;
