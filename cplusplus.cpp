@@ -2,32 +2,49 @@
 using namespace std;
 
 int main() {
-	int n; cin >> n;
-	while(n--) {
-		int c; cin >> c; 
-        queue<int> q;
-		int a[c], b[c];
-        for(int i=0; i<c; i++) cin >> a[i];
-        for(int i=0; i<c; i++) cin >> b[i];
-
+    int n; cin >> n;
+    while(n--) {
+        int c; cin >> c;
+        map<string,int> m;
+        string x[c];
+        string y[c];
+        string z[c];
         for(int i=0; i<c; i++) {
-            q.push(a[i]);
-            q.push(b[i]);
+            string s; cin >> s;
+            m[s]++;
+            x[i] = s;
         }
+        for(int i=0; i<c; i++) {
+            string s; cin >> s;
+            m[s]++;
+            y[i] = s;
+        }
+        for(int i=0; i<c; i++) {
+            string s; cin >> s;
+            m[s]++;
+            z[i] = s;
+        }
+        int ans = 0;
+        for(string e : x) {
+            if(m[e] == 1) ans+=3;
+            else if(m[e] == 2) ans+=1;
+            else ans+=0;
+        }
+        cout << ans << " "; ans = 0;
+        for(string e : y) {
+            if(m[e] == 1) ans+=3;
+            else if(m[e] == 2) ans+=1;
+            else ans+=0;
+        }
+        cout << ans << " "; ans = 0;
+        for(string e : z) {
+            if(m[e] == 1) ans+=3;
+            else if(m[e] == 2) ans+=1;
+            else ans+=0;
+        }
+        cout << ans << " " << endl;
+    }
 
-        while(!q.empty()) {
-            int x = q.front();
-            q.pop();
-            //cout << x << " ";
-            int y = q.front();
-            q.pop();
-            cout << y - x << " ";
-            if(q.front() < y) { 
-                q.front() = y;
-            }
-        }
-        cout << endl;
-	}
-	
     return 0;
 }
+
