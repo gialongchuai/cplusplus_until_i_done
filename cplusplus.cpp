@@ -4,28 +4,24 @@ using namespace std;
 int main() {
     int n; cin >> n;
     while(n--) {
-        int c; cin >> c;
-        map<string,int> m;
-        vector<string> v;
-        for(int i=0; i<c; i++) {
-            string s; cin >> s;
-            v.push_back(s);
-            m[s]++;
+        int x, y; cin >> x >> y;
+        map<int,vector<int>> m;
+        for(int i=1; i<=x; i++) {
+            int p; cin >> p;
+            m[p].push_back(i);
         }
-        for(string s : v) {
-            bool check = false;
-            for(int i=1; i<s.size(); i++) {
-                string a = s.substr(0,i);
-                string b = s.substr(i, s.size());
-                if(m.count(a) && m.count(b)) {
-                    check = true;
-                    break;
-                }
+        while(y--) {
+            int t, q; cin >> t >> q;
+            if(m.count(t) && m.count(q)) {
+                int s1 = m[t].front();
+                int s2 = m[q].back();
+                if(s1 < s2) cout << "YES";
+                else cout << "NO";
+            } else {
+                cout << "NO";
             }
-            if(check) cout << "1";
-            else cout << "0";
+            cout << endl;
         }
-        cout << endl;
     }
 
     return 0;
