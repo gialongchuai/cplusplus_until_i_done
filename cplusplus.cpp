@@ -2,9 +2,10 @@
 using namespace std;
 
 int main() { // 2 con tro : dem tong con lien tiep nho hon hoac bang s
-	//13 14
-	//5 4 5 2 4 5 1 1 2 5 5 2 2
-	//47
+	//5 5
+	//1 2 3 4 5
+	//1 3 5 6 7
+	//7
 	int n, s; cin >> n >> s;
 	int a[n+5];
 	for(int i=1; i<=n; i++) {
@@ -14,13 +15,14 @@ int main() { // 2 con tro : dem tong con lien tiep nho hon hoac bang s
 	int l = 1;
 	for(int r=1; r<=n; r++) {
 		sum+=a[r];
-		while(sum > s && l <= r) { // neu vuot thi dem co bao nhieu thang con
-			sum-=a[l]; // loai bo thang dau tien da tinh, tang de tinh day con tiep theo
+		while(sum > s && l <= r) { // lon hon xoa bot con
+			sum-=a[l]; // loai bo nhung thang dau tien da tinh, tang de tinh day con vuot nguong s tiep theo
 			l++;
 		}
-		ans += (r-l+1);
+		ans += (r-l+1); // nho hon thi tinh tap con
+		cout << ans << " ";
 	}
-	cout << ans << endl;
+	cout << endl << ans << endl;
 
     return 0;
 }
