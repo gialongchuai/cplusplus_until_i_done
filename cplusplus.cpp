@@ -2,24 +2,32 @@
 using namespace std;
 
 int main() {
-    int n; cin >> n; 
-    while(n--) {
-        int c; cin >> c;
-        string s; cin >> s;
-        map<char,int> m;
-        for(char x : s) {
-            if(m.count(x) == 0) {
-                m[x]+=2;
-            } else {
-                m[x]+=1;
+	int n; cin >> n;
+	while(n--) {
+		int c; cin >> c; 
+        queue<int> q;
+		int a[c], b[c];
+        for(int i=0; i<c; i++) cin >> a[i];
+        for(int i=0; i<c; i++) cin >> b[i];
+
+        for(int i=0; i<c; i++) {
+            q.push(a[i]);
+            q.push(b[i]);
+        }
+
+        while(!q.empty()) {
+            int x = q.front();
+            q.pop();
+            //cout << x << " ";
+            int y = q.front();
+            q.pop();
+            cout << y - x << " ";
+            if(q.front() < y) { 
+                q.front() = y;
             }
         }
-        int ans = 0;
-        for(auto x : m) {
-            ans += x.second;
-        }
-        cout << ans << endl;
-    }
-
+        cout << endl;
+	}
+	
     return 0;
 }
