@@ -1,28 +1,26 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() {
-    int n; cin >> n;
-    while(n--) {
-        int x, y; cin >> x >> y;
-        map<int,vector<int>> m;
-        for(int i=1; i<=x; i++) {
-            int p; cin >> p;
-            m[p].push_back(i);
-        }
-        while(y--) {
-            int t, q; cin >> t >> q;
-            if(m.count(t) && m.count(q)) {
-                int s1 = m[t].front();
-                int s2 = m[q].back();
-                if(s1 < s2) cout << "YES";
-                else cout << "NO";
-            } else {
-                cout << "NO";
-            }
-            cout << endl;
-        }
-    }
+int main() { // 2 con tro : dem tong con lien tiep nho hon hoac bang s
+	//13 14
+	//5 4 5 2 4 5 1 1 2 5 5 2 2
+	//47
+	int n, s; cin >> n >> s;
+	int a[n+5];
+	for(int i=1; i<=n; i++) {
+		cin >> a[i];
+	}
+	int ans = 0, sum = 0;
+	int l = 1;
+	for(int r=1; r<=n; r++) {
+		sum+=a[r];
+		while(sum > s && l <= r) { // neu vuot thi dem co bao nhieu thang con
+			sum-=a[l]; // loai bo thang dau tien da tinh, tang de tinh day con tiep theo
+			l++;
+		}
+		ans += (r-l+1);
+	}
+	cout << ans << endl;
 
     return 0;
 }
