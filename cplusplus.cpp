@@ -1,27 +1,45 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() { // 2 con tro : dem tong con lien tiep lon hon s
-	//5 7
-	//1 2 3 4 5  		=> 1234 12345 234 2345 345 45
-	//
-	//6
-	int n, s; cin >> n >> s;
-	int a[n+5];
-	for(int i=1; i<=n; i++) {
-		cin >> a[i];
+bool cmp(string a, string b) {
+	return a.size() < b.size();
+}
+
+int main() { // dem sau con co day du ki tu khac nhau va` ngan nhat
+	//abcaaaabcad
+	//4
+	//bcad abcad aabcad aaabcad aaaabcad caaaabcad bcaaaabcad abcaaaabcad => cout v[0]
+	string s; cin >> s;
+	set<char> se;
+	for(char x : s) {
+		se.insert(x);
 	}
-	int ans = 0, sum = 0;
-	int l = 1;
-	for(int r=1; r<=n; r++) {
-		sum+=a[r];
-		while(sum > s && l <= r) { 
-			ans+=(n-r+1);
-			sum-=a[l];
+	int l = 0;
+	vector<string> v;
+	map<char, int> m;
+	int ans = 1e9;
+	int cnt = 0;
+	string result = "";
+	for(int r=0; r<s.size(); r++) {
+		result += s[r];
+		m[s[r]]++; // tang so luong ki tu xuat hien
+		if(m[s[r]] == 1) cnt++; // lon hon 1 van khong tinh do da tinh bang 1 roi`
+		while(cnt == se.size()) {
+			v.push_back(result);
+			result.erase(0,1); // left tang tinh tien nen xoa 0,1
+			ans = min(ans, r-l+1); // chieu dai xau thoa
+			m[s[l]]--;
+			if(m[s[l]] == 0) cnt--; // bang 0 tuc thieu se.size() != cnt
 			l++;
 		}
 	}
-	cout << endl << ans << endl;
+	cout << ans << endl;
+	sort(v.begin(), v.end(),cmp); // sort ngan
+	for(string x : v) cout << x << " ";
 
     return 0;
 }
+
+
+
+
