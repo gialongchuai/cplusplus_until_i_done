@@ -1,61 +1,31 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-int a[500];
+int main() { // dem chuoi con day nhat lien nhau voi so luong 0 == 1
+	//111001010
+	//8 => 8 ki tu cuoi co 4 so 0 va 4 so 1
+	string s; cin >> s; 
+	int n = s.size();	// convert 0 => -1 : bai toan thanh dem day con co tong bang 0 dai` nhat ;))
+	int a[n];
+	for(int i=0; i<n; i++) a[i] = s[i] - '0';
+	for(int &x : a) if(x == 0) x=-1;
 
-int main() { // day con dai` nhat co tong = 0;
-	//8
-	//-2 2 -8 1 7 -10 10 23
-	//7 => -2 2 -8 1 7 -10 10
-	
-	//9
-	//15 -2 2 -8 1 7 -10 10 23
-	//7 => -2 2 -8 1 7 -10 10
-	
-	//10
-	//15 -2 2 -8 1 7 -10 10 0 23
-	//8
-	int n; cin >> n;
-	for(int i=1; i<=n; i++) {
-		cin >> a[i];
-	}
-	
-	int sum = 0;
-	int len = 0;
-	map<int,int> m;
-	for(int i=1; i<=n; i++) {
-		sum+=a[i];
-		
-		// tong tat ca phan tu den day = 0 tuc la i phan tu == 0 do luu i begin 1
-		if(sum == 0) {
-			len=i;
-		}
-		
-		if(m.find(sum) != m.end()) { // neu da xuat hien tong giong truoc do
-			len = max(len, i-m[sum]); // thi` chi so hien tai - chi so tong xuat hien truoc do bang do dai` sau s == 0				
+	map<int,int> m; // map luu tru tong xuat hien tai vi tri i
+	int ans = 0, sum = 0;
+	for(int i=0; i<n; i++) {
+		sum+=a[i]; // tong cong don` vao`
+		if(sum == 0) ans = i+1; // neu cong don` ma` tai vi tri == 0 tuc nguyen day chay tu` 1 toi i +== 0
+		if(m.find(sum) != m.end()) { // da tim thay tong cong tru lai xuat hien tong tuc day con tong == 0 hay noi cach khac nguyen day co so luong 0 va 1 bang nhau
+			ans = max(ans, i - m[sum]);
 		} else {
-			m[sum] = i; // luu tong xuat hien tai chi so thu i
+			m[sum] = i; // luu vi tri dau tien xuat hien tong
 		}
 	}
-	cout << len << endl;
+	cout << ans;
+
 	
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
