@@ -1,31 +1,26 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n;
-vector<int> v;
-
-void solve(int k) {
-	if(k==n) {
+void solve(int n){
+	for(int i=0; i<(1<<n); i++) {
 		cout << "{";
-		int end = v.size();
-		for(int i=0; i<end; i++) {
-			cout << v[i];
-			if(i>=0 & i<end-1) cout << ",";
+		vector<int> v;
+		for(int j=0; j<n; j++) {
+			if(1&(i>>j)) {
+				v.push_back(j);
+			}
 		}
-		cout << "} ";
-	} else {
-		solve(k+1);
-		v.push_back(k);
-		solve(k+1);
-//		v.push_back(k);
-		
-		v.pop_back();
+		for(int k=0; k<v.size(); k++)  {
+			cout << v[k];
+			if(k>=0 && k<v.size()-1) cout << ",";
+		}
+		cout << "}";
 	}
 }
 
-int main() { // generate subarr
-	cin >> n;
-	solve(0);
+int main() {
+	int n; cin >> n;
+	solve(n);
 	
 	return 0;
 }
