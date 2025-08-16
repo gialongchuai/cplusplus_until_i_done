@@ -1,28 +1,43 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 int main() {
-	//8
-	//10 9 2 5 3 7 101 1
+	//weight = [2, 3, 4, 5]
+	//value  = [3, 4, 5, 6]
+	//W = 8
 	
-	//1 1 1 2 2 3 4 1 => cout 4 la day con dai` nhat : 2 3 7 101
+	//4 8
+	//2 3 4 5
+	//3 4 5 6
+	//10
+	//4 2
 	
-	//	1 2 5 8
-	//	1 2 3 1?	=> so 1 do se tinh nhu sau: (lay d[3] = max(1 : 1+1 : 1+2 : 1+3) lay max)
+	int dp[105][105] = {0};
 	
-	int n; cin >> n;
-	int a[n];
-	for(int &i : a) cin >> i;
-	vector<int> dp(n, 1); // voi moi phan tu ton tai do dai chinh no la 1
+	int n, W; cin >> n >> W;
+	int w[n+1] = {0}, v[n+1] = {0};
+	for(int i=1; i<=n; i++) cin >> w[i];
+	for(int i=1; i<=n; i++) cin >> v[i];
 	
-	for(int i=1; i<n; i++) {
-		for(int j=0; j<i; j++) {
-			if(a[j] < a[i])
-				dp[i] = max(dp[i], dp[j] + 1);
+	for(int j=1; j<=W; j++) {
+		dp[0][j]=0;
+	}
+	
+	for(int i=1; i<=n; i++) {
+		for(int j=0; j<=W; j++) {
+			dp[i][j] = dp[i-1][j];
+			if(j>=w[i]) dp[i][j] = max(dp[i][j], dp[i-1][j-w[i]]+v[i]);
 		}
 	}
-//	sort(dp.begin(), dp.end());
-	for(int x : dp) cout << x << " ";
+	cout << dp[n][W] << endl;
+	
+	int j = W;
+	for(int i=n; i>=1; i--) {
+		if(dp[i][j] != dp[i-1][j]) {
+			cout << i << " ";
+			j-=w[i];
+		}
+	}
 	
 	return 0;
-}
+} 
