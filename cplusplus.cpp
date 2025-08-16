@@ -1,40 +1,53 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<int> permutation;
-int n;
-int a[105];
-int chosen[105];
+int n = 8;
+int chinh[500], phu[500], col[500];
+int ans = 0; // dem so cach thoa
+int d[105];
 
-void solve() {
-	if(permutation.size() == n) {
-		for(int x : permutation) cout << x << " ";
-		cout << "\n";
-	} else {
-		for(int i=0; i<n; i++) {
-			if(chosen[i]) continue;
-			
-			chosen[i] = 1;
-			permutation.push_back(a[i]);
-			solve();
-			permutation.pop_back();
-			chosen[i] = 0;
+char c[500][500];
+
+void printArr() {
+	for(int row=0; row<n; row++) {
+		for(int col=0; col<n; col++) {
+			if(d[row] == col) cout << "Q";
+			else cout << ".";
 		}
+		cout << endl;
+	}
+	cout << endl;
+}
+
+void solve(int k) {
+	if(k==n) {
+		printArr();
+		ans++;
+		return;
+	} 
+	for(int j=0; j<n; j++) {
+		if(col[j] == 1 || chinh[k-j+n]==1 || phu[k+j]== 1) continue;
+		
+		d[k]=j; // dat con hau len ban co khong can backtrack do se dc ghi de`
+		col[j] = 1;
+		chinh[k-j+n] = 1;
+		phu[k+j]=1;
+		
+		solve(k+1);
+		
+		col[j] = 0;
+		chinh[k-j+n] = 0;
+		phu[k+j]=0;
 	}
 }
 
-int main() { // sinh hoan vi 
-	//	3
-	//5 8 7
-	//5 8 7
-	//5 7 8
-	//8 5 7
-	//8 7 5
-	//7 5 8
-	//7 8 5
-	cin >> n;
-	for(int i=0; i<n; i++) cin >> a[i];
-	solve();
-	
+
+int main() {
+	// ma tran 8*8 co 99 ban` co dat hau de bat ki khong co hau nao` an nhau;
+	// hau an theo hang cot va` 2 duong cheo
+	// do duyet theo tung hang nen chi can` xet 3 yeu to con` lai: cot, chinh and phu
+	solve(0);
+	cout << ans;
+	 
 	return 0;
 }
