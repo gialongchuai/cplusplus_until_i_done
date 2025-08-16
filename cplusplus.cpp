@@ -43,7 +43,7 @@ void solve(int k) {
 
 
 int main() {
-	// ma tran 8*8 co 99 ban` co dat hau de bat ki khong co hau nao` an nhau;
+	// ma tran 8*8 co 92 ban` co dat hau de bat ki khong co hau nao` an nhau;
 	// hau an theo hang cot va` 2 duong cheo
 	// do duyet theo tung hang nen chi can` xet 3 yeu to con` lai: cot, chinh and phu
 	solve(0);
